@@ -5,80 +5,116 @@
               android:padding="8dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:minWidth="1000dp"
-              android:minHeight="1000dp">
+              android:background="@android:color/white"
+              android:minWidth="1000dp">
 
-    <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/author"/>
+
+            <EditText
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/author_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/year"/>
+
+            <EditText
+                android:id="@+id/year"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/year_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/title"/>
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/title_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/subtitle"/>
+
+            <EditText
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/subtitle_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/location"/>
+
+            <EditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:hint="@string/location_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/publisher"/>
+
+            <EditText
+                android:id="@+id/publisher"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/publisher_hint"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:text="@string/author"/>
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="right">
 
-    <EditText
-        android:id="@+id/author"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="@string/author_hint"/>
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="128dp"
+            android:layout_height="36dp"
+            android:text="@string/cancel"
+            android:background="@android:color/white"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:text="@string/year"/>
+        <Button
+            android:id="@+id/save"
+            android:layout_width="128dp"
+            android:layout_height="36dp"
+            android:text="@string/save"
+            android:textColor="@color/bright_blue"
+            android:background="@android:color/white"/>
 
-    <EditText
-        android:id="@+id/year"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="@string/year_hint"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:text="@string/title"/>
-
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="@string/title_hint"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:text="@string/subtitle"/>
-
-    <EditText
-        android:id="@+id/subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="@string/subtitle_hint"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:text="@string/location"/>
-
-    <EditText
-        android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:hint="@string/location_hint"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/light_gray"
-        android:text="@string/publisher"/>
-
-    <EditText
-        android:id="@+id/publisher"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="@string/publisher_hint"/>
+    </LinearLayout>
 
 </LinearLayout>

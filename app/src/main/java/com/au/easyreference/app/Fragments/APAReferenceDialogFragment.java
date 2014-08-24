@@ -3,9 +3,9 @@ package com.au.easyreference.app.Fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -32,6 +32,10 @@ public class APAReferenceDialogFragment extends DialogFragment
 	public EditText location;
 	@InjectView(R.id.publisher)
 	public EditText publisher;
+	@InjectView(R.id.cancel)
+	protected Button cancel;
+	@InjectView(R.id.save)
+	protected Button save;
 
 	private APAReferenceListener listener;
 	private ReferenceItem currentReference;
@@ -42,10 +46,14 @@ public class APAReferenceDialogFragment extends DialogFragment
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 		builder.setTitle(getString(R.string.new_reference));
-		builder.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener()
+		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_book_reference_layout, null);
+		ButterKnife.inject(this, layout);
+		builder.setView(layout);
+
+		save.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
-			public void onClick(DialogInterface dialog, int which)
+			public void onClick(View view)
 			{
 				if(currentReference == null)
 				{
@@ -68,19 +76,19 @@ public class APAReferenceDialogFragment extends DialogFragment
 					if(listener != null)
 						listener.onReferenceCreated(currentReference);
 				}
-			}
-		}).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
+
 				dismiss();
 			}
 		});
 
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_book_reference_layout, null);
-		ButterKnife.inject(this, layout);
-		builder.setView(layout);
+		cancel.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				dismiss();
+			}
+		});
 
 		Bundle args = getArguments();
 
