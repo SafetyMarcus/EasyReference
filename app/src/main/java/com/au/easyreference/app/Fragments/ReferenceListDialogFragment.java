@@ -103,7 +103,10 @@ public class ReferenceListDialogFragment extends DialogFragment
 			@Override
 			public void onClick(View view)
 			{
-				referenceItems.remove(referenceItems.size() - 1);
+				if(referenceItems.size() > 1)
+					referenceItems.remove(referenceItems.size() - 1);
+				else
+					referenceItems.clear();
 				if(referenceList == null)
 				{
 					referenceList = new ReferenceList(title.getText().toString(), type, referenceItems);
@@ -116,10 +119,12 @@ public class ReferenceListDialogFragment extends DialogFragment
 					referenceList.referenceList = referenceItems;
 					referenceList.saveToFile(referenceList, getActivity().getApplication());
 				}
+
+				dismiss();
 			}
 		});
 
-		cancel. setOnClickListener(new View.OnClickListener()
+		cancel.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
