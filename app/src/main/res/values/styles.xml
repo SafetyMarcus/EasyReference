@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
     </style>
 
     <style name="activity_title">
@@ -15,5 +16,15 @@
         <item name="android:backgroundStacked">@drawable/action_bar</item>
         <item name="android:backgroundSplit">@drawable/action_bar</item>
         <item name="android:icon">@drawable/ic_launcher</item>
+    </style>
+
+    <style name="EditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:inputType">textCapSentences|textMultiLine</item>
+        <item name="android:dividerPadding">8dp</item>
+        <item name="android:height">48dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>
