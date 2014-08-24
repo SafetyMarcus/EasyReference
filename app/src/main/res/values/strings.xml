@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EasyReference</string>
+    <string name="app_title">Easy Reference</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="action_settings">Settings</string>
+    <string name="create_reference_list">Create Reference List</string>
+    <string name="old_reference_lists">Old Reference Lists</string>
+    <string name="reference_list">Reference List</string>
+    <string name="choose_a_style">Choose a style</string>
+    <string name="options">Options</string>
+    <string name="reference_title_hint">enter a title</string>
+    <string name="new_list">New</string>
+    <string name="add_new">Add new reference</string>
+    <string name="new_reference">Add new reference</string>
+    <string name="empty_references_list">There are no references on your device</string>
+
+    <!-- Strings for APA style -->
+    <string name="new_apa_list">New APA Reference List</string>
+
+    <!-- Strings for Harvard style -->
+    <string name="new_harvard_list">New Harvard Reference List</string>
+
+    <!-- Reference strings -->
+    <string name="author">Author</string>
+    <string name="author_hint">last name, first initial. middle initial.</string>
+    <string name="year">Year</string>
+    <string name="year_hint">enter publishing year</string>
+    <string name="title">Title</string>
+    <string name="title_hint">enter title</string>
+    <string name="subtitle">Subtitle (optional)</string>
+    <string name="subtitle_hint">enter subtitle</string>
+    <string name="location">Location</string>
+    <string name="location_hint">enter location of publishing</string>
+    <string name="publisher">Publisher</string>
+    <string name="publisher_hint">enter publisher</string>
+
+</resources>
