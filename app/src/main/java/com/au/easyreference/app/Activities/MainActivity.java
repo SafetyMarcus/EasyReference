@@ -141,10 +141,10 @@ public class MainActivity extends FragmentActivity
 
 	private void animateSheetIn(boolean animateShadow)
 	{
-		float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
+		float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 52, getResources().getDisplayMetrics());
 
 		BottomSheetAnimation.animateSheetUp(sheet);
-		BottomSheetAnimation.animateButtonUp(plusButton, sheet.getHeight() - dp - dp);
+		BottomSheetAnimation.animateButtonUp(plusButton, sheet.getHeight() - dp - (dp/2));
 
 		if(animateShadow)
 			BottomSheetAnimation.animateShadowIn(shadow);
