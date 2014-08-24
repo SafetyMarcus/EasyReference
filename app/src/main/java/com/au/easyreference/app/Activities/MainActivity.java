@@ -1,6 +1,7 @@
 package com.au.easyreference.app.Activities;
 
-import android.app.FragmentManager;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Animations.BottomSheetAnimation;
-import com.au.easyreference.app.Fragments.ReferenceListDialogFragment;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.ReferenceListAdapter;
 import com.au.easyreference.app.References.ReferenceList;
@@ -39,6 +39,8 @@ public class MainActivity extends FragmentActivity
 	@InjectView(R.id.shadow)
 	protected ImageView shadow;
 
+	private Activity activity;
+
 	private ReferenceListAdapter referenceListAdapter;
 	private ArrayAdapter<String> referenceTypeAdapter;
 
@@ -47,6 +49,7 @@ public class MainActivity extends FragmentActivity
 	{
 		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
+		activity = this;
 
 		ButterKnife.inject(this);
 
@@ -60,22 +63,19 @@ public class MainActivity extends FragmentActivity
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
 			{
-				ReferenceListDialogFragment dialog = new ReferenceListDialogFragment();
-				Bundle args = new Bundle();
+				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
 
 				switch(position)
 				{
 					case 1:
-						args.putInt(ReferenceListDialogFragment.KEY_TYPE, ReferenceList.APA);
+						referenceIntent.putExtra(ReferenceListActivity.KEY_TYPE, ReferenceList.APA);
 						break;
 					case 2:
-						args.putInt(ReferenceListDialogFragment.KEY_TYPE, ReferenceList.HARVARD);
+						referenceIntent.putExtra(ReferenceListActivity.KEY_TYPE, ReferenceList.HARVARD);
 						break;
 				}
 
-				dialog.setArguments(args);
-				FragmentManager manager = getFragmentManager();
-				dialog.show(manager, "Reference Dialog");
+				startActivity(referenceIntent);
 			}
 		});
 
@@ -86,12 +86,9 @@ public class MainActivity extends FragmentActivity
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				Bundle args = new Bundle();
-				args.putString(ReferenceListDialogFragment.KEY_ID, ERApplication.referenceLists.get(i).id);
-
-				ReferenceListDialogFragment referenceListDialogFragment = new ReferenceListDialogFragment();
-				referenceListDialogFragment.setArguments(args);
-				getFragmentManager().beginTransaction().add(referenceListDialogFragment, "Reference List Dialog Fragment").commit();
+				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
+				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(i).id);
+				startActivity(referenceIntent);
 			}
 		});
 
@@ -144,7 +141,7 @@ public class MainActivity extends FragmentActivity
 		float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 52, getResources().getDisplayMetrics());
 
 		BottomSheetAnimation.animateSheetUp(sheet);
-		BottomSheetAnimation.animateButtonUp(plusButton, sheet.getHeight() - dp - (dp/2));
+		BottomSheetAnimation.animateButtonUp(plusButton, sheet.getHeight() - dp - (dp / 2));
 
 		if(animateShadow)
 			BottomSheetAnimation.animateShadowIn(shadow);

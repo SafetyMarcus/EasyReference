@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Activities.ReferenceListActivity;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.Utils.ERApplication;
@@ -97,7 +98,7 @@ public class APAReferenceDialogFragment extends DialogFragment
 			setUpView(args.getString(KEY_ID));
 		}
 
-		listener = ((ReferenceListDialogFragment) getActivity().getFragmentManager().findFragmentByTag("Reference Dialog")).apaListener;
+		listener = ((ReferenceListActivity) getActivity()).apaListener;
 
 		return builder.create();
 	}

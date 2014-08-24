@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Activities.ReferenceListActivity"
+            android:label="@string/reference_list">
+        </activity>
     </application>
 
 </manifest>

@@ -1,18 +1,16 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.Activities;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Fragments.APAReferenceDialogFragment;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
@@ -20,15 +18,12 @@ import com.au.easyreference.app.References.ReferenceListAdapter;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
 
-import java.io.File;
 import java.util.ArrayList;
-
-import static android.widget.AdapterView.OnItemClickListener;
 
 /**
  * @author Marcus Hooper
  */
-public class ReferenceListDialogFragment extends DialogFragment
+public class ReferenceListActivity extends Activity
 {
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
@@ -39,39 +34,27 @@ public class ReferenceListDialogFragment extends DialogFragment
 	protected EditText title;
 	@InjectView(R.id.title_label)
 	protected TextView titleLabel;
-	@InjectView(R.id.cancel)
-	protected Button cancel;
-	@InjectView(R.id.save)
-	protected Button save;
 
 	public ArrayList<ReferenceItem> referenceItems;
 	public ReferenceListAdapter adapter;
 	public int type;
 	public ReferenceList referenceList;
 
+
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		referenceItems = new ArrayList<ReferenceItem>();
-	}
 
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState)
-	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		setContentView(R.layout.reference_list_dialog_fragment);
+		ButterKnife.inject(this);
 
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.reference_list_dialog_fragment, null);
-		ButterKnife.inject(this, layout);
-
-		builder.setView(layout);
-
-		Bundle args = getArguments();
-		if(args != null)
+		Intent intent = getIntent();
+		if(intent != null)
 		{
-			type = args.getInt(KEY_TYPE);
-			String id = args.getString(KEY_ID);
+			type = intent.getIntExtra(KEY_TYPE, 0);
+			String id = intent.getStringExtra(KEY_ID);
 
 			if(id != null)
 			{
@@ -94,62 +77,9 @@ public class ReferenceListDialogFragment extends DialogFragment
 
 		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
 
-		adapter = new ReferenceListAdapter(getActivity(), R.layout.reference_item, referenceItems, getActivity().getLayoutInflater(), type);
+		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceItems, getLayoutInflater(), type);
 		referencesListView.setAdapter(adapter);
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
-
-		save.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				if(referenceItems.size() > 1)
-					referenceItems.remove(referenceItems.size() - 1);
-				else
-					referenceItems.clear();
-				if(referenceList == null)
-				{
-					referenceList = new ReferenceList(title.getText().toString(), type, referenceItems);
-					referenceList.saveToFile(referenceList, getActivity().getApplication());
-					ERApplication.referenceLists.add(referenceList);
-				}
-				else
-				{
-					referenceList.title = title.getText().toString();
-					referenceList.referenceList = referenceItems;
-					referenceList.saveToFile(referenceList, getActivity().getApplication());
-				}
-
-				dismiss();
-			}
-		});
-
-		cancel.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				dismiss();
-			}
-		});
-
-		if(referenceList != null)
-			builder.setNeutralButton(getString(R.string.delete), new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(DialogInterface dialogInterface, int i)
-				{
-					ERApplication.referenceLists.remove(referenceList);
-
-					String path = HelperFunctions.getReferenceListPath(referenceList.id, getActivity().getApplication());
-					if(path != null)
-						new File(HelperFunctions.getReferenceListPath(referenceList.id, getActivity().getApplication())).delete();
-
-					dismiss();
-				}
-			});
-
-		return builder.create();
 	}
 
 	public APAReferenceDialogFragment.APAReferenceListener apaListener = new APAReferenceDialogFragment.APAReferenceListener()
@@ -176,13 +106,35 @@ public class ReferenceListDialogFragment extends DialogFragment
 	};
 
 	@Override
+	public void onBackPressed()
+	{
+		if(referenceItems.size() > 1)
+			referenceItems.remove(referenceItems.size() - 1);
+		else
+			referenceItems.clear();
+		if(referenceList == null)
+		{
+			referenceList = new ReferenceList(title.getText().toString(), type, referenceItems);
+			referenceList.saveToFile(referenceList, getApplication());
+			ERApplication.referenceLists.add(referenceList);
+		}
+		else
+		{
+			referenceList.title = title.getText().toString();
+			referenceList.referenceList = referenceItems;
+			referenceList.saveToFile(referenceList, getApplication());
+		}
+		super.onBackPressed();
+	}
+
+	@Override
 	public void onResume()
 	{
 		super.onResume();
 
 	}
 
-	public class ReferenceClickedListener implements OnItemClickListener
+	public class ReferenceClickedListener implements AdapterView.OnItemClickListener
 	{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -196,7 +148,7 @@ public class ReferenceListDialogFragment extends DialogFragment
 				dialog.setArguments(args);
 			}
 
-			dialog.show(getActivity().getFragmentManager(), null);
+			dialog.show(getFragmentManager(), null);
 		}
 	}
 }
