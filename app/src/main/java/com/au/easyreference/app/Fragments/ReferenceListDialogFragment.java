@@ -33,6 +33,8 @@ public class ReferenceListDialogFragment extends DialogFragment
 
 	@InjectView(R.id.references_list_view)
 	protected ListView referencesListView;
+	@InjectView(R.id.new_list_title)
+	protected EditText title;
 
 	public ArrayList<ReferenceItem> referenceItems;
 	public ReferenceListAdapter adapter;
@@ -56,11 +58,6 @@ public class ReferenceListDialogFragment extends DialogFragment
 		ButterKnife.inject(this, layout);
 
 		builder.setView(layout);
-
-		final View titleView = getActivity().getLayoutInflater().inflate(R.layout.new_list_title, null);
-		final EditText title = (EditText) titleView.findViewById(R.id.new_list_title);
-
-		builder.setCustomTitle(titleView);
 
 		Bundle args = getArguments();
 		if(args != null)
