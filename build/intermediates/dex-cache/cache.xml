@@ -26,6 +26,12 @@
         revision="19.1.0"
         sha1="8b8b5dbb7246b579377790535b8063cdc324d341"/>
     <item
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/butterknife-5.0.1-086becb6319a00858b210f6ff46f45aa909bafd5.jar"
+        jar="/Users/Marcus/Documents/Personal/EasyReference/libraries/butterknife-5.0.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8b8b5dbb7246b579377790535b8063cdc324d341"/>
+    <item
         dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-1e7fb770a87ff4967379e827f1e56e671056aa32.jar"
         jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
