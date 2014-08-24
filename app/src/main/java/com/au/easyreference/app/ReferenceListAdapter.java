@@ -46,7 +46,7 @@ public class ReferenceListAdapter extends ArrayAdapter<ReferenceList>
 		else
 			holder = (OldReferenceHolder) layout.getTag();
 
-		holder.information.setText(list.get(position).reference);
+		holder.information.setText(list.get(position).title);
 
 		return layout;
 	}

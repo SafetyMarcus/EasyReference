@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -35,6 +37,12 @@ public class ReferenceListDialogFragment extends DialogFragment
 	protected ListView referencesListView;
 	@InjectView(R.id.new_list_title)
 	protected EditText title;
+	@InjectView(R.id.title_label)
+	protected TextView titleLabel;
+	@InjectView(R.id.cancel)
+	protected Button cancel;
+	@InjectView(R.id.save)
+	protected Button save;
 
 	public ArrayList<ReferenceItem> referenceItems;
 	public ReferenceListAdapter adapter;
@@ -70,13 +78,18 @@ public class ReferenceListDialogFragment extends DialogFragment
 				referenceList = HelperFunctions.getReferenceListForId(id);
 				type = referenceList.referenceType;
 				referenceItems = referenceList.referenceList;
-				title.setText(referenceList.reference);
+				title.setText(referenceList.title);
 			}
 
-			if(type == ReferenceList.APA)
-				title.setHint(getString(R.string.new_apa_list));
-			else if(type == ReferenceList.HARVARD)
-				title.setHint(getString(R.string.new_harvard_list));
+			if(referenceList == null)
+			{
+				if(type == ReferenceList.APA)
+					titleLabel.setText(getString(R.string.new_apa_list));
+				else if(type == ReferenceList.HARVARD)
+					titleLabel.setText(getString(R.string.new_harvard_list));
+			}
+			else
+				titleLabel.setText(referenceList.title);
 		}
 
 		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
@@ -85,10 +98,10 @@ public class ReferenceListDialogFragment extends DialogFragment
 		referencesListView.setAdapter(adapter);
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
 
-		builder.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener()
+		save.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
-			public void onClick(DialogInterface dialog, int which)
+			public void onClick(View view)
 			{
 				referenceItems.remove(referenceItems.size() - 1);
 				if(referenceList == null)
@@ -99,16 +112,17 @@ public class ReferenceListDialogFragment extends DialogFragment
 				}
 				else
 				{
-					referenceList.reference = title.getText().toString();
+					referenceList.title = title.getText().toString();
 					referenceList.referenceList = referenceItems;
 					referenceList.saveToFile(referenceList, getActivity().getApplication());
 				}
 			}
 		});
-		builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+
+		cancel. setOnClickListener(new View.OnClickListener()
 		{
 			@Override
-			public void onClick(DialogInterface dialog, int which)
+			public void onClick(View view)
 			{
 				dismiss();
 			}

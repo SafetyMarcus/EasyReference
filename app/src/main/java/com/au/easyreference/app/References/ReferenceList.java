@@ -23,14 +23,14 @@ public class ReferenceList
 	public final static int HARVARD = 1;
 
 	public String id;
-	public String reference;
+	public String title;
 	public int referenceType;
 	public ArrayList<ReferenceItem> referenceList;
 
-	public ReferenceList(String reference, int referenceType, ArrayList<ReferenceItem> list)
+	public ReferenceList(String title, int referenceType, ArrayList<ReferenceItem> list)
 	{
 		id = UUID.randomUUID().toString();
-		this.reference = reference;
+		this.title = title;
 		this.referenceType = referenceType;
 		referenceList = list;
 	}
@@ -38,7 +38,7 @@ public class ReferenceList
 	public ReferenceList(JSONObject referenceObject)
 	{
 		id = referenceObject.optString(REFERENCE_ID);
-		reference = referenceObject.optString(REFERENCE);
+		title = referenceObject.optString(REFERENCE);
 		referenceType = referenceObject.optInt(REFERENCE_TYPE);
 
 		referenceList = new ArrayList<ReferenceItem>();
@@ -61,7 +61,7 @@ public class ReferenceList
 		try
 		{
 			referenceObject.put(REFERENCE_ID, id);
-			referenceObject.put(REFERENCE, reference);
+			referenceObject.put(REFERENCE, title);
 			referenceObject.put(REFERENCE_TYPE, referenceType);
 
 			if(referenceList != null && referenceList.size() > 0)
