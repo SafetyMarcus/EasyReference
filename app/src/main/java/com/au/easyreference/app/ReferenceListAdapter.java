@@ -14,7 +14,7 @@ import com.au.easyreference.app.References.ReferenceList;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 13/07/2014.
+ * @author Marcus Hooper
  */
 public class ReferenceListAdapter extends ArrayAdapter<ReferenceList>
 {

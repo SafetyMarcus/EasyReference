@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="SpringerMetaKey">ymszybnu762zws7eam5fpb39</string>
+    <string name="SpringerMetaDataKey">6jtygkfmyeajyqbkcnu3gry4</string>
+    <string name="SpringerOpenAccessKey">cpqdwvwc5n6k4svgpwz4qgdq</string>
 
     <string name="app_name">EasyReference</string>
     <string name="app_title">Easy Reference</string>

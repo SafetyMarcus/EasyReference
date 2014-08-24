@@ -20,22 +20,22 @@
         revision="20.0.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
-        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/butterknife-5.0.1-086becb6319a00858b210f6ff46f45aa909bafd5.jar"
-        jar="/Users/Marcus/Documents/Personal/EasyReference/libraries/butterknife-5.0.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="8b8b5dbb7246b579377790535b8063cdc324d341"/>
-    <item
-        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/butterknife-5.0.1-086becb6319a00858b210f6ff46f45aa909bafd5.jar"
-        jar="/Users/Marcus/Documents/Personal/EasyReference/libraries/butterknife-5.0.1.jar"
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/http-request-5.6-3512226fdbe646065e69da4398f02fe220eb17e8.jar"
+        jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.github.kevinsawicki/http-request/5.6/168305b7a983142b6311a005f0ad96d3b34d92d/http-request-5.6.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="8b8b5dbb7246b579377790535b8063cdc324d341"/>
+        sha1="0168305b7a983142b6311a005f0ad96d3b34d92d"/>
     <item
         dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-1e7fb770a87ff4967379e827f1e56e671056aa32.jar"
         jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/butterknife-4.0.1-d216a209e160fe095364a525da86eb2d94ad3a00.jar"
+        jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/4.0.1/f43b36925363701633d01adb8e54df7150397a78/butterknife-4.0.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="f43b36925363701633d01adb8e54df7150397a78"/>
 
 </pre-dex-items>
