@@ -3,6 +3,8 @@ package com.au.easyreference.app.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Fragments.APAReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.SearchDialog;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
@@ -39,7 +42,6 @@ public class ReferenceListActivity extends Activity
 	public ReferenceListAdapter adapter;
 	public int type;
 	public ReferenceList referenceList;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -80,6 +82,24 @@ public class ReferenceListActivity extends Activity
 		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceItems, getLayoutInflater(), type);
 		referencesListView.setAdapter(adapter);
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		menu.add(Menu.NONE, 0, 0, "Search").setIcon(android.R.drawable.ic_menu_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case 0:
+				getFragmentManager().beginTransaction().add(new SearchDialog(), null).commit();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public APAReferenceDialogFragment.APAReferenceListener apaListener = new APAReferenceDialogFragment.APAReferenceListener()

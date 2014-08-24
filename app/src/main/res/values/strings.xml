@@ -37,5 +37,9 @@
     <string name="location_hint">enter location of publishing</string>
     <string name="publisher">Publisher</string>
     <string name="publisher_hint">enter publisher</string>
+    <string name="doi">DOI</string>
+    <string name="issn">ISSN</string>
+    <string name="isbn">ISBN</string>
+    <string name="search">Search</string>
 
 </resources>
