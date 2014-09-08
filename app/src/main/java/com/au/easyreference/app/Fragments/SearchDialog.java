@@ -23,23 +23,23 @@ public class SearchDialog extends DialogFragment
 {
 	private static final String URL = "http://api.springer.com/metadata/json?q=";
 	private static final int DOI = 0;
-	private static final int ISSN = 0;
-	private static final int ISBN = 0;
+	private static final int ISSN = 1;
+	private static final int ISBN = 2;
 
 	@InjectView(R.id.doi_tab)
 	TextView doiTab;
 	@InjectView(R.id.doi_highlight)
-	ImageView doiHighight;
+	ImageView doiHighlight;
 
 	@InjectView(R.id.isbn_tab)
 	TextView isbnTab;
 	@InjectView(R.id.isbn_highlight)
-	ImageView isbnHighight;
+	ImageView isbnHighlight;
 
 	@InjectView(R.id.issn_tab)
 	TextView issnTab;
 	@InjectView(R.id.issn_highlight)
-	ImageView issnHighight;
+	ImageView issnHighlight;
 
 	@InjectView(R.id.search)
 	EditText search;
@@ -85,17 +85,17 @@ public class SearchDialog extends DialogFragment
 			{
 				case R.id.doi_tab:
 					doiTab.setTextColor(getResources().getColor(R.color.bright_light_blue));
-					doiHighight.setVisibility(View.VISIBLE);
+					doiHighlight.setVisibility(View.VISIBLE);
 					visibleView = DOI;
 					break;
 				case R.id.issn_tab:
 					issnTab.setTextColor(getResources().getColor(R.color.bright_light_blue));
-					issnHighight.setVisibility(View.VISIBLE);
+					issnHighlight.setVisibility(View.VISIBLE);
 					visibleView = ISSN;
 					break;
 				case R.id.isbn_tab:
 					isbnTab.setTextColor(getResources().getColor(R.color.bright_light_blue));
-					isbnHighight.setVisibility(View.VISIBLE);
+					isbnHighlight.setVisibility(View.VISIBLE);
 					visibleView = ISBN;
 					break;
 			}
@@ -107,9 +107,9 @@ public class SearchDialog extends DialogFragment
 			isbnTab.setTextColor(getResources().getColor(android.R.color.black));
 			issnTab.setTextColor(getResources().getColor(android.R.color.black));
 
-			doiHighight.setVisibility(View.GONE);
-			isbnHighight.setVisibility(View.GONE);
-			issnHighight.setVisibility(View.GONE);
+			doiHighlight.setVisibility(View.GONE);
+			isbnHighlight.setVisibility(View.GONE);
+			issnHighlight.setVisibility(View.GONE);
 		}
 	}
 
@@ -125,9 +125,17 @@ public class SearchDialog extends DialogFragment
 			switch(visibleView)
 			{
 				case DOI:
-					query.append("doi:").append(search.getText());
+					query.append("doi:");
+					break;
+				case ISSN:
+					query.append("issn:");
+					break;
+				case ISBN:
+					query.append("isbn:");
+					break;
 			}
 
+			query.append(search.getText());
 			query.append("&api_key=").append(getString(R.string.SpringerMetaDataKey));
 
 			HttpRequest httpRequest = HttpRequest.get(query);
