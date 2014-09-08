@@ -5,16 +5,22 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
 import com.github.kevinsawicki.http.HttpRequest;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * @author Marcus Hooper
@@ -46,6 +52,12 @@ public class SearchDialog extends DialogFragment
 	@InjectView(R.id.search_button)
 	Button searchButton;
 
+	@InjectView(R.id.results_list)
+	ListView resultsList;
+
+	private ArrayList<String> results;
+	private ArrayAdapter<String> resultsAdapter;
+
 	private int visibleView = DOI;
 
 	@Override
@@ -57,6 +69,8 @@ public class SearchDialog extends DialogFragment
 		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, null);
 		ButterKnife.inject(this, layout);
 		builder.setView(layout);
+
+		results = new ArrayList<String>();
 
 		doiTab.setOnClickListener(new TabClickListener());
 		issnTab.setOnClickListener(new TabClickListener());
@@ -113,6 +127,18 @@ public class SearchDialog extends DialogFragment
 		}
 	}
 
+	private void setUpList(JSONObject resultsObject)
+	{
+		results.clear();
+
+		JSONArray resultsArray = resultsObject.optJSONArray("records");
+		for(int i = 0; i < resultsArray.length(); i++)
+			results.add(resultsArray.optJSONObject(i).optString("publicationName"));
+
+		resultsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.reference_item, results);
+		resultsList.setAdapter(resultsAdapter);
+	}
+
 	private class QueryDatabaseAsync extends AsyncTask
 	{
 		String response;
@@ -149,7 +175,14 @@ public class SearchDialog extends DialogFragment
 		@Override
 		protected void onPostExecute(Object o)
 		{
-			Log.d("Response", response);
+			try
+			{
+				setUpList(new JSONObject(response));
+			}
+			catch(JSONException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }
