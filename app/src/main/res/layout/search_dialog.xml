@@ -4,7 +4,15 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:layout_margin="8dp"
               android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:textSize="48sp"
+        android:text="@string/search"
+        android:textColor="@color/bright_blue"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,16 +82,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:padding="8dp"
-        android:text="Enter DOI"/>
-
     <EditText
         android:id="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
+        android:layout_height="48dp"
+        android:hint="@string/search_hint"/>
 
     <Button
         android:id="@+id/search_button"
@@ -91,6 +94,8 @@
         android:layout_height="48dp"
         android:layout_gravity="right"
         android:layout_marginRight="8dp"
+        android:background="@android:color/white"
+        android:textColor="@color/bright_blue"
         android:text="@string/search"/>
 
     <ListView

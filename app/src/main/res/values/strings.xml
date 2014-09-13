@@ -45,4 +45,10 @@
     <string name="isbn">ISBN</string>
     <string name="search">Search</string>
 
+    <string name="result_publisher">Publisher:</string>
+    <string name="result_publication">Publication:</string>
+    <string name="result_publication_date">Publication Date:</string>
+    <string name="result_volume">Volume:</string>
+    <string name="search_hint">enter a search value</string>
+
 </resources>

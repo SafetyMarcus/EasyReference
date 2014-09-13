@@ -3,9 +3,12 @@ package com.au.easyreference.app.Fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.Utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,8 +59,8 @@ public class SearchDialog extends DialogFragment
 	@InjectView(R.id.results_list)
 	ListView resultsList;
 
-	private ArrayList<String> results;
-	private ArrayAdapter<String> resultsAdapter;
+	private ArrayList<Result> results;
+	private ResultsAdapter resultsAdapter;
 
 	private int visibleView = DOI;
 
@@ -70,11 +74,14 @@ public class SearchDialog extends DialogFragment
 		ButterKnife.inject(this, layout);
 		builder.setView(layout);
 
-		results = new ArrayList<String>();
+		results = new ArrayList<Result>();
 
 		doiTab.setOnClickListener(new TabClickListener());
 		issnTab.setOnClickListener(new TabClickListener());
 		isbnTab.setOnClickListener(new TabClickListener());
+
+		resultsAdapter = new ResultsAdapter(getActivity(), R.layout.reference_item, getActivity().getLayoutInflater(), results);
+		resultsList.setAdapter(resultsAdapter);
 
 		searchButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -133,10 +140,9 @@ public class SearchDialog extends DialogFragment
 
 		JSONArray resultsArray = resultsObject.optJSONArray("records");
 		for(int i = 0; i < resultsArray.length(); i++)
-			results.add(resultsArray.optJSONObject(i).optString("publicationName"));
+			results.add(new Result(resultsArray.optJSONObject(i)));
 
-		resultsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.reference_item, results);
-		resultsList.setAdapter(resultsAdapter);
+		resultsAdapter.notifyDataSetChanged();
 	}
 
 	private class QueryDatabaseAsync extends AsyncTask
@@ -183,6 +189,40 @@ public class SearchDialog extends DialogFragment
 			{
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private class ResultsAdapter extends ArrayAdapter<Result>
+	{
+		private LayoutInflater inflater;
+
+		public ResultsAdapter(Context context, int resource, LayoutInflater inflater, ArrayList<Result> objects)
+		{
+			super(context, resource, objects);
+			this.inflater = inflater;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			Result result = getItem(position);
+
+			if(convertView == null)
+				convertView = inflater.inflate(R.layout.result_item, null);
+
+			TextView title = (TextView) convertView.findViewById(R.id.result_title);
+			TextView publisher = (TextView) convertView.findViewById(R.id.result_publisher);
+			TextView publicationName = (TextView) convertView.findViewById(R.id.result_publication_name);
+			TextView publicationDate = (TextView) convertView.findViewById(R.id.result_publication_date);
+			TextView volume = (TextView) convertView.findViewById(R.id.result_publication_volume);
+
+			title.setText(result.title);
+			publisher.setText(getString(R.string.result_publisher) + ' ' + result.publisher);
+			publicationName.setText(getString(R.string.result_publication) + ' ' + result.publicationName);
+			publicationDate.setText(getString(R.string.result_publication_date) + ' ' + result.publicationDate);
+			volume.setText(getString(R.string.result_volume) + ' ' + result.volume);
+
+			return convertView;
 		}
 	}
 }
