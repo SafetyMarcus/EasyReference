@@ -16,6 +16,11 @@ public class Result
 	public String publicationDate;
 	public String publisher;
 	public String authorsString;
+	//TODO add in these values
+	public String issue;
+	public String pageNo;
+	public String doi;
+
 
 	public Result(JSONObject result)
 	{
