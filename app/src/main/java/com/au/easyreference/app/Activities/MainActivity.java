@@ -53,6 +53,8 @@ public class MainActivity extends FragmentActivity
 
 		ButterKnife.inject(this);
 
+		((ERApplication) getApplication()).retrieveReferencesService();
+
 		ArrayList<String> referenceTypes = new ArrayList<String>(2);
 		referenceTypes.add("APA Reference List");
 		referenceTypes.add("Harvard Reference List");

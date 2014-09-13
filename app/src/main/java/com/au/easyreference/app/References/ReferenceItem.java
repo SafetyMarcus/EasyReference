@@ -14,7 +14,7 @@ import static com.au.easyreference.app.Utils.Constants.TITLE;
 import static com.au.easyreference.app.Utils.Constants.YEAR;
 
 /**
- * Created by Marcus on 1/06/2014.
+ * @author Marcus Hooper
  */
 public class ReferenceItem
 {

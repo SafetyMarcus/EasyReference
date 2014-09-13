@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.Fragments.APAReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
 import com.au.easyreference.app.R;
@@ -20,6 +21,8 @@ import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.References.ReferenceListAdapter;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
+import com.au.easyreference.app.Utils.Result;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -51,6 +54,8 @@ public class ReferenceListActivity extends Activity
 
 		setContentView(R.layout.reference_list_dialog_fragment);
 		ButterKnife.inject(this);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
 		if(intent != null)
@@ -87,7 +92,7 @@ public class ReferenceListActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		menu.add(Menu.NONE, 0, 0, "Search").setIcon(android.R.drawable.ic_menu_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menu.add(Menu.NONE, 0, 0, getString(R.string.search)).setIcon(android.R.drawable.ic_menu_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -115,15 +120,19 @@ public class ReferenceListActivity extends Activity
 			}
 
 			if(!updating)
-			{
-				referenceItems.remove(referenceItems.size() - 1);
-				referenceItems.add(newReference);
-				referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
-				ERApplication.allReferences.add(newReference);
-			}
+				addReferenceItem(newReference);
 			adapter.notifyDataSetChanged();
 		}
 	};
+
+	public void addReferenceItem(ReferenceItem newReference)
+	{
+		referenceItems.remove(referenceItems.size() - 1);
+		referenceItems.add(newReference);
+		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
+		ERApplication.allReferences.add(newReference);
+		adapter.notifyDataSetChanged();
+	}
 
 	@Override
 	public void onBackPressed()
@@ -148,10 +157,32 @@ public class ReferenceListActivity extends Activity
 	}
 
 	@Override
+	public void onPause()
+	{
+		ERApplication.BUS.unregister(this);
+		super.onPause();
+	}
+
+	@Subscribe
+	public void onResultSelected(ResultSelectedEvent event)
+	{
+		Result result = event.result;
+
+		ReferenceItem newReference = new ReferenceItem(result.authorsString,
+				result.publicationDate,
+				result.title,
+				"", "",
+				result.publisher,
+				ReferenceItem.BOOK_REFERENCE);
+
+		addReferenceItem(newReference);
+	}
+
+	@Override
 	public void onResume()
 	{
 		super.onResume();
-
+		ERApplication.BUS.register(this);
 	}
 
 	public class ReferenceClickedListener implements AdapterView.OnItemClickListener

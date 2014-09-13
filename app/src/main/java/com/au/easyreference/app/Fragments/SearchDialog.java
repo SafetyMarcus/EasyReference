@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.Utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
@@ -25,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.au.easyreference.app.Utils.ERApplication.BUS;
 
 /**
  * @author Marcus Hooper
@@ -82,6 +86,16 @@ public class SearchDialog extends DialogFragment
 		resultsAdapter = new ResultsAdapter(getActivity(), R.layout.reference_item, getActivity().getLayoutInflater(), results);
 		resultsList.setAdapter(resultsAdapter);
 
+		resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				BUS.post(new ResultSelectedEvent(resultsAdapter.getItem(i)));
+				dismiss();
+			}
+		});
+
 		searchButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -92,6 +106,20 @@ public class SearchDialog extends DialogFragment
 		});
 
 		return layout;
+	}
+
+	@Override
+	public void onPause()
+	{
+		BUS.unregister(this);
+		super.onPause();
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		BUS.register(this);
 	}
 
 	private class TabClickListener implements View.OnClickListener

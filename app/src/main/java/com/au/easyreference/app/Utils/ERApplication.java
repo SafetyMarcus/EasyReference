@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
+import com.squareup.otto.Bus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ public class ERApplication extends Application
 {
 	public static ArrayList<ReferenceList> referenceLists;
 	public static ArrayList<ReferenceItem> allReferences;
-
+	public static final Bus BUS = new Bus();
 
 	@Override
 	public void onCreate()

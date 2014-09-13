@@ -8,9 +8,19 @@
               android:background="@android:color/white"
               android:minWidth="1000dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:textSize="32sp"
+        android:text="@string/add_new"
+        android:layout_margin="8dp"
+        android:textColor="@color/bright_blue"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -27,7 +37,9 @@
             <EditText
                 android:id="@+id/author"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:maxLines="4"
                 android:hint="@string/author_hint"/>
 
             <TextView
@@ -51,7 +63,9 @@
             <EditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:maxLines="4"
                 android:hint="@string/title_hint"/>
 
             <TextView
@@ -63,7 +77,9 @@
             <EditText
                 android:id="@+id/subtitle"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:maxLines="4"
                 android:hint="@string/subtitle_hint"/>
 
             <TextView
@@ -96,8 +112,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="right">
 
         <Button

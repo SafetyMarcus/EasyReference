@@ -43,9 +43,10 @@ public class ReferenceList
 
 		referenceList = new ArrayList<ReferenceItem>();
 		JSONArray referenceArray = referenceObject.optJSONArray(REFERENCE_LIST);
-		for(int i = 0; i < referenceArray.length(); i++)
+		if(referenceArray != null)
 		{
-			referenceList.add(new ReferenceItem(referenceArray.optJSONObject(i)));
+			for(int i = 0; i < referenceArray.length(); i++)
+				referenceList.add(new ReferenceItem(referenceArray.optJSONObject(i)));
 		}
 	}
 
