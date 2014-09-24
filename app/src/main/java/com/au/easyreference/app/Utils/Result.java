@@ -16,7 +16,6 @@ public class Result
 	public String publicationDate;
 	public String publisher;
 	public String authorsString;
-	//TODO add in these values
 	public String issue;
 	public String pageNo;
 	public String doi;
@@ -29,6 +28,9 @@ public class Result
 		publicationName = result.optString("publicationName");
 		publicationDate = result.optString("publicationDate");
 		publisher = result.optString("publisher");
+		issue = result.optString("volume");
+		pageNo = result.optString("number");
+		doi = result.optString("doi");
 
 		ArrayList<String> authors = new ArrayList<String>();
 		JSONArray authorsArray = result.optJSONArray("creators");
@@ -43,12 +45,22 @@ public class Result
 		for(int i = 0; i < authors.size(); i++)
 		{
 			String author = authors.get(i);
-			String[] authorName = author.split(",");
-			authorName[0] = authorName[0].split(":\"")[1];
+			String[] authorName = null;
 
-			authorsStringBuilder.append(authorName[0]).append(", ")
-					.append(authorName[1].trim().charAt(0))
-					.append(". ");
+			if(author.contains(","))
+				authorName = author.split(",");
+
+			if(authorName != null)
+			{
+				authorName[0] = authorName[0].split(":\"")[1];
+
+				authorsStringBuilder.append(authorName[0]).append(", ")
+						.append(authorName[1].trim().charAt(0));
+			}
+			else
+				authorsStringBuilder.append(author.trim());
+
+			authorsStringBuilder.append(". ");
 		}
 
 		authorsString = authorsStringBuilder.toString();

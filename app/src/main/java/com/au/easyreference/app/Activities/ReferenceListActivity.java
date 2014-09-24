@@ -13,7 +13,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Events.ResultSelectedEvent;
-import com.au.easyreference.app.Fragments.APAReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
@@ -21,7 +21,6 @@ import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.References.ReferenceListAdapter;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
-import com.au.easyreference.app.Utils.Result;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -107,7 +106,7 @@ public class ReferenceListActivity extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 
-	public APAReferenceDialogFragment.APAReferenceListener apaListener = new APAReferenceDialogFragment.APAReferenceListener()
+	public APABookReferenceDialogFragment.APAReferenceListener apaListener = new APABookReferenceDialogFragment.APAReferenceListener()
 	{
 		@Override
 		public void onReferenceCreated(ReferenceItem newReference)
@@ -166,14 +165,7 @@ public class ReferenceListActivity extends Activity
 	@Subscribe
 	public void onResultSelected(ResultSelectedEvent event)
 	{
-		Result result = event.result;
-
-		ReferenceItem newReference = new ReferenceItem(result.authorsString,
-				result.publicationDate,
-				result.title,
-				"", "",
-				result.publisher,
-				ReferenceItem.BOOK_REFERENCE);
+		ReferenceItem newReference = new ReferenceItem(event.result, ReferenceItem.BOOK_REFERENCE);
 
 		addReferenceItem(newReference);
 	}
@@ -190,12 +182,12 @@ public class ReferenceListActivity extends Activity
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
-			APAReferenceDialogFragment dialog = new APAReferenceDialogFragment();
+			APABookReferenceDialogFragment dialog = new APABookReferenceDialogFragment();
 
 			Bundle args = new Bundle();
 			if(adapter.getItem(position) != null && adapter.getItem(position).type != ReferenceItem.NEW)
 			{
-				args.putString(APAReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
+				args.putString(APABookReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
 				dialog.setArguments(args);
 			}
 

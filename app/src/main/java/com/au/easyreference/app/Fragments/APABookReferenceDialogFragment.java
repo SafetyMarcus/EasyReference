@@ -19,7 +19,7 @@ import com.au.easyreference.app.Utils.ERApplication;
 /**
  * @author Marcus Hooper
  */
-public class APAReferenceDialogFragment extends DialogFragment
+public class APABookReferenceDialogFragment extends DialogFragment
 {
 	public static final String KEY_ID = "key_id";
 

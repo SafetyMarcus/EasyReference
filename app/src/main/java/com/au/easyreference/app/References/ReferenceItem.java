@@ -1,5 +1,6 @@
 package com.au.easyreference.app.References;
 
+import com.au.easyreference.app.Utils.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +20,7 @@ import static com.au.easyreference.app.Utils.Constants.YEAR;
 public class ReferenceItem
 {
 	public final static int BOOK_REFERENCE = 0;
+	public final static int JOURNAL_REFERENCE = 1;
 	public final static int NEW = 10;
 
 	public String id;
@@ -28,6 +30,9 @@ public class ReferenceItem
 	public String subtitle;
 	public String location;
 	public String publisher;
+	public String issue;
+	public String pageNo;
+	public String doi;
 
 	public int type;
 
@@ -55,6 +60,21 @@ public class ReferenceItem
 			this.publisher = "";
 			this.type = type;
 		}
+	}
+
+	public ReferenceItem(Result result, int type)
+	{
+		this.type = type;
+
+		author = result.authorsString;
+		year = result.publicationDate;
+		title = result.title;
+		subtitle = "";
+		location = "";
+		publisher = result.publisher;
+		issue = result.issue;
+		pageNo = result.pageNo;
+		doi = result.doi;
 	}
 
 	public ReferenceItem(JSONObject referenceObject)

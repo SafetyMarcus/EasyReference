@@ -210,7 +210,8 @@ public class SearchDialog extends DialogFragment
 		{
 			try
 			{
-				setUpList(new JSONObject(response));
+				if(response != null && response.length() > 0)
+					setUpList(new JSONObject(response));
 			}
 			catch(JSONException e)
 			{
