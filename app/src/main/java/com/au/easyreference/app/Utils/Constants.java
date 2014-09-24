@@ -12,6 +12,7 @@ public class Constants
 	public static final String REFERENCE_LIST = "reference_list";
 
 	//Reference Item constants
+	public static final String REFERENCE_ITEM_ID = "reference_item_id";
 	public static final String AUTHOR = "author";
 	public static final String YEAR = "year";
 	public static final String TITLE = "title";

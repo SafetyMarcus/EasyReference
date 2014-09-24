@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.Utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
@@ -59,6 +60,15 @@ public class SearchDialog extends DialogFragment
 	EditText search;
 	@InjectView(R.id.search_button)
 	Button searchButton;
+	@InjectView(R.id.book_button)
+	Button bookButton;
+	@InjectView(R.id.journal_button)
+	Button journalButton;
+
+	@InjectView(R.id.type_layout)
+	View typeLayout;
+	@InjectView(R.id.search_layout)
+	View searchLayout;
 
 	@InjectView(R.id.results_list)
 	ListView resultsList;
@@ -67,6 +77,7 @@ public class SearchDialog extends DialogFragment
 	private ResultsAdapter resultsAdapter;
 
 	private int visibleView = DOI;
+	private int type;
 
 	@Nullable
 	@Override
@@ -83,7 +94,7 @@ public class SearchDialog extends DialogFragment
 		issnTab.setOnClickListener(new TabClickListener());
 		isbnTab.setOnClickListener(new TabClickListener());
 
-		resultsAdapter = new ResultsAdapter(getActivity(), R.layout.reference_item, getActivity().getLayoutInflater(), results);
+		resultsAdapter = new ResultsAdapter(getActivity(), R.layout.list_item, getActivity().getLayoutInflater(), results);
 		resultsList.setAdapter(resultsAdapter);
 
 		resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -102,6 +113,28 @@ public class SearchDialog extends DialogFragment
 			public void onClick(View view)
 			{
 				new QueryDatabaseAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			}
+		});
+
+		bookButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				type = ReferenceItem.BOOK_REFERENCE;
+				typeLayout.setVisibility(View.GONE);
+				searchLayout.setVisibility(View.VISIBLE);
+			}
+		});
+
+		journalButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				type = ReferenceItem.JOURNAL_REFERENCE;
+				typeLayout.setVisibility(View.GONE);
+				searchLayout.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -167,7 +200,7 @@ public class SearchDialog extends DialogFragment
 
 		JSONArray resultsArray = resultsObject.optJSONArray("records");
 		for(int i = 0; i < resultsArray.length(); i++)
-			results.add(new Result(resultsArray.optJSONObject(i)));
+			results.add(new Result(resultsArray.optJSONObject(i), type));
 
 		resultsAdapter.notifyDataSetChanged();
 	}

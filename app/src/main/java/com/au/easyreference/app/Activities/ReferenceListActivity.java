@@ -83,7 +83,7 @@ public class ReferenceListActivity extends Activity
 
 		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
 
-		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceItems, getLayoutInflater(), type);
+		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceItems, getLayoutInflater());
 		referencesListView.setAdapter(adapter);
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
 	}
@@ -100,6 +100,8 @@ public class ReferenceListActivity extends Activity
 	{
 		switch(item.getItemId())
 		{
+			case android.R.id.home:
+				onBackPressed();
 			case 0:
 				getFragmentManager().beginTransaction().add(new SearchDialog(), null).commit();
 		}
@@ -165,8 +167,7 @@ public class ReferenceListActivity extends Activity
 	@Subscribe
 	public void onResultSelected(ResultSelectedEvent event)
 	{
-		ReferenceItem newReference = new ReferenceItem(event.result, ReferenceItem.BOOK_REFERENCE);
-
+		ReferenceItem newReference = new ReferenceItem(event.result);
 		addReferenceItem(newReference);
 	}
 
@@ -182,16 +183,22 @@ public class ReferenceListActivity extends Activity
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
-			APABookReferenceDialogFragment dialog = new APABookReferenceDialogFragment();
-
-			Bundle args = new Bundle();
 			if(adapter.getItem(position) != null && adapter.getItem(position).type != ReferenceItem.NEW)
 			{
+				APABookReferenceDialogFragment dialog = new APABookReferenceDialogFragment();
+
+				Bundle args = new Bundle();
+
 				args.putString(APABookReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
 				dialog.setArguments(args);
-			}
 
-			dialog.show(getFragmentManager(), null);
+				dialog.show(getFragmentManager(), null);
+			}
+			else
+			{
+				adapter.showOptions = true;
+				adapter.notifyDataSetChanged();
+			}
 		}
 	}
 }

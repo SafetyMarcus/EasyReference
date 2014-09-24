@@ -5,108 +5,146 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:minWidth="500dp"
+              android:animateLayoutChanges="true"
               android:background="@android:color/white">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:textSize="48sp"
-        android:text="@string/search"
-        android:layout_margin="8dp"
-        android:textColor="@color/bright_blue"/>
-
     <LinearLayout
+        android:id="@+id/type_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <Button
+            android:id="@+id/book_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:textSize="16dp"
+            android:gravity="center"
+            android:text="@string/book"
+            android:layout_margin="8dp"
+            android:background="@drawable/dropshadow"/>
 
-            <TextView
-                android:id="@+id/doi_tab"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:textColor="@color/bright_light_blue"
-                android:text="@string/doi"/>
-
-            <ImageView
-                android:id="@+id/doi_highlight"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/blue"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <Button
+            android:id="@+id/journal_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/issn_tab"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/issn"/>
-
-            <ImageView
-                android:id="@+id/issn_highlight"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/blue"
-                android:visibility="gone"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/isbn_tab"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/isbn"/>
-
-            <ImageView
-                android:id="@+id/isbn_highlight"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/blue"
-                android:visibility="gone"/>
-        </LinearLayout>
+            android:textSize="16dp"
+            android:gravity="center"
+            android:text="@string/journal"
+            android:layout_margin="8dp"
+            android:background="@drawable/dropshadow"/>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/search"
+    <LinearLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:hint="@string/search_hint"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="8dp"
-        android:background="@android:color/white"
-        android:textColor="@color/bright_blue"
-        android:text="@string/search"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:textSize="48sp"
+            android:text="@string/search"
+            android:layout_margin="8dp"
+            android:textColor="@color/bright_blue"/>
 
-    <ListView
-        android:id="@+id/results_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/doi_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:textColor="@color/bright_light_blue"
+                    android:text="@string/doi"/>
+
+                <ImageView
+                    android:id="@+id/doi_highlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/blue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/issn_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="@string/issn"/>
+
+                <ImageView
+                    android:id="@+id/issn_highlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/blue"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/isbn_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="@string/isbn"/>
+
+                <ImageView
+                    android:id="@+id/isbn_highlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/blue"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:hint="@string/search_hint"/>
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/white"
+            android:textColor="@color/bright_blue"
+            android:text="@string/search"/>
+
+        <ListView
+            android:id="@+id/results_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 </LinearLayout>

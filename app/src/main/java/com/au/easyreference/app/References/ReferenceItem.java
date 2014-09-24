@@ -10,6 +10,7 @@ import static com.au.easyreference.app.Utils.Constants.AUTHOR;
 import static com.au.easyreference.app.Utils.Constants.ITEM_TYPE;
 import static com.au.easyreference.app.Utils.Constants.LOCATION;
 import static com.au.easyreference.app.Utils.Constants.PUBLISHER;
+import static com.au.easyreference.app.Utils.Constants.REFERENCE_ITEM_ID;
 import static com.au.easyreference.app.Utils.Constants.SUBTITLE;
 import static com.au.easyreference.app.Utils.Constants.TITLE;
 import static com.au.easyreference.app.Utils.Constants.YEAR;
@@ -62,9 +63,10 @@ public class ReferenceItem
 		}
 	}
 
-	public ReferenceItem(Result result, int type)
+	public ReferenceItem(Result result)
 	{
-		this.type = type;
+		id = UUID.randomUUID().toString();
+		type = result.type;
 
 		author = result.authorsString;
 		year = result.publicationDate;
@@ -79,6 +81,7 @@ public class ReferenceItem
 
 	public ReferenceItem(JSONObject referenceObject)
 	{
+		id = referenceObject.optString(REFERENCE_ITEM_ID);
 		author = referenceObject.optString(AUTHOR);
 		year = referenceObject.optString(YEAR);
 		title = referenceObject.optString(TITLE);
@@ -94,6 +97,7 @@ public class ReferenceItem
 
 		try
 		{
+			referenceObject.put(REFERENCE_ITEM_ID, id);
 			referenceObject.put(AUTHOR, author);
 			referenceObject.put(YEAR, year);
 			referenceObject.put(TITLE, title);

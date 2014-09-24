@@ -20,9 +20,12 @@ public class Result
 	public String pageNo;
 	public String doi;
 
+	public int type;
 
-	public Result(JSONObject result)
+	public Result(JSONObject result, int type)
 	{
+		this.type = type;
+
 		title = result.optString("title");
 		volume = result.optString("volume");
 		publicationName = result.optString("publicationName");

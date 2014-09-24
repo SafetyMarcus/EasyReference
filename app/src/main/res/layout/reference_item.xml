@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/reference_information"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:minHeight="48dp"
-          android:gravity="center"
-          android:background="@android:color/white"
-          android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <TextView
+        android:id="@+id/reference_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <Button
+        android:id="@+id/book_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:text="@string/book"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        android:background="@drawable/dropshadow"/>
+
+    <Button
+        android:id="@+id/journal_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:text="@string/journal"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        android:background="@drawable/dropshadow"/>
+
+</LinearLayout>

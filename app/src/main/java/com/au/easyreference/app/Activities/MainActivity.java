@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity
 		ArrayList<String> referenceTypes = new ArrayList<String>(2);
 		referenceTypes.add("APA Reference List");
 		referenceTypes.add("Harvard Reference List");
-		referenceTypeAdapter = new ArrayAdapter<String>(this, R.layout.reference_item, referenceTypes);
+		referenceTypeAdapter = new ArrayAdapter<String>(this, R.layout.list_item, referenceTypes);
 		referenceTypesList.setAdapter(referenceTypeAdapter);
 		referenceTypesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
