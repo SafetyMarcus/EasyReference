@@ -10,12 +10,14 @@ import static com.au.easyreference.app.Utils.Constants.AUTHOR;
 import static com.au.easyreference.app.Utils.Constants.DOI;
 import static com.au.easyreference.app.Utils.Constants.ISSUE;
 import static com.au.easyreference.app.Utils.Constants.ITEM_TYPE;
+import static com.au.easyreference.app.Utils.Constants.JOURNAL_TITLE;
 import static com.au.easyreference.app.Utils.Constants.LOCATION;
 import static com.au.easyreference.app.Utils.Constants.PAGE_NO;
 import static com.au.easyreference.app.Utils.Constants.PUBLISHER;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE_ITEM_ID;
 import static com.au.easyreference.app.Utils.Constants.SUBTITLE;
 import static com.au.easyreference.app.Utils.Constants.TITLE;
+import static com.au.easyreference.app.Utils.Constants.VOLUME_NO;
 import static com.au.easyreference.app.Utils.Constants.YEAR;
 
 /**
@@ -34,6 +36,8 @@ public class ReferenceItem
 	public String subtitle;
 	public String location;
 	public String publisher;
+	public String journalTitle;
+	public String volumeNo;
 	public String issue;
 	public String pageNo;
 	public String doi;
@@ -49,19 +53,24 @@ public class ReferenceItem
 		this.subtitle = subtitle;
 		this.location = location;
 		this.publisher = publisher;
-		pageNo = "";
+		journalTitle = "";
+		volumeNo = "";
 		issue = "";
+		pageNo = "";
 		doi = "";
 		this.type = type;
 	}
 
-	public ReferenceItem(String author, String year, String title, String subtitle, String issue, String pageNo, String doi, int type)
+	public ReferenceItem(String author, String year, String title, String subtitle, String journalTitle,
+						 String volumeNo, String issue, String pageNo, String doi, int type)
 	{
 		id = UUID.randomUUID().toString();
 		this.author = author;
 		this.year = year;
 		this.title = title;
 		this.subtitle = subtitle;
+		this.journalTitle = journalTitle;
+		this.volumeNo = volumeNo;
 		this.issue = issue;
 		this.pageNo = pageNo;
 		this.doi = doi;
@@ -108,6 +117,8 @@ public class ReferenceItem
 		location = referenceObject.optString(LOCATION);
 		publisher = referenceObject.optString(publisher);
 		type = referenceObject.optInt(ITEM_TYPE);
+		journalTitle = referenceObject.optString(JOURNAL_TITLE);
+		volumeNo = referenceObject.optString(VOLUME_NO);
 		issue = referenceObject.optString(ISSUE);
 		pageNo = referenceObject.optString(PAGE_NO);
 		doi = referenceObject.optString(DOI);
@@ -127,6 +138,8 @@ public class ReferenceItem
 			referenceObject.put(LOCATION, location);
 			referenceObject.put(PUBLISHER, publisher);
 			referenceObject.put(ITEM_TYPE, type);
+			referenceObject.put(JOURNAL_TITLE, journalTitle);
+			referenceObject.put(VOLUME_NO, volumeNo);
 			referenceObject.put(ISSUE, issue);
 			referenceObject.put(PAGE_NO, pageNo);
 			referenceObject.put(DOI, doi);

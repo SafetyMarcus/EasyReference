@@ -17,10 +17,12 @@ public class Constants
 	public static final String LOCATION = "location";
 	public static final String ISSUE = "issue";
 	public static final String ITEM_TYPE = "item_type";
+	public static final String JOURNAL_TITLE = "journal_title";
 	public static final String PAGE_NO = "page_no";
 	public static final String PUBLISHER = "publisher";
 	public static final String REFERENCE_ITEM_ID = "reference_item_id";
 	public static final String SUBTITLE = "subtitle";
 	public static final String TITLE = "title";
+	public static final String VOLUME_NO = "volume_number";
 	public static final String YEAR = "year";
 }

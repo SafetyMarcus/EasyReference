@@ -20,6 +20,10 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 {
 	public static final String KEY_ID = "key_id";
 
+	@InjectView(R.id.journal_title)
+	public EditText journalTitle;
+	@InjectView(R.id.volume_number)
+	public EditText volumeNumber;
 	@InjectView(R.id.issue)
 	public EditText issue;
 	@InjectView(R.id.pageNo)
@@ -44,8 +48,9 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 				if(currentReference == null)
 				{
 					ReferenceItem newItem = new ReferenceItem(author.getText().toString(), year.getText().toString(),
-							title.getText().toString(), subtitle.getText().toString(), issue.getText().toString(),
-							pageNo.getText().toString(), doi.getText().toString(), ReferenceItem.JOURNAL_REFERENCE);
+							title.getText().toString(), subtitle.getText().toString(), journalTitle.getText().toString(),
+							volumeNumber.getText().toString(), issue.getText().toString(), pageNo.getText().toString(),
+							doi.getText().toString(), ReferenceItem.JOURNAL_REFERENCE);
 
 					if(listener != null)
 						listener.onReferenceCreated(newItem);

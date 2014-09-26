@@ -86,6 +86,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:textColor="@color/light_gray"
+                android:text="@string/journal_title"/>
+
+            <EditText
+                android:id="@+id/journal_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:maxLines="4"
+                android:hint="@string/journal_title_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/volume_number"/>
+
+            <EditText
+                android:id="@+id/volume_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:maxLines="4"
+                android:hint="@string/volume_number_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="@color/light_gray"
                 android:text="@string/issue"/>
 
             <EditText

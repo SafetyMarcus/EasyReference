@@ -59,5 +59,9 @@
     <string name="page_no">Page No.</string>
     <string name="page_no_hint">enter page number</string>
     <string name="doi_hint">enter DOI</string>
+    <string name="journal_title">Journal Title</string>
+    <string name="journal_title_hint">enter title of journal</string>
+    <string name="volume_number">Volume Number</string>
+    <string name="volume_number_hint">enter volume number</string>
 
 </resources>
