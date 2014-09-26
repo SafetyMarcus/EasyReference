@@ -1,13 +1,10 @@
 package com.au.easyreference.app.Fragments;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -19,38 +16,23 @@ import com.au.easyreference.app.Utils.ERApplication;
 /**
  * @author Marcus Hooper
  */
-public class APABookReferenceDialogFragment extends DialogFragment
+public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragment
 {
 	public static final String KEY_ID = "key_id";
 
-	@InjectView(R.id.author)
-	public EditText author;
-	@InjectView(R.id.year)
-	public EditText year;
-	@InjectView(R.id.title)
-	public EditText title;
-	@InjectView(R.id.subtitle)
-	public EditText subtitle;
 	@InjectView(R.id.location)
 	public EditText location;
 	@InjectView(R.id.publisher)
 	public EditText publisher;
-	@InjectView(R.id.cancel)
-	protected Button cancel;
-	@InjectView(R.id.save)
-	protected Button save;
-
-	private APAReferenceListener listener;
-	private ReferenceItem currentReference;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
 		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_book_reference_layout, null);
 		ButterKnife.inject(this, layout);
+
+		super.onCreateView(inflater, container, savedInstanceState);
 
 		save.setOnClickListener(new View.OnClickListener()
 		{
@@ -83,21 +65,10 @@ public class APABookReferenceDialogFragment extends DialogFragment
 			}
 		});
 
-		cancel.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				dismiss();
-			}
-		});
-
 		Bundle args = getArguments();
 
 		if(args != null)
-		{
 			setUpView(args.getString(KEY_ID));
-		}
 
 		listener = ((ReferenceListActivity) getActivity()).apaListener;
 
@@ -106,19 +77,12 @@ public class APABookReferenceDialogFragment extends DialogFragment
 
 	public void setUpView(String id)
 	{
+		super.setUpView(id);
 		for(ReferenceItem reference : ERApplication.allReferences)
 		{
 			currentReference = reference;
 			if(reference.id.equalsIgnoreCase(id))
 			{
-				if(reference.author != null && reference.author.length() > 0)
-					author.setText(reference.author);
-				if(reference.year != null && reference.year.length() > 0)
-					year.setText(reference.year);
-				if(reference.title != null && reference.title.length() > 0)
-					title.setText(reference.title);
-				if(reference.subtitle != null && reference.subtitle.length() > 0)
-					subtitle.setText(reference.subtitle);
 				if(reference.location != null && reference.location.length() > 0)
 					location.setText(reference.location);
 				if(reference.publisher != null && reference.publisher.length() > 0)
@@ -126,10 +90,5 @@ public class APABookReferenceDialogFragment extends DialogFragment
 			}
 			break;
 		}
-	}
-
-	public interface APAReferenceListener
-	{
-		public void onReferenceCreated(ReferenceItem newReference);
 	}
 }
