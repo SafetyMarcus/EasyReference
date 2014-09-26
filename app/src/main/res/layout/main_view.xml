@@ -8,9 +8,7 @@
     <ListView
         android:id="@+id/old_references_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"/>
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/empty_references"

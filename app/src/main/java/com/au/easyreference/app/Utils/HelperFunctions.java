@@ -1,6 +1,8 @@
 package com.au.easyreference.app.Utils;
 
 import android.app.Application;
+import android.content.Context;
+import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceList;
 
 import java.io.BufferedWriter;
@@ -73,5 +75,15 @@ public class HelperFunctions
 		}
 
 		return null;
+	}
+
+	public static String getReferenceListTypeString(int referenceType, Context context)
+	{
+		if(referenceType == ReferenceList.APA)
+			return context.getString(R.string.apa_reference_list);
+		else if(referenceType == ReferenceList.HARVARD)
+			return context.getString(R.string.harvard_reference_list);
+		else
+			return "";
 	}
 }

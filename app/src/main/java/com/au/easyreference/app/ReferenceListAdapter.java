@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Activities.MainActivity;
 import com.au.easyreference.app.References.ReferenceList;
+import com.au.easyreference.app.Utils.HelperFunctions;
 
 import java.util.ArrayList;
 
@@ -46,7 +47,8 @@ public class ReferenceListAdapter extends ArrayAdapter<ReferenceList>
 		else
 			holder = (OldReferenceHolder) layout.getTag();
 
-		holder.information.setText(list.get(position).title);
+		holder.title.setText(list.get(position).title);
+		holder.subtext.setText(HelperFunctions.getReferenceListTypeString(list.get(position).referenceType, getContext()));
 
 		return layout;
 	}
@@ -54,7 +56,9 @@ public class ReferenceListAdapter extends ArrayAdapter<ReferenceList>
 	public class OldReferenceHolder
 	{
 		@InjectView(R.id.reference_information)
-		public TextView information;
+		public TextView title;
+		@InjectView(R.id.reference_subtext)
+		public TextView subtext;
 
 		public OldReferenceHolder(View view)
 		{

@@ -81,7 +81,7 @@ public class MainActivity extends FragmentActivity
 			}
 		});
 
-		referenceListAdapter = new ReferenceListAdapter(this, R.layout.reference_item, ERApplication.referenceLists);
+		referenceListAdapter = new ReferenceListAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
 		referenceLists.setAdapter(referenceListAdapter);
 		referenceLists.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{

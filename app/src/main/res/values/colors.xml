@@ -11,4 +11,5 @@
     <color name="bright_light_blue">#17F3FF</color>
     <color name="bright_light_blue_grayed">#0CA5AD</color>
     <color name="shadow">#E8EDED</color>
+    <color name="subtext_colour">#ABAB</color>
 </resources>
