@@ -100,11 +100,11 @@ public class ReferenceListAdapter extends BaseAdapter
 				else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
 				{
 					if(currentReference.issue != null && currentReference.issue.length() > 0)
-						informationBuilder.append("Issue: ").append(currentReference.issue).append(" .");
+						informationBuilder.append(" Issue: ").append(currentReference.issue).append(" .");
 					if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
 						informationBuilder.append('(').append(currentReference.pageNo).append(')');
 					if(currentReference.doi != null && currentReference.doi.length() > 0)
-						informationBuilder.append("DOI: ").append(currentReference.doi);
+						informationBuilder.append(" DOI: ").append(currentReference.doi);
 				}
 			}
 			else
