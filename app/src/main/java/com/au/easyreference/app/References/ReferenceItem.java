@@ -97,11 +97,20 @@ public class ReferenceItem
 		type = result.type;
 
 		author = result.authorsString;
-		year = result.publicationDate;
+
+		if(result.publicationDate.contains("-"))
+			year = result.publicationDate.split("-")[0];
+		else if(result.publicationDate.contains("/"))
+			year = result.publicationDate.split("/")[0];
+		else
+			year = result.publicationDate;
+
 		title = result.title;
 		subtitle = "";
 		location = "";
 		publisher = result.publisher;
+		journalTitle = result.publicationName;
+		volumeNo = result.volume;
 		issue = result.issue;
 		pageNo = result.pageNo;
 		doi = result.doi;
