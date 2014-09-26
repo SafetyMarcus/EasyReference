@@ -12,7 +12,7 @@ import java.util.UUID;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE_ID;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE_LIST;
-import static com.au.easyreference.app.Utils.Constants.REFERENCE_TYPE;
+import static com.au.easyreference.app.Utils.Constants.REFERENCE_LIST_TYPE;
 
 /**
  * Created by Marcus on 1/06/2014.
@@ -39,7 +39,7 @@ public class ReferenceList
 	{
 		id = referenceObject.optString(REFERENCE_ID);
 		title = referenceObject.optString(REFERENCE);
-		referenceType = referenceObject.optInt(REFERENCE_TYPE);
+		referenceType = referenceObject.optInt(REFERENCE_LIST_TYPE);
 
 		referenceList = new ArrayList<ReferenceItem>();
 		JSONArray referenceArray = referenceObject.optJSONArray(REFERENCE_LIST);
@@ -63,7 +63,7 @@ public class ReferenceList
 		{
 			referenceObject.put(REFERENCE_ID, id);
 			referenceObject.put(REFERENCE, title);
-			referenceObject.put(REFERENCE_TYPE, referenceType);
+			referenceObject.put(REFERENCE_LIST_TYPE, referenceType);
 
 			if(referenceList != null && referenceList.size() > 0)
 			{

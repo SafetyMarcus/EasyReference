@@ -54,5 +54,10 @@
     <string name="journal">Journal</string>
     <string name="apa_reference_list">APA Reference List</string>
     <string name="harvard_reference_list">Harvard reference list</string>
+    <string name="issue_hint">enter issue</string>
+    <string name="issue">Issue</string>
+    <string name="page_no">Page No.</string>
+    <string name="page_no_hint">enter page number</string>
+    <string name="doi_hint">enter DOI</string>
 
 </resources>

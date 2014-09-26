@@ -7,8 +7,11 @@ import org.json.JSONObject;
 import java.util.UUID;
 
 import static com.au.easyreference.app.Utils.Constants.AUTHOR;
+import static com.au.easyreference.app.Utils.Constants.DOI;
+import static com.au.easyreference.app.Utils.Constants.ISSUE;
 import static com.au.easyreference.app.Utils.Constants.ITEM_TYPE;
 import static com.au.easyreference.app.Utils.Constants.LOCATION;
+import static com.au.easyreference.app.Utils.Constants.PAGE_NO;
 import static com.au.easyreference.app.Utils.Constants.PUBLISHER;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE_ITEM_ID;
 import static com.au.easyreference.app.Utils.Constants.SUBTITLE;
@@ -46,6 +49,22 @@ public class ReferenceItem
 		this.subtitle = subtitle;
 		this.location = location;
 		this.publisher = publisher;
+		pageNo = "";
+		issue = "";
+		doi = "";
+		this.type = type;
+	}
+
+	public ReferenceItem(String author, String year, String title, String subtitle, String issue, String pageNo, String doi, int type)
+	{
+		id = UUID.randomUUID().toString();
+		this.author = author;
+		this.year = year;
+		this.title = title;
+		this.subtitle = subtitle;
+		this.issue = issue;
+		this.pageNo = pageNo;
+		this.doi = doi;
 		this.type = type;
 	}
 
@@ -89,6 +108,9 @@ public class ReferenceItem
 		location = referenceObject.optString(LOCATION);
 		publisher = referenceObject.optString(publisher);
 		type = referenceObject.optInt(ITEM_TYPE);
+		issue = referenceObject.optString(ISSUE);
+		pageNo = referenceObject.optString(PAGE_NO);
+		doi = referenceObject.optString(DOI);
 	}
 
 	public JSONObject toJSON()
@@ -105,6 +127,9 @@ public class ReferenceItem
 			referenceObject.put(LOCATION, location);
 			referenceObject.put(PUBLISHER, publisher);
 			referenceObject.put(ITEM_TYPE, type);
+			referenceObject.put(ISSUE, issue);
+			referenceObject.put(PAGE_NO, pageNo);
+			referenceObject.put(DOI, doi);
 		}
 		catch(JSONException e)
 		{

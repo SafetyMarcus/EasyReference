@@ -10,6 +10,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
 import com.au.easyreference.app.R;
 
 import java.lang.ref.WeakReference;
@@ -127,6 +128,17 @@ public class ReferenceListAdapter extends BaseAdapter
 				public void onClick(View view)
 				{
 					new APABookReferenceDialogFragment().show(activity.getFragmentManager(), null);
+					showOptions = false;
+					notifyDataSetChanged();
+				}
+			});
+
+			journalButton.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View view)
+				{
+					new APAJournalReferenceDialogFragment().show(activity.getFragmentManager(), null);
 					showOptions = false;
 					notifyDataSetChanged();
 				}

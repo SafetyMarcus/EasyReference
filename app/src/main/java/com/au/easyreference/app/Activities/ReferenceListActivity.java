@@ -1,6 +1,7 @@
 package com.au.easyreference.app.Activities;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.BaseAPAReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
@@ -108,7 +111,7 @@ public class ReferenceListActivity extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 
-	public APABookReferenceDialogFragment.APAReferenceListener apaListener = new APABookReferenceDialogFragment.APAReferenceListener()
+	public BaseAPAReferenceDialogFragment.APAReferenceListener apaListener = new BaseAPAReferenceDialogFragment.APAReferenceListener()
 	{
 		@Override
 		public void onReferenceCreated(ReferenceItem newReference)
@@ -183,16 +186,23 @@ public class ReferenceListActivity extends Activity
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
-			if(adapter.getItem(position) != null && adapter.getItem(position).type != ReferenceItem.NEW)
+			ReferenceItem referenceItem = adapter.getItem(position);
+			if(referenceItem != null && referenceItem.type != ReferenceItem.NEW)
 			{
-				APABookReferenceDialogFragment dialog = new APABookReferenceDialogFragment();
+				DialogFragment dialog = null;
+				if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
+					dialog = new APABookReferenceDialogFragment();
+				else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
+					dialog = new APAJournalReferenceDialogFragment();
 
-				Bundle args = new Bundle();
+				if(dialog != null)
+				{
+					Bundle args = new Bundle();
+					args.putString(APABookReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
+					dialog.setArguments(args);
 
-				args.putString(APABookReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
-				dialog.setArguments(args);
-
-				dialog.show(getFragmentManager(), null);
+					dialog.show(getFragmentManager(), null);
+				}
 			}
 			else
 			{
