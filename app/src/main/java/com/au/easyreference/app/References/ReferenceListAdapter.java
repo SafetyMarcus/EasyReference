@@ -89,10 +89,23 @@ public class ReferenceListAdapter extends BaseAdapter
 					informationBuilder.append(currentReference.title);
 				if(currentReference.subtitle != null && currentReference.subtitle.length() > 0)
 					informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
-				if(currentReference.location != null && currentReference.location.length() > 0)
-					informationBuilder.append(currentReference.location).append(": ");
-				if(currentReference.publisher != null && currentReference.publisher.length() > 0)
-					informationBuilder.append(currentReference.publisher).append('.');
+
+				if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+				{
+					if(currentReference.location != null && currentReference.location.length() > 0)
+						informationBuilder.append(currentReference.location).append(": ");
+					if(currentReference.publisher != null && currentReference.publisher.length() > 0)
+						informationBuilder.append(currentReference.publisher).append('.');
+				}
+				else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
+				{
+					if(currentReference.issue != null && currentReference.issue.length() > 0)
+						informationBuilder.append("Issue: ").append(currentReference.issue).append(" .");
+					if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
+						informationBuilder.append('(').append(currentReference.pageNo).append(')');
+					if(currentReference.doi != null && currentReference.doi.length() > 0)
+						informationBuilder.append("DOI: ").append(currentReference.doi);
+				}
 			}
 			else
 				informationBuilder.append(holder.information.getResources().getString(R.string.add_new));
