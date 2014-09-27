@@ -3,6 +3,7 @@ package com.au.easyreference.app.Utils;
 import android.app.Application;
 import android.content.Context;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
 
 import java.io.BufferedWriter;
@@ -85,5 +86,50 @@ public class HelperFunctions
 			return context.getString(R.string.harvard_reference_list);
 		else
 			return "";
+	}
+
+	private static String getAPAReferenceString(ReferenceItem currentReference)
+	{
+		StringBuilder informationBuilder = new StringBuilder();
+		if(currentReference.author != null && currentReference.author.length() > 0)
+			informationBuilder.append(currentReference.author).append(' ');
+		if(currentReference.year != null && currentReference.year.length() > 0)
+			informationBuilder.append('(').append(currentReference.year).append("). ");
+		if(currentReference.title != null && currentReference.title.length() > 0)
+			informationBuilder.append(currentReference.title);
+		if(currentReference.subtitle != null && currentReference.subtitle.length() > 0)
+			informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
+
+		return informationBuilder.toString();
+	}
+
+	public static String getAPABookReferenceString(ReferenceItem currentReference)
+	{
+		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+
+		if(currentReference.location != null && currentReference.location.length() > 0)
+			informationBuilder.append(currentReference.location).append(": ");
+		if(currentReference.publisher != null && currentReference.publisher.length() > 0)
+			informationBuilder.append(currentReference.publisher).append('.');
+
+		return informationBuilder.toString();
+	}
+
+	public static String getAPAJournalReferenceString(ReferenceItem currentReference)
+	{
+		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+
+		if(currentReference.journalTitle != null && currentReference.journalTitle.length() > 0)
+			informationBuilder.append(' ').append(currentReference.journalTitle).append(", ");
+		if(currentReference.journalTitle != null && currentReference.journalTitle.length() > 0)
+			informationBuilder.append(currentReference.volumeNo);
+		if(currentReference.issue != null && currentReference.issue.length() > 0)
+			informationBuilder.append('(').append(currentReference.issue).append("), ");
+		if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
+			informationBuilder.append(currentReference.pageNo).append('.');
+		if(currentReference.doi != null && currentReference.doi.length() > 0)
+			informationBuilder.append(" doi:").append(currentReference.doi);
+
+		return informationBuilder.toString();
 	}
 }

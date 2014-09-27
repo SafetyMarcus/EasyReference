@@ -12,6 +12,7 @@ import butterknife.InjectView;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.Utils.HelperFunctions;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -77,44 +78,15 @@ public class ReferenceListAdapter extends BaseAdapter
 
 		if(currentReference.type != ReferenceItem.NEW || !showOptions)
 		{
-			StringBuilder informationBuilder = new StringBuilder();
-
 			if(currentReference.type != ReferenceItem.NEW)
 			{
-				if(currentReference.author != null && currentReference.author.length() > 0)
-					informationBuilder.append(currentReference.author).append(' ');
-				if(currentReference.year != null && currentReference.year.length() > 0)
-					informationBuilder.append('(').append(currentReference.year).append("). ");
-				if(currentReference.title != null && currentReference.title.length() > 0)
-					informationBuilder.append(currentReference.title);
-				if(currentReference.subtitle != null && currentReference.subtitle.length() > 0)
-					informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
-
 				if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
-				{
-					if(currentReference.location != null && currentReference.location.length() > 0)
-						informationBuilder.append(currentReference.location).append(": ");
-					if(currentReference.publisher != null && currentReference.publisher.length() > 0)
-						informationBuilder.append(currentReference.publisher).append('.');
-				}
+					holder.information.setText(HelperFunctions.getAPABookReferenceString(currentReference));
 				else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
-				{
-					if(currentReference.journalTitle != null && currentReference.journalTitle.length() > 0)
-						informationBuilder.append(' ').append(currentReference.journalTitle).append(", ");
-					if(currentReference.journalTitle != null && currentReference.journalTitle.length() > 0)
-						informationBuilder.append(currentReference.volumeNo);
-					if(currentReference.issue != null && currentReference.issue.length() > 0)
-						informationBuilder.append('(').append(currentReference.issue).append("), ");
-					if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
-						informationBuilder.append(currentReference.pageNo).append('.');
-					if(currentReference.doi != null && currentReference.doi.length() > 0)
-						informationBuilder.append(" doi:").append(currentReference.doi);
-				}
+					holder.information.setText(HelperFunctions.getAPAJournalReferenceString(currentReference));
 			}
 			else
-				informationBuilder.append(holder.information.getResources().getString(R.string.add_new));
-
-			holder.information.setText(informationBuilder.toString());
+				holder.information.setText(holder.information.getResources().getString(R.string.add_new));
 		}
 		else
 		{
