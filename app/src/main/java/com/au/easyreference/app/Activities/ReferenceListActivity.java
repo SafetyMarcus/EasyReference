@@ -57,7 +57,8 @@ public class ReferenceListActivity extends Activity
 		setContentView(R.layout.reference_list_dialog_fragment);
 		ButterKnife.inject(this);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		if(getActionBar() != null)
+			getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
 		if(intent != null)

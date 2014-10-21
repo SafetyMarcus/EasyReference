@@ -2,23 +2,23 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-5795065dd07ce3724f68901b96916d5017c7347d.jar"
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-ae1b26d676d501a191d61dd656bcb9d6626294fb.jar"
+        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6"/>
     <item
-        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-ae7a2e64c4bd3a97710c95688973940a7f10ff9e.jar"
+        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+        sha1="95fd37732ec852e99f07eeb516a3650172f1d136"/>
     <item
-        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-bc1f847394e0bb35df6fbf04ed150be75fa5b73a.jar"
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-03120e9fd4d4a34ace0d02a8822a7eadacf0af04.jar"
+        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/libs/internal_impl-21.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0"/>
     <item
         dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/http-request-5.6-3512226fdbe646065e69da4398f02fe220eb17e8.jar"
         jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.github.kevinsawicki/http-request/5.6/168305b7a983142b6311a005f0ad96d3b34d92d/http-request-5.6.jar"
@@ -32,16 +32,16 @@
         revision="20.0.0"
         sha1="4d72fb811c7b3c0e7f412112020d4430f044e510"/>
     <item
-        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-1e7fb770a87ff4967379e827f1e56e671056aa32.jar"
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
         dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/butterknife-4.0.1-d216a209e160fe095364a525da86eb2d94ad3a00.jar"
         jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/4.0.1/f43b36925363701633d01adb8e54df7150397a78/butterknife-4.0.1.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="f43b36925363701633d01adb8e54df7150397a78"/>
+    <item
+        dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-ee576f91b45a6538d4156fc6e674b6f65034f74e.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e"/>
 
 </pre-dex-items>

@@ -2,6 +2,8 @@ package com.au.easyreference.app.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
@@ -52,6 +54,8 @@ public class MainActivity extends FragmentActivity
 		activity = this;
 
 		ButterKnife.inject(this);
+
+		plusButton.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
 		((ERApplication) getApplication()).retrieveReferencesService();
 
