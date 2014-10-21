@@ -135,11 +135,7 @@ public class MainActivity extends FragmentActivity
 			}
 		});
 
-		if(ERApplication.referenceLists.size() == 0)
-		{
-			referenceLists.setVisibility(View.GONE);
-			emptyView.setVisibility(View.VISIBLE);
-		}
+		referenceLists.setEmptyView(emptyView);
 	}
 
 	private void animateSheetIn(boolean animateShadow)

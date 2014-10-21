@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Events.ResultSelectedEvent;
@@ -40,8 +39,6 @@ public class ReferenceListActivity extends Activity
 	protected ListView referencesListView;
 	@InjectView(R.id.new_list_title)
 	protected EditText title;
-	@InjectView(R.id.title_label)
-	protected TextView titleLabel;
 
 	public ArrayList<ReferenceItem> referenceItems;
 	public ReferenceListAdapter adapter;
@@ -73,16 +70,6 @@ public class ReferenceListActivity extends Activity
 				referenceItems = referenceList.referenceList;
 				title.setText(referenceList.title);
 			}
-
-			if(referenceList == null)
-			{
-				if(type == ReferenceList.APA)
-					titleLabel.setText(getString(R.string.new_apa_list));
-				else if(type == ReferenceList.HARVARD)
-					titleLabel.setText(getString(R.string.new_harvard_list));
-			}
-			else
-				titleLabel.setText(referenceList.title);
 		}
 
 		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));

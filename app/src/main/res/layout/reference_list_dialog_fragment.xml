@@ -9,20 +9,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:background="@color/easy_reference_red">
-
-        <TextView
-            android:id="@+id/title_label"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:gravity="bottom"
-            android:paddingBottom="8dp"
-            android:textSize="12sp"
-            android:textColor="@color/bright_light_blue"
-            android:text="@string/title"/>
 
         <EditText
             android:id="@+id/new_list_title"
