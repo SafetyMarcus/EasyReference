@@ -72,7 +72,8 @@ public class ReferenceListActivity extends Activity
 			}
 		}
 
-		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
+		if(savedInstanceState == null)
+			referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
 
 		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceItems, getLayoutInflater());
 		referencesListView.setAdapter(adapter);
