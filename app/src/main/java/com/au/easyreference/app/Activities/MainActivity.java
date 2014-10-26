@@ -57,7 +57,8 @@ public class MainActivity extends FragmentActivity
 
 		plusButton.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
-		((ERApplication) getApplication()).retrieveReferencesService();
+		if(savedInstanceState == null)
+			((ERApplication) getApplication()).retrieveReferencesService();
 
 		ArrayList<String> referenceTypes = new ArrayList<String>(2);
 		referenceTypes.add("APA Reference List");

@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by Marcus on 13/07/2014.
+ * @author Marcus Hooper
  */
 public class ERApplication extends Application
 {
