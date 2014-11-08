@@ -2,13 +2,13 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '20.0.0'
+    buildToolsVersion '21.1.1'
 
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "0.2"
     }
     buildTypes {
         debug {
@@ -16,7 +16,7 @@ android {
         }
         release {
             runProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-project.txt'), 'proguard-rules.txt'
         }
     }
 }
