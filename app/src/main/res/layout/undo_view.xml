@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="36dp"
+              android:background="@color/light_gray">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:text="List Deleted"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/undo_button"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:text="Undo"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>
+
+</LinearLayout>

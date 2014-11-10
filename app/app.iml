@@ -86,6 +86,7 @@
     <orderEntry type="library" exported="" name="support-v4-21.0.0" level="project" />
     <orderEntry type="library" exported="" name="droidText.0.5.5" level="project" />
     <orderEntry type="library" exported="" name="http-request-5.6" level="project" />
+    <orderEntry type="library" exported="" name="nineoldandroids-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="butterknife-4.0.1" level="project" />
     <orderEntry type="library" exported="" name="listviewanimations_lib-manipulation_3.1.0" level="project" />
     <orderEntry type="library" exported="" name="listviewanimations_lib-core-slh_3.1.0" level="project" />

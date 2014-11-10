@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -23,7 +25,11 @@ import com.au.easyreference.app.R;
 import com.au.easyreference.app.ReferenceListAdapter;
 import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.Utils.ERApplication;
+import com.au.easyreference.app.Utils.HelperFunctions;
 import com.au.easyreference.app.Utils.PDFGenerator;
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +38,7 @@ import java.util.ArrayList;
 public class MainActivity extends FragmentActivity
 {
 	@InjectView(R.id.old_references_list)
-	protected ListView referenceLists;
+	protected DynamicListView referenceLists;
 	@InjectView(R.id.references_types_list)
 	protected ListView referenceTypesList;
 	@InjectView(R.id.empty_references)
@@ -47,6 +53,7 @@ public class MainActivity extends FragmentActivity
 	private Activity activity;
 
 	private ReferenceListAdapter referenceListAdapter;
+	private SimpleSwipeUndoAdapter swipeUndoAdapter;
 	private ArrayAdapter<String> referenceTypeAdapter;
 
 	@Override
@@ -90,7 +97,23 @@ public class MainActivity extends FragmentActivity
 		});
 
 		referenceListAdapter = new ReferenceListAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
-		referenceLists.setAdapter(referenceListAdapter);
+		swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
+		{
+			@Override
+			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] reverseSortedPositions)
+			{
+				for(int position : reverseSortedPositions)
+				{
+					HelperFunctions.getReferenceListForId(ERApplication.referenceLists.get(position).id);
+					ERApplication.referenceLists.remove(position);
+					referenceListAdapter.notifyDataSetChanged();
+				}
+			}
+		});
+
+		swipeUndoAdapter.setAbsListView(referenceLists);
+		referenceLists.setAdapter(swipeUndoAdapter);
+		referenceLists.enableSimpleSwipeUndo();
 		referenceLists.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
