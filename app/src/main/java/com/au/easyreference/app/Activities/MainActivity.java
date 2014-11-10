@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
@@ -22,7 +23,9 @@ import com.au.easyreference.app.R;
 import com.au.easyreference.app.ReferenceListAdapter;
 import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.Utils.ERApplication;
+import com.au.easyreference.app.Utils.PDFGenerator;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -137,6 +140,30 @@ public class MainActivity extends FragmentActivity
 		});
 
 		referenceLists.setEmptyView(emptyView);
+	}
+
+	private void sendDF(ReferenceList referenceList)
+	{
+		PDFGenerator pdfGenerator = new PDFGenerator();
+		try
+		{
+			File pdf = new File(pdfGenerator.generate(referenceList));
+			pdf.mkdirs();
+
+			Uri uri = Uri.fromFile(pdf);
+
+			Intent intent;
+
+			intent = new Intent(Intent.ACTION_SEND);
+			intent.putExtra(Intent.EXTRA_STREAM, uri);
+
+			intent.setType("message/rfc822");
+			startActivity(Intent.createChooser(intent, "Email"));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void animateSheetIn(boolean animateShadow)
