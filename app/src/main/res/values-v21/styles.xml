@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
-    </style>
-
-    <style name="AppTheme.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/action_bar</item>
-        <item name="android:backgroundStacked">@drawable/action_bar</item>
-        <item name="android:backgroundSplit">@drawable/action_bar</item>
-    </style>
 </resources>
