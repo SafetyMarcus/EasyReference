@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity
 			{
 				for(int position : reverseSortedPositions)
 				{
-					HelperFunctions.getReferenceListForId(ERApplication.referenceLists.get(position).id);
+					new File(HelperFunctions.getReferenceListPath(ERApplication.referenceLists.get(position).id, getApplication())).delete();
 					ERApplication.referenceLists.remove(position);
 					referenceListAdapter.notifyDataSetChanged();
 				}

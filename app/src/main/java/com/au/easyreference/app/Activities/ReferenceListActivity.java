@@ -64,6 +64,15 @@ public class ReferenceListActivity extends ActionBarActivity
 		setSupportActionBar(toolbar);
 		if(is21Plus)
 			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
+		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
+		toolbar.setNavigationOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				onBackPressed();
+			}
+		});
 
 		Intent intent = getIntent();
 		if(intent != null)
