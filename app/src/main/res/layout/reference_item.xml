@@ -24,7 +24,7 @@
         android:text="@string/book"
         android:layout_margin="8dp"
         android:visibility="gone"
-        android:background="@drawable/dropshadow"/>
+        android:elevation="2dp"/>
 
     <Button
         android:id="@+id/journal_button"
@@ -36,6 +36,6 @@
         android:text="@string/journal"
         android:layout_margin="8dp"
         android:visibility="gone"
-        android:background="@drawable/dropshadow"/>
+        android:elevation="2dp"/>
 
 </LinearLayout>

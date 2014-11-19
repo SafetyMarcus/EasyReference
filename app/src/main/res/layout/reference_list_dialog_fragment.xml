@@ -8,6 +8,8 @@
               android:focusable="true"
               android:focusableInTouchMode="true">
 
+    <include layout="@layout/toolbar"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

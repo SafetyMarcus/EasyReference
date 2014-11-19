@@ -132,6 +132,8 @@ public class MainActivity extends ActionBarActivity
 			@Override
 			public void onClick(View view)
 			{
+				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
+				startActivity(referenceIntent);
 			}
 		});
 

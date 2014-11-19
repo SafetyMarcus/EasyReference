@@ -1,9 +1,11 @@
 package com.au.easyreference.app.Activities;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,11 +32,13 @@ import java.util.ArrayList;
 /**
  * @author Marcus Hooper
  */
-public class ReferenceListActivity extends Activity
+public class ReferenceListActivity extends ActionBarActivity
 {
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
 
+	@InjectView(R.id.toolbar)
+	protected Toolbar toolbar;
 	@InjectView(R.id.references_list_view)
 	protected ListView referencesListView;
 	@InjectView(R.id.new_list_title)
@@ -48,14 +52,18 @@ public class ReferenceListActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+
 		super.onCreate(savedInstanceState);
 		referenceItems = new ArrayList<ReferenceItem>();
 
 		setContentView(R.layout.reference_list_dialog_fragment);
 		ButterKnife.inject(this);
 
-		if(getActionBar() != null)
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
+		setSupportActionBar(toolbar);
+		if(is21Plus)
+			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
 
 		Intent intent = getIntent();
 		if(intent != null)
