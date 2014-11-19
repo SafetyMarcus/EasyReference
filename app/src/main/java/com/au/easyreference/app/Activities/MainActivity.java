@@ -5,22 +5,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.util.TypedValue;
-import android.view.MotionEvent;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Animations.BottomSheetAnimation;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.ReferenceListAdapter;
 import com.au.easyreference.app.References.ReferenceList;
@@ -35,20 +32,16 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class MainActivity extends FragmentActivity
+public class MainActivity extends ActionBarActivity
 {
+	@InjectView(R.id.toolbar)
+	protected Toolbar toolbar;
 	@InjectView(R.id.old_references_list)
 	protected DynamicListView referenceLists;
-	@InjectView(R.id.references_types_list)
-	protected ListView referenceTypesList;
 	@InjectView(R.id.empty_references)
 	protected TextView emptyView;
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
-	@InjectView(R.id.references_type_sheet)
-	protected LinearLayout sheet;
-	@InjectView(R.id.shadow)
-	protected ImageView shadow;
 
 	private Activity activity;
 
@@ -59,11 +52,18 @@ public class MainActivity extends FragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+
 		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
 		activity = this;
 
 		ButterKnife.inject(this);
+
+		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
+		setSupportActionBar(toolbar);
+		if(is21Plus)
+			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
 
 		plusButton.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
@@ -74,6 +74,7 @@ public class MainActivity extends FragmentActivity
 		referenceTypes.add("APA Reference List");
 		referenceTypes.add("Harvard Reference List");
 		referenceTypeAdapter = new ArrayAdapter<String>(this, R.layout.list_item, referenceTypes);
+		/*
 		referenceTypesList.setAdapter(referenceTypeAdapter);
 		referenceTypesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
@@ -95,6 +96,7 @@ public class MainActivity extends FragmentActivity
 				startActivity(referenceIntent);
 			}
 		});
+		*/
 
 		referenceListAdapter = new ReferenceListAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
 		swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
@@ -130,38 +132,10 @@ public class MainActivity extends FragmentActivity
 			@Override
 			public void onClick(View view)
 			{
-				if(plusButton.getRotation() == 0)
-					animateSheetIn(true);
-				else
-					animateSheetOut();
 			}
 		});
 
-		sheet.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				sheet.setTranslationY(sheet.getHeight());
-				sheet.setVisibility(View.VISIBLE);
-			}
-		});
-
-		shadow.setOnTouchListener(new View.OnTouchListener()
-		{
-			@Override
-			public boolean onTouch(View view, MotionEvent motionEvent)
-			{
-				if(plusButton.getRotation() != 0)
-				{
-					animateSheetOut();
-					return true;
-				}
-
-				return false;
-			}
-		});
-
+		plusButton.getDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 		referenceLists.setEmptyView(emptyView);
 	}
 
@@ -187,25 +161,6 @@ public class MainActivity extends FragmentActivity
 		{
 			e.printStackTrace();
 		}
-	}
-
-	private void animateSheetIn(boolean animateShadow)
-	{
-		float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 52, getResources().getDisplayMetrics());
-
-		BottomSheetAnimation.animateSheetUp(sheet);
-		BottomSheetAnimation.animateButtonUp(plusButton, sheet.getHeight() - dp - (dp / 2));
-
-		if(animateShadow)
-			BottomSheetAnimation.animateShadowIn(shadow);
-	}
-
-	private void animateSheetOut()
-	{
-		referenceLists.smoothScrollToPosition(0);
-		BottomSheetAnimation.animateSheetDown(sheet);
-		BottomSheetAnimation.animateButtonDown(plusButton);
-		BottomSheetAnimation.animateShadowOut(shadow);
 	}
 
 	@Override

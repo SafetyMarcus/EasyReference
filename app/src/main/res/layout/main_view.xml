@@ -5,6 +5,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <include layout="@layout/toolbar"/>
+
     <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
         android:id="@+id/old_references_list"
         android:layout_width="match_parent"
@@ -21,66 +23,13 @@
         android:text="@string/empty_references_list"/>
 
     <ImageView
-        android:id="@+id/shadow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#2000"
-        android:orientation="vertical"
-        android:alpha="0"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/references_type_sheet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            android:background="@android:color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:paddingLeft="8dp"
-                    android:text="@string/choose_a_style"/>
-
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/easy_reference_red"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-            <ListView
-                android:id="@+id/references_types_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"/>
-
-        </LinearLayout>
-    </RelativeLayout>
-
-    <ImageView
         android:id="@+id/plus_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/red_circle"
+        android:elevation="8dp"
         android:layout_margin="16dp"
         android:src="@drawable/icon_plus"/>
 
