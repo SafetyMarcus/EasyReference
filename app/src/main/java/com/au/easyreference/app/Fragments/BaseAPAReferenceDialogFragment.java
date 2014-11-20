@@ -56,9 +56,7 @@ public class BaseAPAReferenceDialogFragment extends DialogFragment
 		Bundle args = getArguments();
 
 		if(args != null)
-		{
 			setUpView(args.getString(KEY_ID));
-		}
 
 		return null;
 	}
