@@ -86,8 +86,9 @@ public class ReferenceListActivity extends ActionBarActivity
 			}
 			else
 			{
-				referenceList = new ReferenceList("New Reference List", type, new ArrayList<ReferenceItem>());
+				referenceList = new ReferenceList("", type, new ArrayList<ReferenceItem>());
 				referenceList.saveToFile(getApplication());
+				ERApplication.referenceLists.add(referenceList);
 			}
 
 			title.setText(referenceList.title);
@@ -175,6 +176,7 @@ public class ReferenceListActivity extends ActionBarActivity
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
 			ReferenceItem referenceItem = adapter.getItem(position);
+
 			if(referenceItem != null && referenceItem.type != ReferenceItem.NEW)
 			{
 				Fragment dialog = null;
@@ -187,7 +189,7 @@ public class ReferenceListActivity extends ActionBarActivity
 				{
 					Bundle args = new Bundle();
 					args.putString(APABookReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
-					args.putString(APABookReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
+					args.putString(APABookReferenceDialogFragment.KEY_ID, referenceItem.id);
 					dialog.setArguments(args);
 
 					DialogActivity.showDialog(getActivity(), dialog, REQUEST_REFERENCE_ITEM);

@@ -26,7 +26,7 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_book_reference_layout, null);
+		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_book_reference_layout, container, false);
 		ButterKnife.inject(this, layout);
 
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -34,27 +34,25 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 
 		setHasOptionsMenu(true);
 
+		if(currentReference == null)
+		{
+			currentReference = new ReferenceItem(ReferenceItem.BOOK_REFERENCE);
+			referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
+			referenceList.referenceList.add(currentReference);
+			referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
+		}
+
 		save.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
 			{
-				if(currentReference == null)
-				{
-					ReferenceItem newItem = new ReferenceItem(author.getText().toString(), year.getText().toString(),
-							title.getText().toString(), subtitle.getText().toString(), location.getText().toString(),
-							publisher.getText().toString(), ReferenceItem.BOOK_REFERENCE);
-					referenceList.referenceList.add(newItem);
-				}
-				else
-				{
-					currentReference.author = author.getText().toString();
-					currentReference.year = year.getText().toString();
-					currentReference.title = title.getText().toString();
-					currentReference.subtitle = subtitle.getText().toString();
-					currentReference.location = location.getText().toString();
-					currentReference.publisher = publisher.getText().toString();
-				}
+				currentReference.author = author.getText().toString();
+				currentReference.year = year.getText().toString();
+				currentReference.title = title.getText().toString();
+				currentReference.subtitle = subtitle.getText().toString();
+				currentReference.location = location.getText().toString();
+				currentReference.publisher = publisher.getText().toString();
 
 				getActivity().onBackPressed();
 			}
@@ -73,7 +71,6 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 		super.setUpView(id);
 		for(ReferenceItem reference : referenceList.referenceList)
 		{
-			currentReference = reference;
 			if(reference.id.equalsIgnoreCase(id))
 			{
 				if(reference.location != null && reference.location.length() > 0)

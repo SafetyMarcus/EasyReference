@@ -169,7 +169,6 @@ public class MainActivity extends ActionBarActivity
 	protected void onResume()
 	{
 		super.onResume();
-		((ERApplication) getApplication()).retrieveReferencesService();
 		referenceListAdapter.notifyDataSetChanged();
 	}
 }

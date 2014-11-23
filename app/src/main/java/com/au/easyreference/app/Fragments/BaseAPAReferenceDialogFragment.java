@@ -84,9 +84,10 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 	{
 		for(ReferenceItem reference : referenceList.referenceList)
 		{
-			currentReference = reference;
 			if(reference.id.equalsIgnoreCase(id))
 			{
+				currentReference = reference;
+
 				if(reference.author != null && reference.author.length() > 0)
 					author.setText(reference.author);
 				if(reference.year != null && reference.year.length() > 0)

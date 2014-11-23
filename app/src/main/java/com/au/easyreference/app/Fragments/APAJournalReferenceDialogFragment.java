@@ -32,7 +32,7 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_journal_reference_layout, null);
+		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_journal_reference_layout, container, false);
 		ButterKnife.inject(this, layout);
 
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -40,28 +40,28 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 
 		setHasOptionsMenu(true);
 
+		if(currentReference == null)
+		{
+			currentReference = new ReferenceItem(ReferenceItem.JOURNAL_REFERENCE);
+			referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
+			referenceList.referenceList.add(currentReference);
+			referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
+		}
+
 		save.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
 			{
-				if(currentReference == null)
-				{
-					ReferenceItem newItem = new ReferenceItem(author.getText().toString(), year.getText().toString(),
-							title.getText().toString(), subtitle.getText().toString(), journalTitle.getText().toString(),
-							volumeNumber.getText().toString(), issue.getText().toString(), pageNo.getText().toString(),
-							doi.getText().toString(), ReferenceItem.JOURNAL_REFERENCE);
-				}
-				else
-				{
-					currentReference.author = author.getText().toString();
-					currentReference.year = year.getText().toString();
-					currentReference.title = title.getText().toString();
-					currentReference.subtitle = subtitle.getText().toString();
-					currentReference.issue = issue.getText().toString();
-					currentReference.pageNo = pageNo.getText().toString();
-					currentReference.doi = doi.getText().toString();
-				}
+				currentReference.author = author.getText().toString();
+				currentReference.year = year.getText().toString();
+				currentReference.title = title.getText().toString();
+				currentReference.subtitle = subtitle.getText().toString();
+				currentReference.issue = issue.getText().toString();
+				currentReference.pageNo = pageNo.getText().toString();
+				currentReference.doi = doi.getText().toString();
+				currentReference.journalTitle = journalTitle.getText().toString();
+				currentReference.volumeNo = volumeNumber.getText().toString();
 
 				getActivity().onBackPressed();
 			}
@@ -80,7 +80,6 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 		super.setUpView(id);
 		for(ReferenceItem reference : referenceList.referenceList)
 		{
-			currentReference = reference;
 			if(reference.id.equalsIgnoreCase(id))
 			{
 				if(reference.issue != null && reference.issue.length() > 0)

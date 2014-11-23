@@ -44,51 +44,22 @@ public class ReferenceItem
 
 	public int type;
 
-	public ReferenceItem(String author, String year, String title, String subtitle, String location, String publisher, int type)
-	{
-		id = UUID.randomUUID().toString();
-		this.author = author;
-		this.year = year;
-		this.title = title;
-		this.subtitle = subtitle;
-		this.location = location;
-		this.publisher = publisher;
-		journalTitle = "";
-		volumeNo = "";
-		issue = "";
-		pageNo = "";
-		doi = "";
-		this.type = type;
-	}
-
-	public ReferenceItem(String author, String year, String title, String subtitle, String journalTitle,
-						 String volumeNo, String issue, String pageNo, String doi, int type)
-	{
-		id = UUID.randomUUID().toString();
-		this.author = author;
-		this.year = year;
-		this.title = title;
-		this.subtitle = subtitle;
-		this.journalTitle = journalTitle;
-		this.volumeNo = volumeNo;
-		this.issue = issue;
-		this.pageNo = pageNo;
-		this.doi = doi;
-		this.type = type;
-	}
-
 	public ReferenceItem(int type)
 	{
-		if(type == NEW)
-		{
-			this.author = "";
-			this.year = "";
-			this.title = "";
-			this.subtitle = "";
-			this.location = "";
-			this.publisher = "";
-			this.type = type;
-		}
+		id = UUID.randomUUID().toString();
+		this.author = "";
+		this.year = "";
+		this.title = "";
+		this.subtitle = "";
+		this.journalTitle = "";
+		this.volumeNo = "";
+		this.issue = "";
+		this.pageNo = "";
+		this.doi = "";
+		this.location = "";
+		this.publisher = "";
+
+		this.type = type;
 	}
 
 	public ReferenceItem(Result result)
