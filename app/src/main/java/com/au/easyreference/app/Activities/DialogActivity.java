@@ -2,8 +2,12 @@ package com.au.easyreference.app.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import com.au.easyreference.app.R;
 
 /**
  * @author Marcus Hooper
@@ -11,6 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 public class DialogActivity extends ActionBarActivity
 {
 	private static Fragment fragment;
+	public Toolbar toolbar;
 
 	private static void show(Activity context, Fragment fragmentToLoad, int requestCode)
 	{
@@ -19,13 +24,36 @@ public class DialogActivity extends ActionBarActivity
 		context.startActivityForResult(intent, requestCode);
 	}
 
-	private static void showDialog(Activity context, Fragment fragmentToLoad)
+	public static void showDialog(Activity context, Fragment fragmentToLoad)
 	{
-		show(context, fragmentToLoad, 999999);
+		show(context, fragmentToLoad, 9999);
 	}
 
-	private static void showDialog(Activity context, Fragment fragmentToLoad, int requestCode)
+	public static void showDialog(Activity context, Fragment fragmentToLoad, int requestCode)
 	{
 		show(context, fragmentToLoad, requestCode);
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.dialog_activity);
+
+		toolbar = (Toolbar)findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
+		if(is21Plus)
+			getWindow().setStatusBarColor(getResources().getColor(R.color.easy_reference_red));
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+		if(getIntent() != null && getIntent().getExtras() != null)
+			fragment.setArguments(getIntent().getExtras());
+
+		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, fragment).commit();
 	}
 }

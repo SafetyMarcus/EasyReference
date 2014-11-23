@@ -1,24 +1,26 @@
 package com.au.easyreference.app.Fragments;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
+import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.Utils.ERApplication;
 
 /**
  * @author Marcus Hooper
  */
-public class BaseAPAReferenceDialogFragment extends DialogFragment
+public class BaseAPAReferenceDialogFragment extends Fragment
 {
+	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
 	@InjectView(R.id.author)
@@ -35,35 +37,52 @@ public class BaseAPAReferenceDialogFragment extends DialogFragment
 	@InjectView(R.id.save)
 	protected Button save;
 
-	public APAReferenceListener listener;
+	public ReferenceList referenceList;
 	public ReferenceItem currentReference;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
 		cancel.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
 			{
-				dismiss();
+				getActivity().onBackPressed();
 			}
 		});
 
 		Bundle args = getArguments();
 
 		if(args != null)
-			setUpView(args.getString(KEY_ID));
+		{
+			for(ReferenceList list : ERApplication.referenceLists)
+				if(list.id.equalsIgnoreCase(args.getString(KEY_LIST_ID)))
+					referenceList = list;
+
+			if(args.containsKey(KEY_ID))
+				setUpView(args.getString(KEY_ID));
+		}
 
 		return null;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case android.R.id.home:
+				getActivity().onBackPressed();
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
 	public void setUpView(String id)
 	{
-		for(ReferenceItem reference : ERApplication.allReferences)
+		for(ReferenceItem reference : referenceList.referenceList)
 		{
 			currentReference = reference;
 			if(reference.id.equalsIgnoreCase(id))
@@ -76,13 +95,9 @@ public class BaseAPAReferenceDialogFragment extends DialogFragment
 					title.setText(reference.title);
 				if(reference.subtitle != null && reference.subtitle.length() > 0)
 					subtitle.setText(reference.subtitle);
-			}
-			break;
-		}
-	}
 
-	public interface APAReferenceListener
-	{
-		public void onReferenceCreated(ReferenceItem newReference);
+				break;
+			}
+		}
 	}
 }

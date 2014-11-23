@@ -1,6 +1,8 @@
 package com.au.easyreference.app.References;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Activities.DialogActivity;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.BaseAPAReferenceDialogFragment;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.Utils.HelperFunctions;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 /**
  * @author Marcus Hooper
@@ -25,14 +28,14 @@ public class ReferenceListAdapter extends BaseAdapter
 	private LayoutInflater inflater;
 	private int layoutResourceId;
 	public boolean showOptions = false;
-	public ArrayList<ReferenceItem> references;
+	public ReferenceList referenceList;
 	private WeakReference<Activity> activity;
 
-	public ReferenceListAdapter(Activity context, int resource, ArrayList<ReferenceItem> references, LayoutInflater inflater)
+	public ReferenceListAdapter(Activity context, int resource, ReferenceList referenceList, LayoutInflater inflater)
 	{
 		super();
 		this.inflater = inflater;
-		this.references = references;
+		this.referenceList = referenceList;
 		layoutResourceId = resource;
 		activity = new WeakReference<Activity>(context);
 	}
@@ -40,13 +43,13 @@ public class ReferenceListAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return references.size();
+		return referenceList.referenceList.size();
 	}
 
 	@Override
 	public ReferenceItem getItem(int i)
 	{
-		return references.get(i);
+		return referenceList.referenceList.get(i);
 	}
 
 	@Override
@@ -116,7 +119,12 @@ public class ReferenceListAdapter extends BaseAdapter
 				@Override
 				public void onClick(View view)
 				{
-					new APABookReferenceDialogFragment().show(activity.getFragmentManager(), null);
+					Fragment fragment = new APABookReferenceDialogFragment();
+					Bundle args = new Bundle();
+					args.putString(BaseAPAReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
+					fragment.setArguments(args);
+
+					DialogActivity.showDialog(activity, fragment);
 					showOptions = false;
 					notifyDataSetChanged();
 				}
@@ -127,7 +135,12 @@ public class ReferenceListAdapter extends BaseAdapter
 				@Override
 				public void onClick(View view)
 				{
-					new APAJournalReferenceDialogFragment().show(activity.getFragmentManager(), null);
+					Fragment fragment = new APAJournalReferenceDialogFragment();
+					Bundle args = new Bundle();
+					args.putString(BaseAPAReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
+					fragment.setArguments(args);
+
+					DialogActivity.showDialog(activity, fragment);
 					showOptions = false;
 					notifyDataSetChanged();
 				}

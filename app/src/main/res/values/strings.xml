@@ -63,5 +63,7 @@
     <string name="journal_title_hint">enter title of journal</string>
     <string name="volume_number">Volume Number</string>
     <string name="volume_number_hint">enter volume number</string>
+    <string name="apa_journal_reference">APA Journal Reference</string>
+    <string name="apa_book_reference">APA Book Reference</string>
 
 </resources>

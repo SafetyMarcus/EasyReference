@@ -2,7 +2,6 @@ package com.au.easyreference.app.Utils;
 
 import android.app.Application;
 import android.util.Log;
-import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
 import com.squareup.otto.Bus;
 import org.json.JSONException;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 public class ERApplication extends Application
 {
 	public static ArrayList<ReferenceList> referenceLists;
-	public static ArrayList<ReferenceItem> allReferences;
 	public static final Bus BUS = new Bus();
 
 	@Override
@@ -31,11 +29,11 @@ public class ERApplication extends Application
 	{
 		super.onCreate();
 		referenceLists = new ArrayList<ReferenceList>();
-		allReferences = new ArrayList<ReferenceItem>();
 	}
 
 	public void retrieveReferencesService()
 	{
+		referenceLists.clear();
 		File referencesFolder = new File(HelperFunctions.getReferenceListBasePath(this));
 
 		if(!referencesFolder.exists())

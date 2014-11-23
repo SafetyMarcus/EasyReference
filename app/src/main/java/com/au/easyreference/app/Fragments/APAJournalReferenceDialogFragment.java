@@ -8,18 +8,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.ReferenceListActivity;
+import com.au.easyreference.app.Activities.DialogActivity;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
-import com.au.easyreference.app.Utils.ERApplication;
 
 /**
  * @author Marcus Hooper
  */
 public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFragment
 {
-	public static final String KEY_ID = "key_id";
-
 	@InjectView(R.id.journal_title)
 	public EditText journalTitle;
 	@InjectView(R.id.volume_number)
@@ -39,6 +36,9 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 		ButterKnife.inject(this, layout);
 
 		super.onCreateView(inflater, container, savedInstanceState);
+		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.apa_journal_reference));
+
+		setHasOptionsMenu(true);
 
 		save.setOnClickListener(new View.OnClickListener()
 		{
@@ -51,9 +51,6 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 							title.getText().toString(), subtitle.getText().toString(), journalTitle.getText().toString(),
 							volumeNumber.getText().toString(), issue.getText().toString(), pageNo.getText().toString(),
 							doi.getText().toString(), ReferenceItem.JOURNAL_REFERENCE);
-
-					if(listener != null)
-						listener.onReferenceCreated(newItem);
 				}
 				else
 				{
@@ -64,21 +61,16 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 					currentReference.issue = issue.getText().toString();
 					currentReference.pageNo = pageNo.getText().toString();
 					currentReference.doi = doi.getText().toString();
-
-					if(listener != null)
-						listener.onReferenceCreated(currentReference);
 				}
 
-				dismiss();
+				getActivity().onBackPressed();
 			}
 		});
 
 		Bundle args = getArguments();
 
-		if(args != null)
+		if(args != null && args.containsKey(KEY_ID))
 			setUpView(args.getString(KEY_ID));
-
-		listener = ((ReferenceListActivity) getActivity()).apaListener;
 
 		return layout;
 	}
@@ -86,7 +78,7 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 	public void setUpView(String id)
 	{
 		super.setUpView(id);
-		for(ReferenceItem reference : ERApplication.allReferences)
+		for(ReferenceItem reference : referenceList.referenceList)
 		{
 			currentReference = reference;
 			if(reference.id.equalsIgnoreCase(id))
@@ -97,8 +89,9 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 					pageNo.setText(reference.pageNo);
 				if(reference.doi != null && reference.doi.length() > 0)
 					doi.setText(reference.doi);
+
+				break;
 			}
-			break;
 		}
 	}
 }

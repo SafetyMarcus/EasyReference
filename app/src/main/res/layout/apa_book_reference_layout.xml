@@ -4,16 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:minWidth="1000dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:textSize="32sp"
-        android:text="@string/add_new"
-        android:layout_margin="8dp"
-        android:textColor="@color/bright_blue"/>
+              android:background="@android:color/white">
 
     <ScrollView
         android:layout_width="match_parent"

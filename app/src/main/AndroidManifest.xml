@@ -24,6 +24,11 @@
             android:name=".Activities.ReferenceListActivity"
             android:label="@string/reference_list">
         </activity>
+
+        <activity
+            android:name=".Activities.DialogActivity"
+            android:label="">
+        </activity>
     </application>
 
 </manifest>

@@ -1,9 +1,10 @@
 package com.au.easyreference.app.Activities;
 
-import android.app.DialogFragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,7 +18,6 @@ import butterknife.InjectView;
 import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
-import com.au.easyreference.app.Fragments.BaseAPAReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
@@ -34,6 +34,8 @@ import java.util.ArrayList;
  */
 public class ReferenceListActivity extends ActionBarActivity
 {
+	public static final int REQUEST_REFERENCE_ITEM = 1111;
+
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
 
@@ -44,7 +46,6 @@ public class ReferenceListActivity extends ActionBarActivity
 	@InjectView(R.id.new_list_title)
 	protected EditText title;
 
-	public ArrayList<ReferenceItem> referenceItems;
 	public ReferenceListAdapter adapter;
 	public int type;
 	public ReferenceList referenceList;
@@ -55,8 +56,6 @@ public class ReferenceListActivity extends ActionBarActivity
 		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
 		super.onCreate(savedInstanceState);
-		referenceItems = new ArrayList<ReferenceItem>();
-
 		setContentView(R.layout.reference_list_dialog_fragment);
 		ButterKnife.inject(this);
 
@@ -84,15 +83,20 @@ public class ReferenceListActivity extends ActionBarActivity
 			{
 				referenceList = HelperFunctions.getReferenceListForId(id);
 				type = referenceList.referenceType;
-				referenceItems = referenceList.referenceList;
-				title.setText(referenceList.title);
 			}
+			else
+			{
+				referenceList = new ReferenceList("New Reference List", type, new ArrayList<ReferenceItem>());
+				referenceList.saveToFile(getApplication());
+			}
+
+			title.setText(referenceList.title);
 		}
 
 		if(savedInstanceState == null)
-			referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
+			referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
 
-		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceItems, getLayoutInflater());
+		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceList, getLayoutInflater());
 		referencesListView.setAdapter(adapter);
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
 	}
@@ -117,52 +121,24 @@ public class ReferenceListActivity extends ActionBarActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	public BaseAPAReferenceDialogFragment.APAReferenceListener apaListener = new BaseAPAReferenceDialogFragment.APAReferenceListener()
-	{
-		@Override
-		public void onReferenceCreated(ReferenceItem newReference)
-		{
-			boolean updating = false;
-			for(ReferenceItem reference : ERApplication.allReferences)
-			{
-				if(reference.id.equalsIgnoreCase(newReference.id))
-					updating = true;
-			}
-
-			if(!updating)
-				addReferenceItem(newReference);
-			adapter.notifyDataSetChanged();
-		}
-	};
-
 	public void addReferenceItem(ReferenceItem newReference)
 	{
-		referenceItems.remove(referenceItems.size() - 1);
-		referenceItems.add(newReference);
-		referenceItems.add(new ReferenceItem(ReferenceItem.NEW));
-		ERApplication.allReferences.add(newReference);
+		referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
+		referenceList.referenceList.add(newReference);
+		referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
 		adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onBackPressed()
 	{
-		if(referenceItems.size() > 1)
-			referenceItems.remove(referenceItems.size() - 1);
+		if(referenceList.referenceList.size() > 1)
+			referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
 		else
-			referenceItems.clear();
-		if(referenceList == null)
-		{
-			referenceList = new ReferenceList(title.getText().toString(), type, referenceItems);
-			referenceList.saveToFile(referenceList, getApplication());
-			ERApplication.referenceLists.add(referenceList);
-		}
-		else
-		{
-			referenceList.title = title.getText().toString();
-			referenceList.referenceList = referenceItems;
-			referenceList.saveToFile(referenceList, getApplication());
-		}
+			referenceList.referenceList.clear();
+
+		referenceList.title = title.getText().toString();
+		referenceList.saveToFile(getApplication());
 		super.onBackPressed();
 	}
 
@@ -180,10 +156,16 @@ public class ReferenceListActivity extends ActionBarActivity
 		addReferenceItem(newReference);
 	}
 
+	private Activity getActivity()
+	{
+		return this;
+	}
+
 	@Override
 	public void onResume()
 	{
 		super.onResume();
+		adapter.notifyDataSetChanged();
 		ERApplication.BUS.register(this);
 	}
 
@@ -195,7 +177,7 @@ public class ReferenceListActivity extends ActionBarActivity
 			ReferenceItem referenceItem = adapter.getItem(position);
 			if(referenceItem != null && referenceItem.type != ReferenceItem.NEW)
 			{
-				DialogFragment dialog = null;
+				Fragment dialog = null;
 				if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
 					dialog = new APABookReferenceDialogFragment();
 				else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
@@ -204,10 +186,11 @@ public class ReferenceListActivity extends ActionBarActivity
 				if(dialog != null)
 				{
 					Bundle args = new Bundle();
+					args.putString(APABookReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
 					args.putString(APABookReferenceDialogFragment.KEY_ID, adapter.getItem(position).id);
 					dialog.setArguments(args);
 
-					dialog.show(getFragmentManager(), null);
+					DialogActivity.showDialog(getActivity(), dialog, REQUEST_REFERENCE_ITEM);
 				}
 			}
 			else

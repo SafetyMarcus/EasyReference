@@ -15,7 +15,7 @@ import static com.au.easyreference.app.Utils.Constants.REFERENCE_LIST;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE_LIST_TYPE;
 
 /**
- * Created by Marcus on 1/06/2014.
+ * @author Marcus Hooper
  */
 public class ReferenceList
 {
@@ -50,9 +50,9 @@ public class ReferenceList
 		}
 	}
 
-	public void saveToFile(ReferenceList referenceList, Application app)
+	public void saveToFile(Application app)
 	{
-		HelperFunctions.saveStringToFile(HelperFunctions.getReferenceListPath(referenceList.id, app), referenceList.toJSON().toString());
+		HelperFunctions.saveStringToFile(HelperFunctions.getReferenceListPath(id, app), toJSON().toString());
 	}
 
 	public JSONObject toJSON()
