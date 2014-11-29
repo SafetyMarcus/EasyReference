@@ -11,11 +11,7 @@ android {
         versionName "0.2"
     }
     buildTypes {
-        debug {
-            runProguard false
-        }
         release {
-            runProguard true
             proguardFiles getDefaultProguardFile('proguard-project.txt'), 'proguard-rules.txt'
         }
     }
