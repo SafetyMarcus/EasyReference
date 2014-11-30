@@ -154,10 +154,8 @@ public class ReferenceListActivity extends ActionBarActivity
 
 	public void addReferenceItem(ReferenceItem newReference)
 	{
-		Log.d("ReferenceList", "Adding item");
 		referenceList.referenceList.add(newReference);
 		adapter.notifyDataSetChanged();
-		Log.d("ReferenceList", "count " + adapter.getCount());
 	}
 
 	@Override

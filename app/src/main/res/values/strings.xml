@@ -68,5 +68,6 @@
     <string name="selecty_type">Select Type</string>
     <string name="no_title">No Title</string>
     <string name="no_reference_message">No References Added</string>
+    <string name="references">References</string>
 
 </resources>

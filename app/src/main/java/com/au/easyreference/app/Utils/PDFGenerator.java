@@ -1,16 +1,19 @@
 package com.au.easyreference.app.Utils;
 
-import android.os.Environment;
+import android.app.Application;
+import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -19,11 +22,16 @@ import java.io.FileOutputStream;
  */
 public class PDFGenerator
 {
-	public String generate(ReferenceList referenceList) throws FileNotFoundException, DocumentException
+	public String generate(ReferenceList referenceList, Application app) throws FileNotFoundException, DocumentException
 	{
 		Document referenceDocument = new Document();
-		String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-				+ "/temp/" + referenceList.id + ".pdf";
+
+		String title = referenceList.title .length() > 0 ? referenceList.title : app.getString(R.string.no_title);
+
+		String path = app.getFilesDir().getAbsolutePath() + "/temp/" + title + ".pdf";
+		File pdf = new File(path);
+		pdf.getParentFile().delete();
+		pdf.getParentFile().mkdirs();
 
 		PdfWriter writer = null;
 		FileOutputStream outputStream = new FileOutputStream(path);
@@ -42,6 +50,7 @@ public class PDFGenerator
 		referenceDocument.open();
 
 		PdfPTable referenceTable = new PdfPTable(1);
+		referenceTable.addCell(new PdfPCell(new Paragraph(app.getText(R.string.references) + "")));
 
 		for(ReferenceItem referenceItem : referenceList.referenceList)
 		{

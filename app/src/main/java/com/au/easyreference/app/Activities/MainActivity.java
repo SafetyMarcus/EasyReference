@@ -18,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.ReferenceListAdapter;
 import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity
 
 	private Activity activity;
 
-	private ReferenceListAdapter referenceListAdapter;
+	private MainAdapter referenceListAdapter;
 	private SimpleSwipeUndoAdapter swipeUndoAdapter;
 	private ArrayAdapter<String> referenceTypeAdapter;
 
@@ -96,7 +96,7 @@ public class MainActivity extends ActionBarActivity
 		});
 		*/
 
-		referenceListAdapter = new ReferenceListAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
+		referenceListAdapter = new MainAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
 		swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
 		{
 			@Override
@@ -137,30 +137,6 @@ public class MainActivity extends ActionBarActivity
 
 		plusButton.getDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 		referenceLists.setEmptyView(emptyView);
-	}
-
-	private void sendDF(ReferenceList referenceList)
-	{
-		PDFGenerator pdfGenerator = new PDFGenerator();
-		try
-		{
-			File pdf = new File(pdfGenerator.generate(referenceList));
-			pdf.mkdirs();
-
-			Uri uri = Uri.fromFile(pdf);
-
-			Intent intent;
-
-			intent = new Intent(Intent.ACTION_SEND);
-			intent.putExtra(Intent.EXTRA_STREAM, uri);
-
-			intent.setType("message/rfc822");
-			startActivity(Intent.createChooser(intent, "Email"));
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	@Override

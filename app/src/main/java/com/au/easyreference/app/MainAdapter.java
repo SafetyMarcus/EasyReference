@@ -1,41 +1,50 @@
 package com.au.easyreference.app;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.MainActivity;
 import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.Utils.HelperFunctions;
+import com.au.easyreference.app.Utils.PDFGenerator;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 
+import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
  * @author Marcus Hooper
  */
-public class ReferenceListAdapter extends ArrayAdapter<ReferenceList> implements UndoAdapter
+public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdapter
 {
 	private LayoutInflater inflater;
 	private ArrayList<ReferenceList> list;
 	private int layoutResourceId;
+	private WeakReference<Activity> activity;
 
-	public ReferenceListAdapter(Context context, int resource, ArrayList<ReferenceList> referenceLists)
+	public MainAdapter(Activity context, int resource, ArrayList<ReferenceList> referenceLists)
 	{
 		super(context, resource, referenceLists);
-		this.inflater = ((MainActivity) context).getLayoutInflater();
+		this.inflater = context.getLayoutInflater();
 		this.list = referenceLists;
 		layoutResourceId = resource;
+		activity = new WeakReference<Activity>(context);
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent)
+	public View getView(final int position, View convertView, ViewGroup parent)
 	{
 		View layout = convertView;
 		OldReferenceHolder holder;
@@ -52,8 +61,39 @@ public class ReferenceListAdapter extends ArrayAdapter<ReferenceList> implements
 
 		holder.title.setText(list.get(position).title);
 		holder.subtext.setText(HelperFunctions.getReferenceListTypeString(list.get(position).referenceType, getContext()));
+		holder.export.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+		holder.export.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				sendPDF(getItem(position));
+			}
+		});
 
 		return layout;
+	}
+
+	private void sendPDF(ReferenceList referenceList)
+	{
+		PDFGenerator pdfGenerator = new PDFGenerator();
+		try
+		{
+			File pdf = new File(pdfGenerator.generate(referenceList, activity.get().getApplication()));
+			Uri uri = Uri.fromFile(pdf);
+
+			Intent intent;
+
+			intent = new Intent(Intent.ACTION_SEND);
+			intent.putExtra(Intent.EXTRA_STREAM, uri);
+
+			intent.setType("message/rfc822");
+			activity.get().startActivity(Intent.createChooser(intent, "Email"));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@NonNull
@@ -80,6 +120,8 @@ public class ReferenceListAdapter extends ArrayAdapter<ReferenceList> implements
 		public TextView title;
 		@InjectView(R.id.reference_subtext)
 		public TextView subtext;
+		@InjectView(R.id.export)
+		public ImageView export;
 
 		public OldReferenceHolder(View view)
 		{
