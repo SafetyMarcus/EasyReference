@@ -30,6 +30,7 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 		ButterKnife.inject(this, layout);
 
 		super.onCreateView(inflater, container, savedInstanceState);
+		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.apa_book_reference));
 		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.apa_book_reference));
 
 		setHasOptionsMenu(true);

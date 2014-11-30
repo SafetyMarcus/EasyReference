@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Activities.DialogActivity;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.Utils.Result;
@@ -88,6 +90,9 @@ public class SearchDialog extends Fragment
 		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, container, false);
 		ButterKnife.inject(this, layout);
 
+		setHasOptionsMenu(true);
+		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.search));
+		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.search));
 		results = new ArrayList<Result>();
 
 		doiTab.setOnClickListener(new TabClickListener());
@@ -156,6 +161,18 @@ public class SearchDialog extends Fragment
 	{
 		super.onResume();
 		BUS.register(this);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case android.R.id.home:
+				getActivity().setResult(Activity.RESULT_CANCELED);
+				getActivity().onBackPressed();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private class TabClickListener implements View.OnClickListener
