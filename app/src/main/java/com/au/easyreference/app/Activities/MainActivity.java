@@ -65,8 +65,6 @@ public class MainActivity extends ActionBarActivity
 		if(is21Plus)
 			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
 
-		plusButton.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-
 		if(savedInstanceState == null)
 			((ERApplication) getApplication()).retrieveReferencesService();
 
