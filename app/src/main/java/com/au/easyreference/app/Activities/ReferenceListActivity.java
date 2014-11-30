@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import butterknife.InjectView;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
+import com.au.easyreference.app.Fragments.TypeDialog;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 public class ReferenceListActivity extends ActionBarActivity
 {
 	public static final int REQUEST_SEARCH = 1111;
+	public static final int REQUEST_TYPE = 1112;
 
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
@@ -52,6 +55,8 @@ public class ReferenceListActivity extends ActionBarActivity
 	protected EditText title;
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
+	@InjectView(R.id.empty_view)
+	protected View emptyView;
 
 	public ReferenceListAdapter adapter;
 	public int type;
@@ -63,7 +68,7 @@ public class ReferenceListActivity extends ActionBarActivity
 		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.reference_list_dialog_fragment);
+		setContentView(R.layout.reference_list_activity);
 		ButterKnife.inject(this);
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
@@ -108,14 +113,23 @@ public class ReferenceListActivity extends ActionBarActivity
 			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] ints)
 			{
 				for(int position : ints)
-					if(position != referenceList.referenceList.size() -1)
-						referenceList.referenceList.remove(position);
+					referenceList.referenceList.remove(position);
 			}
 		});
 		swipeUndoAdapter.setAbsListView(referencesListView);
 		referencesListView.setAdapter(swipeUndoAdapter);
 		referencesListView.enableSimpleSwipeUndo();
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
+		referencesListView.setEmptyView(emptyView);
+
+		plusButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				DialogActivity.showDialog(getActivity(), new TypeDialog(), REQUEST_TYPE);
+			}
+		});
 	}
 
 	@Override
@@ -140,8 +154,10 @@ public class ReferenceListActivity extends ActionBarActivity
 
 	public void addReferenceItem(ReferenceItem newReference)
 	{
+		Log.d("ReferenceList", "Adding item");
 		referenceList.referenceList.add(newReference);
 		adapter.notifyDataSetChanged();
+		Log.d("ReferenceList", "count " + adapter.getCount());
 	}
 
 	@Override
@@ -175,10 +191,20 @@ public class ReferenceListActivity extends ActionBarActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(resultCode == RESULT_OK && requestCode == REQUEST_SEARCH)
+		if(resultCode == RESULT_OK)
 		{
-			ReferenceItem newReference = new ReferenceItem((Result) data.getParcelableExtra(SearchDialog.RESULT));
-			addReferenceItem(newReference);
+			switch(requestCode)
+			{
+				case REQUEST_SEARCH:
+					ReferenceItem newReference = new ReferenceItem((Result) data.getParcelableExtra(SearchDialog.RESULT));
+					addReferenceItem(newReference);
+					break;
+
+				case REQUEST_TYPE:
+					ReferenceItem reference = new ReferenceItem(data.getIntExtra(TypeDialog.TYPE, 0));
+					addReferenceItem(reference);
+					break;
+			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -190,28 +216,20 @@ public class ReferenceListActivity extends ActionBarActivity
 		{
 			ReferenceItem referenceItem = adapter.getItem(position);
 
-			if(referenceItem != null)
-			{
-				Fragment dialog = null;
-				if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
-					dialog = new APABookReferenceDialogFragment();
-				else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
-					dialog = new APAJournalReferenceDialogFragment();
+			Fragment dialog = null;
+			if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
+				dialog = new APABookReferenceDialogFragment();
+			else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
+				dialog = new APAJournalReferenceDialogFragment();
 
-				if(dialog != null)
-				{
-					Bundle args = new Bundle();
-					args.putString(APABookReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
-					args.putString(APABookReferenceDialogFragment.KEY_ID, referenceItem.id);
-					dialog.setArguments(args);
-
-					DialogActivity.showDialog(getActivity(), dialog);
-				}
-			}
-			else
+			if(dialog != null)
 			{
-				adapter.showOptions = true;
-				adapter.notifyDataSetChanged();
+				Bundle args = new Bundle();
+				args.putString(APABookReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
+				args.putString(APABookReferenceDialogFragment.KEY_ID, referenceItem.id);
+				dialog.setArguments(args);
+
+				DialogActivity.showDialog(getActivity(), dialog);
 			}
 		}
 	}

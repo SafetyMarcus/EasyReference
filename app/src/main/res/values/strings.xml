@@ -65,5 +65,8 @@
     <string name="volume_number_hint">enter volume number</string>
     <string name="apa_journal_reference">APA Journal Reference</string>
     <string name="apa_book_reference">APA Book Reference</string>
+    <string name="selecty_type">Select Type</string>
+    <string name="no_title">No Title</string>
+    <string name="no_reference_message">No References Added</string>
 
 </resources>

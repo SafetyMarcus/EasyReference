@@ -1,5 +1,7 @@
 package com.au.easyreference.app.References;
 
+import android.content.Context;
+import com.au.easyreference.app.R;
 import com.au.easyreference.app.Utils.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +44,32 @@ public class ReferenceItem
 	public String doi;
 
 	public int type;
+
+	public static int getIcon(int type)
+	{
+		switch(type)
+		{
+			case BOOK_REFERENCE:
+				return R.drawable.icon_book;
+			case JOURNAL_REFERENCE:
+				return R.drawable.icon_journal;
+		}
+
+		return 0;
+	}
+
+	public static String getTitle(int type, Context context)
+	{
+		switch(type)
+		{
+			case BOOK_REFERENCE:
+				return context.getString(R.string.book);
+			case JOURNAL_REFERENCE:
+				return context.getString(R.string.journal);
+		}
+
+		return "";
+	}
 
 	public ReferenceItem(int type)
 	{

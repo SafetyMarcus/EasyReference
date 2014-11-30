@@ -35,10 +35,16 @@
         android:layout_below="@id/title_layout"
         android:id="@+id/references_list_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:divider="@color/light_gray"
         android:dividerHeight="1dp"/>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_reference_message"/>
 
     <include layout="@layout/plus_button"/>
 
