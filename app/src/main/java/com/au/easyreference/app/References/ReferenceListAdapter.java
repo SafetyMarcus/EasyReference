@@ -2,6 +2,8 @@ package com.au.easyreference.app.References;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +19,14 @@ import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.BaseAPAReferenceDialogFragment;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.Utils.HelperFunctions;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 
 import java.lang.ref.WeakReference;
 
 /**
  * @author Marcus Hooper
  */
-public class ReferenceListAdapter extends BaseAdapter
+public class ReferenceListAdapter extends BaseAdapter implements UndoAdapter
 {
 	private LayoutInflater inflater;
 	private int layoutResourceId;
@@ -79,26 +82,32 @@ public class ReferenceListAdapter extends BaseAdapter
 		holder.journalButton.setVisibility(View.GONE);
 		holder.information.setVisibility(View.VISIBLE);
 
-		if(currentReference.type != ReferenceItem.NEW || !showOptions)
-		{
-			if(currentReference.type != ReferenceItem.NEW)
-			{
-				if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
-					holder.information.setText(HelperFunctions.getAPABookReferenceString(currentReference));
-				else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
-					holder.information.setText(HelperFunctions.getAPAJournalReferenceString(currentReference));
-			}
-			else
-				holder.information.setText(holder.information.getResources().getString(R.string.add_new));
-		}
-		else
-		{
-			holder.information.setVisibility(View.GONE);
-			holder.bookButton.setVisibility(View.VISIBLE);
-			holder.journalButton.setVisibility(View.VISIBLE);
-		}
+		if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+			holder.information.setText(HelperFunctions.getAPABookReferenceString(currentReference));
+		else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
+			holder.information.setText(HelperFunctions.getAPAJournalReferenceString(currentReference));
 
 		return layout;
+	}
+
+	@NonNull
+	@Override
+	public View getUndoView(int i, @Nullable View convertView, @NonNull ViewGroup parent)
+	{
+		if(convertView == null)
+			convertView = inflater.inflate(R.layout.undo_view, parent, false);
+
+		convertView.getLayoutParams().height = 96;
+
+		return convertView;
+	}
+
+
+	@NonNull
+	@Override
+	public View getUndoClickView(@NonNull View convertView)
+	{
+		return convertView.findViewById(R.id.undo_button);
 	}
 
 	public class ReferenceHolder

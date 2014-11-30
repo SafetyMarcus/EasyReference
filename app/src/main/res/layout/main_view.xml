@@ -22,15 +22,6 @@
         android:visibility="gone"
         android:text="@string/empty_references_list"/>
 
-    <ImageView
-        android:id="@+id/plus_button"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/red_circle"
-        android:elevation="8dp"
-        android:layout_margin="16dp"
-        android:src="@drawable/icon_plus"/>
+    <include layout="@layout/plus_button"/>
 
 </RelativeLayout>

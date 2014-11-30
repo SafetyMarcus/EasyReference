@@ -27,7 +27,6 @@ public class ReferenceItem
 {
 	public final static int BOOK_REFERENCE = 0;
 	public final static int JOURNAL_REFERENCE = 1;
-	public final static int NEW = 10;
 
 	public String id;
 	public String author;

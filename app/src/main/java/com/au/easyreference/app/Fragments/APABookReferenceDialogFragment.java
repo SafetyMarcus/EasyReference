@@ -38,9 +38,7 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 		if(currentReference == null)
 		{
 			currentReference = new ReferenceItem(ReferenceItem.BOOK_REFERENCE);
-			referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
 			referenceList.referenceList.add(currentReference);
-			referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
 		}
 
 		save.setOnClickListener(new View.OnClickListener()

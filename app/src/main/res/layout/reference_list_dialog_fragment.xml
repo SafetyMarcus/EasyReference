@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:focusable="true"
-              android:focusableInTouchMode="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
     <include layout="@layout/toolbar"/>
 
     <LinearLayout
+        android:id="@+id/title_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:background="@color/easy_reference_red">
@@ -28,10 +29,10 @@
             android:hint="@string/title_hint"
             android:background="@color/easy_reference_red"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
-
     </LinearLayout>
 
-    <ListView
+    <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+        android:layout_below="@id/title_layout"
         android:id="@+id/references_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -39,9 +40,6 @@
         android:divider="@color/light_gray"
         android:dividerHeight="1dp"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray"/>
+    <include layout="@layout/plus_button"/>
 
-</LinearLayout>
+</RelativeLayout>

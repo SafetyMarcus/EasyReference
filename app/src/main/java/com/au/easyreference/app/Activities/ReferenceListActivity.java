@@ -4,15 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
@@ -25,6 +27,10 @@ import com.au.easyreference.app.References.ReferenceListAdapter;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
 import com.au.easyreference.app.Utils.Result;
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SwipeUndoAdapter;
 
 import java.util.ArrayList;
 
@@ -41,9 +47,11 @@ public class ReferenceListActivity extends ActionBarActivity
 	@InjectView(R.id.toolbar)
 	protected Toolbar toolbar;
 	@InjectView(R.id.references_list_view)
-	protected ListView referencesListView;
+	protected DynamicListView referencesListView;
 	@InjectView(R.id.new_list_title)
 	protected EditText title;
+	@InjectView(R.id.plus_button)
+	protected ImageView plusButton;
 
 	public ReferenceListAdapter adapter;
 	public int type;
@@ -93,11 +101,20 @@ public class ReferenceListActivity extends ActionBarActivity
 			title.setText(referenceList.title);
 		}
 
-		if(savedInstanceState == null)
-			referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
-
 		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceList, getLayoutInflater());
-		referencesListView.setAdapter(adapter);
+		SwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(adapter, this, new OnDismissCallback()
+		{
+			@Override
+			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] ints)
+			{
+				for(int position : ints)
+					if(position != referenceList.referenceList.size() -1)
+						referenceList.referenceList.remove(position);
+			}
+		});
+		swipeUndoAdapter.setAbsListView(referencesListView);
+		referencesListView.setAdapter(swipeUndoAdapter);
+		referencesListView.enableSimpleSwipeUndo();
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
 	}
 
@@ -123,20 +140,13 @@ public class ReferenceListActivity extends ActionBarActivity
 
 	public void addReferenceItem(ReferenceItem newReference)
 	{
-		referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
 		referenceList.referenceList.add(newReference);
-		referenceList.referenceList.add(new ReferenceItem(ReferenceItem.NEW));
 		adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onBackPressed()
 	{
-		if(referenceList.referenceList.size() > 1)
-			referenceList.referenceList.remove(referenceList.referenceList.size() - 1);
-		else
-			referenceList.referenceList.clear();
-
 		referenceList.title = title.getText().toString();
 		referenceList.saveToFile(getApplication());
 		super.onBackPressed();
@@ -180,7 +190,7 @@ public class ReferenceListActivity extends ActionBarActivity
 		{
 			ReferenceItem referenceItem = adapter.getItem(position);
 
-			if(referenceItem != null && referenceItem.type != ReferenceItem.NEW)
+			if(referenceItem != null)
 			{
 				Fragment dialog = null;
 				if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
