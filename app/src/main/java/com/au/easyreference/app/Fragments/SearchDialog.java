@@ -1,14 +1,15 @@
 package com.au.easyreference.app.Fragments;
 
-import android.app.DialogFragment;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.Utils.Result;
@@ -34,8 +34,10 @@ import static com.au.easyreference.app.Utils.ERApplication.BUS;
 /**
  * @author Marcus Hooper
  */
-public class SearchDialog extends DialogFragment
+public class SearchDialog extends Fragment
 {
+	public static final String RESULT = "result";
+
 	private static final String URL = "http://api.springer.com/metadata/json?q=";
 	private static final int DOI = 0;
 	private static final int ISSN = 1;
@@ -83,9 +85,7 @@ public class SearchDialog extends DialogFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, null);
+		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, container, false);
 		ButterKnife.inject(this, layout);
 
 		results = new ArrayList<Result>();
@@ -102,8 +102,11 @@ public class SearchDialog extends DialogFragment
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				BUS.post(new ResultSelectedEvent(resultsAdapter.getItem(i)));
-				dismiss();
+				Intent result = new Intent();
+				result.putExtra(RESULT, resultsAdapter.getItem(i));
+				getActivity().setResult(Activity.RESULT_OK, result);
+
+				getActivity().onBackPressed();
 			}
 		});
 

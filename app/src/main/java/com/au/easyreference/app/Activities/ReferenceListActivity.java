@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Events.ResultSelectedEvent;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
@@ -25,7 +24,7 @@ import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.References.ReferenceListAdapter;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
-import com.squareup.otto.Subscribe;
+import com.au.easyreference.app.Utils.Result;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ import java.util.ArrayList;
  */
 public class ReferenceListActivity extends ActionBarActivity
 {
-	public static final int REQUEST_REFERENCE_ITEM = 1111;
+	public static final int REQUEST_SEARCH = 1111;
 
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
@@ -117,7 +116,7 @@ public class ReferenceListActivity extends ActionBarActivity
 			case android.R.id.home:
 				onBackPressed();
 			case 0:
-				getFragmentManager().beginTransaction().add(new SearchDialog(), null).commit();
+				DialogActivity.showDialog(getActivity(), new SearchDialog(), REQUEST_SEARCH);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -150,13 +149,6 @@ public class ReferenceListActivity extends ActionBarActivity
 		super.onPause();
 	}
 
-	@Subscribe
-	public void onResultSelected(ResultSelectedEvent event)
-	{
-		ReferenceItem newReference = new ReferenceItem(event.result);
-		addReferenceItem(newReference);
-	}
-
 	private Activity getActivity()
 	{
 		return this;
@@ -168,6 +160,17 @@ public class ReferenceListActivity extends ActionBarActivity
 		super.onResume();
 		adapter.notifyDataSetChanged();
 		ERApplication.BUS.register(this);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(resultCode == RESULT_OK && requestCode == REQUEST_SEARCH)
+		{
+			ReferenceItem newReference = new ReferenceItem((Result) data.getParcelableExtra(SearchDialog.RESULT));
+			addReferenceItem(newReference);
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	public class ReferenceClickedListener implements AdapterView.OnItemClickListener
@@ -192,7 +195,7 @@ public class ReferenceListActivity extends ActionBarActivity
 					args.putString(APABookReferenceDialogFragment.KEY_ID, referenceItem.id);
 					dialog.setArguments(args);
 
-					DialogActivity.showDialog(getActivity(), dialog, REQUEST_REFERENCE_ITEM);
+					DialogActivity.showDialog(getActivity(), dialog);
 				}
 			}
 			else
