@@ -9,40 +9,10 @@
               android:background="@android:color/white">
 
     <LinearLayout
-        android:id="@+id/type_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/book_button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:text="@string/book"
-            android:layout_margin="8dp"
-            android:elevation="2dp"/>
-
-        <Button
-            android:id="@+id/journal_button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:text="@string/journal"
-            android:layout_margin="8dp"
-            android:elevation="2dp"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"

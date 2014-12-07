@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.Activities.DialogActivity;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.Utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
@@ -39,6 +38,7 @@ import static com.au.easyreference.app.Utils.ERApplication.BUS;
 public class SearchDialog extends Fragment
 {
 	public static final String RESULT = "result";
+	public static final String TYPE = "type";
 
 	private static final String URL = "http://api.springer.com/metadata/json?q=";
 	private static final int DOI = 0;
@@ -64,15 +64,6 @@ public class SearchDialog extends Fragment
 	EditText search;
 	@InjectView(R.id.search_button)
 	Button searchButton;
-	@InjectView(R.id.book_button)
-	Button bookButton;
-	@InjectView(R.id.journal_button)
-	Button journalButton;
-
-	@InjectView(R.id.type_layout)
-	View typeLayout;
-	@InjectView(R.id.search_layout)
-	View searchLayout;
 
 	@InjectView(R.id.results_list)
 	ListView resultsList;
@@ -93,7 +84,9 @@ public class SearchDialog extends Fragment
 		setHasOptionsMenu(true);
 		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.search));
 		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.search));
-		results = new ArrayList<Result>();
+		results = new ArrayList<>();
+
+		type = getArguments().getInt(TYPE);
 
 		doiTab.setOnClickListener(new TabClickListener());
 		issnTab.setOnClickListener(new TabClickListener());
@@ -121,28 +114,6 @@ public class SearchDialog extends Fragment
 			public void onClick(View view)
 			{
 				new QueryDatabaseAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-			}
-		});
-
-		bookButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				type = ReferenceItem.BOOK_REFERENCE;
-				typeLayout.setVisibility(View.GONE);
-				searchLayout.setVisibility(View.VISIBLE);
-			}
-		});
-
-		journalButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				type = ReferenceItem.JOURNAL_REFERENCE;
-				typeLayout.setVisibility(View.GONE);
-				searchLayout.setVisibility(View.VISIBLE);
 			}
 		});
 

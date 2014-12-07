@@ -30,11 +30,13 @@ import java.util.ArrayList;
 public class TypeDialog extends Fragment
 {
 	public static final String TYPE = "type";
+	public static final String SEARCH = "search";
 
 	@InjectView(R.id.types_list)
 	protected ListView typesList;
 
 	private ArrayList<String> types;
+	private boolean shouldSearch = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -59,15 +61,29 @@ public class TypeDialog extends Fragment
 		typesList.setAdapter(adapter);
 		typesList.setDivider(null);
 
+		if(getArguments() != null)
+			shouldSearch = getArguments().getBoolean(SEARCH, false);
+
 		typesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				Intent result = new Intent();
-				result.putExtra(TYPE, position);
-				getActivity().setResult(Activity.RESULT_OK, result);
-				getActivity().onBackPressed();
+				if(!shouldSearch)
+				{
+					Intent result = new Intent();
+					result.putExtra(TYPE, position);
+					getActivity().setResult(Activity.RESULT_OK, result);
+					getActivity().onBackPressed();
+				}
+				{
+					SearchDialog dialog = new SearchDialog();
+					Bundle args = new Bundle();
+					args.putInt(SearchDialog.TYPE, position);
+					dialog.setArguments(args);
+
+					((DialogActivity) getActivity()).swapFragments(dialog);
+				}
 			}
 		});
 

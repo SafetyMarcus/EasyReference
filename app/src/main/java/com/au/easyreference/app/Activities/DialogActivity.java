@@ -34,6 +34,12 @@ public class DialogActivity extends ActionBarActivity
 		show(context, fragmentToLoad, requestCode);
 	}
 
+	public void swapFragments(Fragment newFragment)
+	{
+		fragment = newFragment;
+		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, newFragment).commit();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

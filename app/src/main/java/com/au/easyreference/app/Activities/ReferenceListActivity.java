@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -147,7 +146,12 @@ public class ReferenceListActivity extends ActionBarActivity
 			case android.R.id.home:
 				onBackPressed();
 			case 0:
-				DialogActivity.showDialog(getActivity(), new SearchDialog(), REQUEST_SEARCH);
+				TypeDialog dialog = new TypeDialog();
+				Bundle args = new Bundle();
+				args.putBoolean(TypeDialog.SEARCH, true);
+				dialog.setArguments(args);
+
+				DialogActivity.showDialog(getActivity(), dialog, REQUEST_SEARCH);
 		}
 		return super.onOptionsItemSelected(item);
 	}
