@@ -45,6 +45,9 @@ public class TypeDialog extends Fragment
 		types = new ArrayList<>();
 		types.add(getString(R.string.book));
 		types.add(getString(R.string.journal));
+		types.add(getString(R.string.book_chapter));
+		types.add(getString(R.string.webpage));
+		types.add(getString(R.string.web_document));
 	}
 
 	@Override

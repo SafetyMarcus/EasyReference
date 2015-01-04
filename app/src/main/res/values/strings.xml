@@ -52,6 +52,9 @@
     <string name="search_hint">enter a search value</string>
     <string name="book">Book</string>
     <string name="journal">Journal</string>
+    <string name="book_chapter">Book Chapter</string>
+    <string name="webpage">Webpage</string>
+    <string name="web_document">Web Document</string>
     <string name="apa_reference_list">APA Reference List</string>
     <string name="harvard_reference_list">Harvard reference list</string>
     <string name="issue_hint">enter issue</string>

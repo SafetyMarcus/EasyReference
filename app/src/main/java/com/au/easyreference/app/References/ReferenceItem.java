@@ -29,6 +29,9 @@ public class ReferenceItem
 {
 	public final static int BOOK_REFERENCE = 0;
 	public final static int JOURNAL_REFERENCE = 1;
+	public final static int BOOK_CHAPTER = 2;
+	public final static int WEBPAGE = 3;
+	public final static int WEB_DOCUMENT = 4;
 
 	public String id;
 	public String author;
@@ -53,6 +56,12 @@ public class ReferenceItem
 				return R.drawable.icon_book;
 			case JOURNAL_REFERENCE:
 				return R.drawable.icon_journal;
+			case BOOK_CHAPTER:
+				return R.drawable.icon_book_chapter;
+			case WEBPAGE:
+				return R.drawable.webpage;
+			case WEB_DOCUMENT:
+				return R.drawable.web_document;
 		}
 
 		return 0;
@@ -66,6 +75,12 @@ public class ReferenceItem
 				return context.getString(R.string.book);
 			case JOURNAL_REFERENCE:
 				return context.getString(R.string.journal);
+			case BOOK_CHAPTER:
+				return context.getString(R.string.book_chapter);
+			case WEBPAGE:
+				return context.getString(R.string.webpage);
+			case WEB_DOCUMENT:
+				return context.getString(R.string.web_document);
 		}
 
 		return "";
