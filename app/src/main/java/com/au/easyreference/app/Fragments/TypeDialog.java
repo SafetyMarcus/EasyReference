@@ -46,7 +46,7 @@ public class TypeDialog extends Fragment
 		types.add(getString(R.string.book));
 		types.add(getString(R.string.journal));
 		types.add(getString(R.string.book_chapter));
-		types.add(getString(R.string.webpage));
+		types.add(getString(R.string.web_page));
 		types.add(getString(R.string.web_document));
 	}
 

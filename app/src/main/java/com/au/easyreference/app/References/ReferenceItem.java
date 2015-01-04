@@ -9,7 +9,10 @@ import org.json.JSONObject;
 import java.util.UUID;
 
 import static com.au.easyreference.app.Utils.Constants.AUTHOR;
+import static com.au.easyreference.app.Utils.Constants.BOOK_SUBTITLE;
+import static com.au.easyreference.app.Utils.Constants.BOOK_TITLE;
 import static com.au.easyreference.app.Utils.Constants.DOI;
+import static com.au.easyreference.app.Utils.Constants.EDITORS;
 import static com.au.easyreference.app.Utils.Constants.ISSUE;
 import static com.au.easyreference.app.Utils.Constants.ITEM_TYPE;
 import static com.au.easyreference.app.Utils.Constants.JOURNAL_TITLE;
@@ -40,11 +43,18 @@ public class ReferenceItem
 	public String subtitle;
 	public String location;
 	public String publisher;
+
+	//Journal
 	public String journalTitle;
 	public String volumeNo;
 	public String issue;
 	public String pageNo;
 	public String doi;
+
+	//Book Chapter
+	public String editors;
+	public String bookTitle;
+	public String bookSubtitle;
 
 	public int type;
 
@@ -78,7 +88,7 @@ public class ReferenceItem
 			case BOOK_CHAPTER:
 				return context.getString(R.string.book_chapter);
 			case WEBPAGE:
-				return context.getString(R.string.webpage);
+				return context.getString(R.string.web_page);
 			case WEB_DOCUMENT:
 				return context.getString(R.string.web_document);
 		}
@@ -100,6 +110,9 @@ public class ReferenceItem
 		this.doi = "";
 		this.location = "";
 		this.publisher = "";
+		this.editors = "";
+		this.bookTitle = "";
+		this.bookSubtitle = "";
 
 		this.type = type;
 	}
@@ -127,23 +140,36 @@ public class ReferenceItem
 		issue = result.issue;
 		pageNo = result.pageNo;
 		doi = result.doi;
+
+		editors = "";
+		bookTitle = "";
+		bookSubtitle = "";
 	}
 
 	public ReferenceItem(JSONObject referenceObject)
 	{
 		id = referenceObject.optString(REFERENCE_ITEM_ID);
+		type = referenceObject.optInt(ITEM_TYPE);
+
+		//Base values
 		author = referenceObject.optString(AUTHOR);
 		year = referenceObject.optString(YEAR);
 		title = referenceObject.optString(TITLE);
 		subtitle = referenceObject.optString(SUBTITLE);
 		location = referenceObject.optString(LOCATION);
 		publisher = referenceObject.optString(publisher);
-		type = referenceObject.optInt(ITEM_TYPE);
+
+		//Journal
 		journalTitle = referenceObject.optString(JOURNAL_TITLE);
 		volumeNo = referenceObject.optString(VOLUME_NO);
 		issue = referenceObject.optString(ISSUE);
 		pageNo = referenceObject.optString(PAGE_NO);
 		doi = referenceObject.optString(DOI);
+
+		//Book Chapter
+		editors = referenceObject.optString(EDITORS);
+		bookTitle = referenceObject.optString(BOOK_TITLE);
+		bookSubtitle = referenceObject.optString(BOOK_SUBTITLE);
 	}
 
 	public JSONObject toJSON()
@@ -153,18 +179,27 @@ public class ReferenceItem
 		try
 		{
 			referenceObject.put(REFERENCE_ITEM_ID, id);
+			referenceObject.put(ITEM_TYPE, type);
+
+			//Base
 			referenceObject.put(AUTHOR, author);
 			referenceObject.put(YEAR, year);
 			referenceObject.put(TITLE, title);
 			referenceObject.put(SUBTITLE, subtitle);
 			referenceObject.put(LOCATION, location);
 			referenceObject.put(PUBLISHER, publisher);
-			referenceObject.put(ITEM_TYPE, type);
+
+			//Journal
 			referenceObject.put(JOURNAL_TITLE, journalTitle);
 			referenceObject.put(VOLUME_NO, volumeNo);
 			referenceObject.put(ISSUE, issue);
 			referenceObject.put(PAGE_NO, pageNo);
 			referenceObject.put(DOI, doi);
+
+			//Book Chapter
+			referenceObject.put(EDITORS, editors);
+			referenceObject.put(BOOK_TITLE, bookTitle);
+			referenceObject.put(BOOK_SUBTITLE, bookSubtitle);
 		}
 		catch(JSONException e)
 		{

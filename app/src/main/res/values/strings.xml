@@ -53,7 +53,7 @@
     <string name="book">Book</string>
     <string name="journal">Journal</string>
     <string name="book_chapter">Book Chapter</string>
-    <string name="webpage">Webpage</string>
+    <string name="web_page">Web Page</string>
     <string name="web_document">Web Document</string>
     <string name="apa_reference_list">APA Reference List</string>
     <string name="harvard_reference_list">Harvard reference list</string>
@@ -68,6 +68,7 @@
     <string name="volume_number_hint">enter volume number</string>
     <string name="apa_journal_reference">APA Journal Reference</string>
     <string name="apa_book_reference">APA Book Reference</string>
+    <string name="apa_book_chapter_reference">APA Book Chapter Reference</string>
     <string name="selecty_type">Select Type</string>
     <string name="no_title">No Title</string>
     <string name="no_reference_message">No References Added</string>
