@@ -68,17 +68,12 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 	public void setUpView(String id)
 	{
 		super.setUpView(id);
-		for(ReferenceItem reference : referenceList.referenceList)
+		if(currentReference != null)
 		{
-			if(reference.id.equalsIgnoreCase(id))
-			{
-				if(reference.location != null && reference.location.length() > 0)
-					location.setText(reference.location);
-				if(reference.publisher != null && reference.publisher.length() > 0)
-					publisher.setText(reference.publisher);
-
-				break;
-			}
+			if(currentReference.location != null && currentReference.location.length() > 0)
+				location.setText(currentReference.location);
+			if(currentReference.publisher != null && currentReference.publisher.length() > 0)
+				publisher.setText(currentReference.publisher);
 		}
 	}
 }

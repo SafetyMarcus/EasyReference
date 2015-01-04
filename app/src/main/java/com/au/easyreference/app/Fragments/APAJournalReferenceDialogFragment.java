@@ -76,19 +76,15 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 	public void setUpView(String id)
 	{
 		super.setUpView(id);
-		for(ReferenceItem reference : referenceList.referenceList)
+		if(currentReference != null)
 		{
-			if(reference.id.equalsIgnoreCase(id))
-			{
-				if(reference.issue != null && reference.issue.length() > 0)
-					issue.setText(reference.issue);
-				if(reference.pageNo != null && reference.pageNo.length() > 0)
-					pageNo.setText(reference.pageNo);
-				if(reference.doi != null && reference.doi.length() > 0)
-					doi.setText(reference.doi);
+			if(currentReference.issue != null && currentReference.issue.length() > 0)
+				issue.setText(currentReference.issue);
+			if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
+				pageNo.setText(currentReference.pageNo);
+			if(currentReference.doi != null && currentReference.doi.length() > 0)
+				doi.setText(currentReference.doi);
 
-				break;
-			}
 		}
 	}
 }

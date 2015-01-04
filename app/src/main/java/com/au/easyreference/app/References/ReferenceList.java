@@ -49,6 +49,14 @@ public class ReferenceList
 				referenceList.add(new ReferenceItem(referenceArray.optJSONObject(i)));
 		}
 	}
+	public ReferenceItem getReferenceForId(String id)
+	{
+		for(ReferenceItem referenceItem : referenceList)
+			if(referenceItem.id.equalsIgnoreCase(id))
+				return referenceItem;
+
+		return null;
+	}
 
 	public void saveToFile(Application app)
 	{

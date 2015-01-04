@@ -82,23 +82,26 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 
 	public void setUpView(String id)
 	{
-		for(ReferenceItem reference : referenceList.referenceList)
+		currentReference = referenceList.getReferenceForId(id);
+
+		if(currentReference != null)
 		{
-			if(reference.id.equalsIgnoreCase(id))
-			{
-				currentReference = reference;
-
-				if(reference.author != null && reference.author.length() > 0)
-					author.setText(reference.author);
-				if(reference.year != null && reference.year.length() > 0)
-					year.setText(reference.year);
-				if(reference.title != null && reference.title.length() > 0)
-					title.setText(reference.title);
-				if(reference.subtitle != null && reference.subtitle.length() > 0)
-					subtitle.setText(reference.subtitle);
-
-				break;
-			}
+			if(currentReference.author != null && currentReference.author.length() > 0)
+				author.setText(currentReference.author);
+			if(currentReference.year != null && currentReference.year.length() > 0)
+				year.setText(currentReference.year);
+			if(currentReference.title != null && currentReference.title.length() > 0)
+				title.setText(currentReference.title);
+			if(currentReference.subtitle != null && currentReference.subtitle.length() > 0)
+				subtitle.setText(currentReference.subtitle);
 		}
+	}
+
+	public void save()
+	{
+		currentReference.author = author.getText().toString();
+		currentReference.year = year.getText().toString();
+		currentReference.title = title.getText().toString();
+		currentReference.subtitle = subtitle.getText().toString();
 	}
 }
