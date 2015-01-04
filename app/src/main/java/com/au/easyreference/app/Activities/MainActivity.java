@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,23 +12,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceList;
 import com.au.easyreference.app.Utils.ERApplication;
 import com.au.easyreference.app.Utils.HelperFunctions;
-import com.au.easyreference.app.Utils.PDFGenerator;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
 
 import java.io.File;
-import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity
@@ -46,8 +41,7 @@ public class MainActivity extends ActionBarActivity
 	private Activity activity;
 
 	private MainAdapter referenceListAdapter;
-	private SimpleSwipeUndoAdapter swipeUndoAdapter;
-	private ArrayAdapter<String> referenceTypeAdapter;
+	//	private ArrayAdapter<String> referenceTypeAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -68,11 +62,14 @@ public class MainActivity extends ActionBarActivity
 		if(savedInstanceState == null)
 			((ERApplication) getApplication()).retrieveReferencesService();
 
+		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
+		referenceLists.setDivider(null);
+
+		/*
 		ArrayList<String> referenceTypes = new ArrayList<String>(2);
 		referenceTypes.add("APA Reference List");
 		referenceTypes.add("Harvard Reference List");
 		referenceTypeAdapter = new ArrayAdapter<String>(this, R.layout.list_item, referenceTypes);
-		/*
 		referenceTypesList.setAdapter(referenceTypeAdapter);
 		referenceTypesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
@@ -97,7 +94,7 @@ public class MainActivity extends ActionBarActivity
 		*/
 
 		referenceListAdapter = new MainAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
-		swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
+		SimpleSwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
 		{
 			@Override
 			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] reverseSortedPositions)
