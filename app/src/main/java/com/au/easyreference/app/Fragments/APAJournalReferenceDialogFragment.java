@@ -51,16 +51,7 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 			@Override
 			public void onClick(View view)
 			{
-				currentReference.author = author.getText().toString();
-				currentReference.year = year.getText().toString();
-				currentReference.title = title.getText().toString();
-				currentReference.subtitle = subtitle.getText().toString();
-				currentReference.issue = issue.getText().toString();
-				currentReference.pageNo = pageNo.getText().toString();
-				currentReference.doi = doi.getText().toString();
-				currentReference.journalTitle = journalTitle.getText().toString();
-				currentReference.volumeNo = volumeNumber.getText().toString();
-
+				save();
 				getActivity().onBackPressed();
 			}
 		});
@@ -71,6 +62,17 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 			setUpView(args.getString(KEY_ID));
 
 		return layout;
+	}
+
+	@Override
+	public void save()
+	{
+		super.save();
+		currentReference.issue = issue.getText().toString();
+		currentReference.pageNo = pageNo.getText().toString();
+		currentReference.doi = doi.getText().toString();
+		currentReference.journalTitle = journalTitle.getText().toString();
+		currentReference.volumeNo = volumeNumber.getText().toString();
 	}
 
 	public void setUpView(String id)

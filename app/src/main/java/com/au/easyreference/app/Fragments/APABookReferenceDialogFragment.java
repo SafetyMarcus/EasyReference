@@ -46,13 +46,7 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 			@Override
 			public void onClick(View view)
 			{
-				currentReference.author = author.getText().toString();
-				currentReference.year = year.getText().toString();
-				currentReference.title = title.getText().toString();
-				currentReference.subtitle = subtitle.getText().toString();
-				currentReference.location = location.getText().toString();
-				currentReference.publisher = publisher.getText().toString();
-
+				save();
 				getActivity().onBackPressed();
 			}
 		});
@@ -63,6 +57,14 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 			setUpView(args.getString(KEY_ID));
 
 		return layout;
+	}
+
+	@Override
+	public void save()
+	{
+		super.save();
+		currentReference.location = location.getText().toString();
+		currentReference.publisher = publisher.getText().toString();
 	}
 
 	public void setUpView(String id)
