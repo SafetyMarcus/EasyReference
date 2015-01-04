@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/author"/>
+
+            <EditText
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:hint="@string/author_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/year"/>
+
+            <EditText
+                android:id="@+id/year"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="@string/year_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/chapter_title"/>
+
+            <EditText
+                android:id="@+id/chapter_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:hint="@string/title_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/chapter_sub_title"/>
+
+            <EditText
+                android:id="@+id/chapter_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:hint="@string/subtitle_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/editors"/>
+
+            <EditText
+                android:id="@+id/editors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:hint="@string/editors_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/book_title"/>
+
+            <EditText
+                android:id="@+id/book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:hint="@string/title_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/book_sub_title"/>
+
+            <EditText
+                android:id="@+id/book_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:hint="@string/subtitle_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/location"/>
+
+            <EditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="@string/location_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:textColor="@color/light_gray"
+                android:text="@string/publisher"/>
+
+            <EditText
+                android:id="@+id/publisher"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="@string/publisher_hint"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal"
+        android:elevation="2dp"
+        android:gravity="end">
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/cancel"
+            android:gravity="right|center"
+            android:background="@android:color/white"/>
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/save"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:text="@string/save"
+            android:textColor="@color/bright_blue"
+            android:background="@android:color/white"/>
+    </LinearLayout>
+</LinearLayout>

@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.Fragments.APABookChapterReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
@@ -223,6 +224,8 @@ public class ReferenceListActivity extends ActionBarActivity
 				dialog = new APABookReferenceDialogFragment();
 			else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
 				dialog = new APAJournalReferenceDialogFragment();
+			else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
+				dialog = new APABookChapterReferenceDialogFragment();
 
 			if(dialog != null)
 			{
