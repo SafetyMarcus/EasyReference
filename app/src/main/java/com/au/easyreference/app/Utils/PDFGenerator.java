@@ -7,12 +7,15 @@ import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.FontSelector;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import harmony.java.awt.Color;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,9 +28,13 @@ import java.util.Collections;
  */
 public class PDFGenerator
 {
+	private FontSelector titleFont;
+	private FontSelector mainFont;
+
 	public String generate(ReferenceList referenceList, Application app) throws FileNotFoundException, DocumentException
 	{
 		Document referenceDocument = new Document();
+		setUpFonts();
 
 		String title = referenceList.title .length() > 0 ? referenceList.title : app.getString(R.string.no_title);
 
@@ -54,12 +61,14 @@ public class PDFGenerator
 
 		referenceDocument.open();
 
-		PdfPTable referenceTable = new PdfPTable(1);
+		PdfPTable referenceTable = new PdfPTable(2);
+		referenceTable.setWidths(new float[]{10f, 90f});
 
-		PdfPCell titleCell = new PdfPCell(new Paragraph(app.getText(R.string.references).toString()));
+		PdfPCell titleCell = new PdfPCell(new Paragraph(titleFont.process(app.getText(R.string.references).toString())));
+		titleCell.setColspan(2);
 		disableBorders(titleCell);
 		titleCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-		titleCell.setPadding(80);
+		titleCell.setPadding(64);
 		referenceTable.addCell(titleCell);
 
 		ArrayList<String> references = new ArrayList<>(referenceList.referenceList.size());
@@ -86,9 +95,20 @@ public class PDFGenerator
 		int count = 0;
 		for(String reference : references)
 		{
-			PdfPCell cell = new PdfPCell(new Phrase(++count + ". " + reference));
-			disableBorders(cell);
-			referenceTable.addCell(cell);
+			PdfPCell numberCell = new PdfPCell(new Phrase(mainFont.process(++count + ".")));
+			PdfPCell textCell = new PdfPCell(new Phrase(mainFont.process(reference)));
+
+			numberCell.setColspan(1);
+			textCell.setColspan(1);
+
+			numberCell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+			textCell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+
+			disableBorders(numberCell);
+			disableBorders(textCell);
+
+			referenceTable.addCell(numberCell);
+			referenceTable.addCell(textCell);
 		}
 
 		referenceDocument.add(referenceTable);
@@ -97,7 +117,16 @@ public class PDFGenerator
 		return path;
 	}
 
-	public void disableBorders(PdfPCell cell)
+	private void setUpFonts()
+	{
+		titleFont = new FontSelector();
+		titleFont.addFont(new Font(Font.TIMES_ROMAN, 16, Font.BOLD, Color.BLACK));
+
+		mainFont = new FontSelector();
+		mainFont.addFont(new Font(Font.TIMES_ROMAN, 12, Font.NORMAL, Color.BLACK));
+	}
+
+	private void disableBorders(PdfPCell cell)
 	{
 		cell.disableBorderSide(PdfPCell.TOP);
 		cell.disableBorderSide(PdfPCell.LEFT);
