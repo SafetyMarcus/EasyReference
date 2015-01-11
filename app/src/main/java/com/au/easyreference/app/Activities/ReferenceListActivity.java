@@ -20,6 +20,7 @@ import butterknife.InjectView;
 import com.au.easyreference.app.Fragments.APABookChapterReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
+import com.au.easyreference.app.Fragments.APAWebPageReferenceDialogFragment;
 import com.au.easyreference.app.Fragments.SearchDialog;
 import com.au.easyreference.app.Fragments.TypeDialog;
 import com.au.easyreference.app.R;
@@ -226,6 +227,8 @@ public class ReferenceListActivity extends ActionBarActivity
 				dialog = new APAJournalReferenceDialogFragment();
 			else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
 				dialog = new APABookChapterReferenceDialogFragment();
+			else if(referenceItem.type == ReferenceItem.WEBPAGE)
+				dialog = new APAWebPageReferenceDialogFragment();
 
 			if(dialog != null)
 			{

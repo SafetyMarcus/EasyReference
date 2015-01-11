@@ -59,6 +59,8 @@ public class ReferenceListAdapter extends ArrayAdapter implements UndoAdapter
 			title = HelperFunctions.getAPAJournalReferenceString(currentReference);
 		else if(currentReference.type == ReferenceItem.BOOK_CHAPTER)
 			title = HelperFunctions.getAPABookChapterReferenceString(currentReference, getContext());
+		else if(currentReference.type == ReferenceItem.WEBPAGE)
+			title = HelperFunctions.getAPAWebPageReferenceString(currentReference);
 
 		information.setText(title.length() > 0 ? title : information.getResources().getString(R.string.no_title));
 

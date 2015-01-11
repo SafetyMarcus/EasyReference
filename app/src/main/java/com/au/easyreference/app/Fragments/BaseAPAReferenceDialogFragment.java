@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import butterknife.InjectView;
+import butterknife.Optional;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
@@ -29,6 +30,7 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 	public EditText year;
 	@InjectView(R.id.title)
 	public EditText title;
+	@Optional
 	@InjectView(R.id.subtitle)
 	public EditText subtitle;
 
@@ -92,7 +94,7 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 				year.setText(currentReference.year);
 			if(currentReference.title != null && currentReference.title.length() > 0)
 				title.setText(currentReference.title);
-			if(currentReference.subtitle != null && currentReference.subtitle.length() > 0)
+			if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
 				subtitle.setText(currentReference.subtitle);
 		}
 	}
@@ -102,6 +104,6 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 		currentReference.author = author.getText().toString();
 		currentReference.year = year.getText().toString();
 		currentReference.title = title.getText().toString();
-		currentReference.subtitle = subtitle.getText().toString();
+		currentReference.subtitle = subtitle != null ? subtitle.getText().toString() : "";
 	}
 }

@@ -22,6 +22,7 @@ import static com.au.easyreference.app.Utils.Constants.PUBLISHER;
 import static com.au.easyreference.app.Utils.Constants.REFERENCE_ITEM_ID;
 import static com.au.easyreference.app.Utils.Constants.SUBTITLE;
 import static com.au.easyreference.app.Utils.Constants.TITLE;
+import static com.au.easyreference.app.Utils.Constants.URL;
 import static com.au.easyreference.app.Utils.Constants.VOLUME_NO;
 import static com.au.easyreference.app.Utils.Constants.YEAR;
 
@@ -34,7 +35,6 @@ public class ReferenceItem
 	public final static int JOURNAL_REFERENCE = 1;
 	public final static int BOOK_CHAPTER = 2;
 	public final static int WEBPAGE = 3;
-	public final static int WEB_DOCUMENT = 4;
 
 	public String id;
 	public String author;
@@ -57,6 +57,9 @@ public class ReferenceItem
 	public String bookSubtitle;
 	public String pagesOfChapter;
 
+	//Web Page
+	public String url;
+
 	public int type;
 
 	public static int getIcon(int type)
@@ -71,8 +74,6 @@ public class ReferenceItem
 				return R.drawable.icon_book_chapter;
 			case WEBPAGE:
 				return R.drawable.webpage;
-			case WEB_DOCUMENT:
-				return R.drawable.web_document;
 		}
 
 		return 0;
@@ -90,8 +91,6 @@ public class ReferenceItem
 				return context.getString(R.string.book_chapter);
 			case WEBPAGE:
 				return context.getString(R.string.web_page);
-			case WEB_DOCUMENT:
-				return context.getString(R.string.web_document);
 		}
 
 		return "";
@@ -114,6 +113,7 @@ public class ReferenceItem
 		this.editors = "";
 		this.bookTitle = "";
 		this.bookSubtitle = "";
+		this.url = "";
 
 		this.type = type;
 	}
@@ -145,6 +145,8 @@ public class ReferenceItem
 		editors = "";
 		bookTitle = "";
 		bookSubtitle = "";
+
+		url = "";
 	}
 
 	public ReferenceItem(JSONObject referenceObject)
@@ -171,6 +173,9 @@ public class ReferenceItem
 		editors = referenceObject.optString(EDITORS);
 		bookTitle = referenceObject.optString(BOOK_TITLE);
 		bookSubtitle = referenceObject.optString(BOOK_SUBTITLE);
+
+		//Web Page
+		url = referenceObject.optString(URL);
 	}
 
 	public JSONObject toJSON()
@@ -201,6 +206,9 @@ public class ReferenceItem
 			referenceObject.put(EDITORS, editors);
 			referenceObject.put(BOOK_TITLE, bookTitle);
 			referenceObject.put(BOOK_SUBTITLE, bookSubtitle);
+
+			//Web Page
+			referenceObject.put(URL, url);
 		}
 		catch(JSONException e)
 		{

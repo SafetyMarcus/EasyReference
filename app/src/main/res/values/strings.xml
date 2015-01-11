@@ -53,7 +53,7 @@
     <string name="book">Book</string>
     <string name="journal">Journal</string>
     <string name="book_chapter">Book Chapter</string>
-    <string name="web_page">Web Page</string>
+    <string name="web_page_or_document">Web Page/Web Document</string>
     <string name="web_document">Web Document</string>
     <string name="apa_reference_list">APA Reference List</string>
     <string name="harvard_reference_list">Harvard reference list</string>
@@ -84,5 +84,9 @@
     <string name="pages_of_chapter">Pages of Chapter</string>
     <string name="pages_hint">Enter the page numbers that were used e.g. (1-5)</string>
     <string name="pp">pp.</string>
+    <string name="url">URL</string>
+    <string name="url_hint">enter a url</string>
+    <string name="date_of_publication">Date of Publication</string>
+    <string name="date_hint">enter date of publication</string>
 
 </resources>

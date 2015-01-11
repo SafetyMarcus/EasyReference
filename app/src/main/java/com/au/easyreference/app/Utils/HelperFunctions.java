@@ -162,4 +162,14 @@ public class HelperFunctions
 
 		return informationBuilder.toString();
 	}
+
+	public static String getAPAWebPageReferenceString(ReferenceItem currentReference)
+	{
+		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+
+		if(currentReference.url != null && currentReference.url.length() > 0)
+			informationBuilder.append("Retrieved from ").append(currentReference.url);
+
+		return informationBuilder.toString();
+	}
 }
