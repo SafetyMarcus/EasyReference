@@ -227,7 +227,7 @@ public class ReferenceListActivity extends ActionBarActivity
 				dialog = new APAJournalReferenceDialogFragment();
 			else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
 				dialog = new APABookChapterReferenceDialogFragment();
-			else if(referenceItem.type == ReferenceItem.WEBPAGE)
+			else if(referenceItem.type == ReferenceItem.WEB_PAGE)
 				dialog = new APAWebPageReferenceDialogFragment();
 
 			if(dialog != null)
