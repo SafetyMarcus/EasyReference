@@ -1,6 +1,7 @@
 package com.au.easyreference.app.Utils;
 
 import android.app.Application;
+import android.os.Environment;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.References.ReferenceItem;
 import com.au.easyreference.app.References.ReferenceList;
@@ -28,7 +29,9 @@ public class PDFGenerator
 
 		String title = referenceList.title .length() > 0 ? referenceList.title : app.getString(R.string.no_title);
 
-		String path = app.getFilesDir().getAbsolutePath() + "/temp/" + title + ".pdf";
+		String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+		path +=  "/PDF/" + title + ".pdf";
+
 		File pdf = new File(path);
 		pdf.getParentFile().delete();
 		pdf.getParentFile().mkdirs();
@@ -60,6 +63,10 @@ public class PDFGenerator
 					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPABookReferenceString(referenceItem))));
 				else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
 					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPAJournalReferenceString(referenceItem))));
+				else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
+					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPABookChapterReferenceString(referenceItem, app))));
+				else if(referenceItem.type == ReferenceItem.WEB_PAGE)
+					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPAWebPageReferenceString(referenceItem))));
 			}
 		}
 
