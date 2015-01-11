@@ -55,6 +55,7 @@ public class ReferenceItem
 	public String editors;
 	public String bookTitle;
 	public String bookSubtitle;
+	public String pagesOfChapter;
 
 	public int type;
 

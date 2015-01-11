@@ -21,6 +21,8 @@ public class APABookChapterReferenceDialogFragment extends BaseAPAReferenceDialo
 	public EditText bookTitle;
 	@InjectView(R.id.book_subtitle)
 	public EditText bookSubtitle;
+	@InjectView(R.id.pages_of_chapter)
+	public EditText pagesOfChapter;
 	@InjectView(R.id.editors)
 	public EditText editors;
 	@InjectView(R.id.location)
@@ -39,7 +41,7 @@ public class APABookChapterReferenceDialogFragment extends BaseAPAReferenceDialo
 		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.apa_book_chapter_reference));
 		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.apa_book_chapter_reference));
 
-		setHasOptionsMenu(false);
+		setHasOptionsMenu(true);
 
 		if(currentReference == null)
 		{
@@ -82,6 +84,8 @@ public class APABookChapterReferenceDialogFragment extends BaseAPAReferenceDialo
 				bookSubtitle.setText(currentReference.bookSubtitle);
 			if(currentReference.editors != null && currentReference.editors.length() > 0)
 				editors.setText(currentReference.editors);
+			if(currentReference.pagesOfChapter != null && currentReference.pagesOfChapter.length() > 0)
+				pagesOfChapter.setText(currentReference.pagesOfChapter);
 		}
 	}
 
@@ -92,6 +96,7 @@ public class APABookChapterReferenceDialogFragment extends BaseAPAReferenceDialo
 		currentReference.bookTitle = bookTitle.getText().toString();
 		currentReference.bookSubtitle = bookSubtitle.getText().toString();
 		currentReference.editors = editors.getText().toString();
+		currentReference.pagesOfChapter = pagesOfChapter.getText().toString();
 		currentReference.location = location.getText().toString();
 		currentReference.publisher = publisher.getText().toString();
 	}

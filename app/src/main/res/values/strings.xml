@@ -79,5 +79,10 @@
     <string name="book_sub_title">Book Subtitle (optional)</string>
     <string name="editors">Editors</string>
     <string name="editors_hint">first initial. last name</string>
+    <string name="in">In</string>
+    <string name="eds">(Eds.)</string>
+    <string name="pages_of_chapter">Pages of Chapter</string>
+    <string name="pages_hint">Enter the page numbers that were used e.g. (1-5)</string>
+    <string name="pp">pp.</string>
 
 </resources>

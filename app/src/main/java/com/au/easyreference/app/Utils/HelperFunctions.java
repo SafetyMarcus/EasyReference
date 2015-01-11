@@ -115,6 +115,36 @@ public class HelperFunctions
 		return informationBuilder.toString();
 	}
 
+	public static String getAPABookChapterReferenceString(ReferenceItem currentReference, Context context)
+	{
+		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+
+		if(currentReference.editors != null && currentReference.editors.length() > 0)
+			informationBuilder.append(context.getString(R.string.in))
+					.append(' ')
+					.append(currentReference.editors)
+					.append(". ")
+					.append(context.getString(R.string.eds))
+					.append(", ");
+		if(currentReference.bookTitle != null && currentReference.bookTitle.length() > 0)
+			informationBuilder.append(currentReference.bookTitle);
+		if(currentReference.bookSubtitle != null && currentReference.bookSubtitle.length() > 0)
+			informationBuilder
+					.append(": ")
+					.append(currentReference.bookSubtitle);
+		if(currentReference.pagesOfChapter != null && currentReference.pagesOfChapter.length() > 0)
+			informationBuilder.append("(")
+					.append(context.getString(R.string.pp))
+					.append(currentReference.pagesOfChapter)
+					.append("). ");
+		if(currentReference.location != null && currentReference.location.length() > 0)
+			informationBuilder.append(currentReference.location).append(": ");
+		if(currentReference.publisher != null && currentReference.publisher.length() > 0)
+			informationBuilder.append(currentReference.publisher).append('.');
+
+		return informationBuilder.toString();
+	}
+
 	public static String getAPAJournalReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
