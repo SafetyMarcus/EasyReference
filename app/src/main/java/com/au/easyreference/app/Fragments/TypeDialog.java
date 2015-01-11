@@ -78,6 +78,7 @@ public class TypeDialog extends Fragment
 					getActivity().setResult(Activity.RESULT_OK, result);
 					getActivity().onBackPressed();
 				}
+				else
 				{
 					SearchDialog dialog = new SearchDialog();
 					Bundle args = new Bundle();
