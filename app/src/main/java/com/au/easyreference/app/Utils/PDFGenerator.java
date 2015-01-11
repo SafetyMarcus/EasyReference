@@ -17,6 +17,8 @@ import com.lowagie.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Marcus Hooper
@@ -36,7 +38,7 @@ public class PDFGenerator
 		pdf.getParentFile().delete();
 		pdf.getParentFile().mkdirs();
 
-		PdfWriter writer = null;
+		PdfWriter writer;
 		FileOutputStream outputStream = new FileOutputStream(path);
 
 		writer = PdfWriter.getInstance(referenceDocument, outputStream);
@@ -53,26 +55,53 @@ public class PDFGenerator
 		referenceDocument.open();
 
 		PdfPTable referenceTable = new PdfPTable(1);
-		referenceTable.addCell(new PdfPCell(new Paragraph(app.getText(R.string.references) + "")));
 
+		PdfPCell titleCell = new PdfPCell(new Paragraph(app.getText(R.string.references).toString()));
+		disableBorders(titleCell);
+		titleCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		titleCell.setPadding(80);
+		referenceTable.addCell(titleCell);
+
+		ArrayList<String> references = new ArrayList<>(referenceList.referenceList.size());
 		for(ReferenceItem referenceItem : referenceList.referenceList)
 		{
+			String phrase = "";
 			if(referenceList.referenceType == ReferenceList.APA)
 			{
 				if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
-					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPABookReferenceString(referenceItem))));
+					phrase = HelperFunctions.getAPABookReferenceString(referenceItem);
 				else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
-					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPAJournalReferenceString(referenceItem))));
+					phrase = HelperFunctions.getAPAJournalReferenceString(referenceItem);
 				else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
-					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPABookChapterReferenceString(referenceItem, app))));
+					phrase = HelperFunctions.getAPABookChapterReferenceString(referenceItem, app);
 				else if(referenceItem.type == ReferenceItem.WEB_PAGE)
-					referenceTable.addCell(new PdfPCell(new Phrase(HelperFunctions.getAPAWebPageReferenceString(referenceItem))));
+					phrase = HelperFunctions.getAPAWebPageReferenceString(referenceItem);
 			}
+
+
+			references.add(phrase);
+		}
+
+		Collections.sort(references);
+		int count = 0;
+		for(String reference : references)
+		{
+			PdfPCell cell = new PdfPCell(new Phrase(++count + ". " + reference));
+			disableBorders(cell);
+			referenceTable.addCell(cell);
 		}
 
 		referenceDocument.add(referenceTable);
 		referenceDocument.close();
 
 		return path;
+	}
+
+	public void disableBorders(PdfPCell cell)
+	{
+		cell.disableBorderSide(PdfPCell.TOP);
+		cell.disableBorderSide(PdfPCell.LEFT);
+		cell.disableBorderSide(PdfPCell.RIGHT);
+		cell.disableBorderSide(PdfPCell.BOTTOM);
 	}
 }
