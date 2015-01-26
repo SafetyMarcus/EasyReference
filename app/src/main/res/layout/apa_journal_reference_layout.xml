@@ -160,28 +160,5 @@
                 android:hint="@string/doi_hint"/>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:orientation="horizontal"
-        android:elevation="2dp"
-        android:gravity="right">
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/cancel"
-            android:gravity="right|center"
-            android:background="@android:color/white"/>
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="128dp"
-            android:layout_height="match_parent"
-            android:text="@string/save"
-            android:textColor="@color/bright_blue"
-            android:background="@android:color/white"/>
-    </LinearLayout>
+    <include layout="@layout/dialog_buttons"/>
 </LinearLayout>
