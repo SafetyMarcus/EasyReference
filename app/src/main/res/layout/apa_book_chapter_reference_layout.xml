@@ -24,13 +24,30 @@
                 android:textColor="@color/light_gray"
                 android:text="@string/author"/>
 
-            <EditText
-                android:id="@+id/author"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="52dp"
-                android:maxLines="4"
-                android:hint="@string/author_hint"/>
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/author"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="52dp"
+                    android:maxLines="4"
+                    android:hint="@string/author_hint"/>
+
+                <Button
+                    android:id="@+id/author_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:padding="8dp"
+                    android:textColor="@android:color/white"
+                    android:text="add\nauthor"
+                    android:background="@color/easy_reference_red"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
