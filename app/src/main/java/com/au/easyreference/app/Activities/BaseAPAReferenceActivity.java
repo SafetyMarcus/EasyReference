@@ -24,6 +24,7 @@ import com.au.easyreference.app.utils.ERApplication;
  */
 public class BaseAPAReferenceActivity extends ActionBarActivity
 {
+	public static final int SAVE = 1;
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
@@ -39,11 +40,6 @@ public class BaseAPAReferenceActivity extends ActionBarActivity
 	@InjectView(R.id.subtitle)
 	public EditText subtitle;
 
-	@InjectView(R.id.cancel)
-	protected Button cancel;
-	@InjectView(R.id.save)
-	protected Button save;
-
 	@InjectView(R.id.toolbar)
 	protected Toolbar toolbar;
 
@@ -55,6 +51,7 @@ public class BaseAPAReferenceActivity extends ActionBarActivity
 	{
 		super.onCreate(savedInstanceState);
 
+		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{
 			@Override

@@ -172,5 +172,4 @@
                 android:hint="@string/publisher_hint"/>
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/dialog_buttons"/>
 </LinearLayout>

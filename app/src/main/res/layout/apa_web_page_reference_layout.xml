@@ -90,5 +90,4 @@
                 android:hint="@string/url_hint"/>
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/dialog_buttons"/>
 </LinearLayout>

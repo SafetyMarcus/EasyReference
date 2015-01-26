@@ -162,5 +162,4 @@
                 android:hint="@string/doi_hint"/>
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/dialog_buttons"/>
 </LinearLayout>
