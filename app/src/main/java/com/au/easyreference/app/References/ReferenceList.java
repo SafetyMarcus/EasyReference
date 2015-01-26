@@ -1,7 +1,7 @@
-package com.au.easyreference.app.References;
+package com.au.easyreference.app.references;
 
 import android.app.Application;
-import com.au.easyreference.app.Utils.HelperFunctions;
+import com.au.easyreference.app.utils.HelperFunctions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,10 +9,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static com.au.easyreference.app.Utils.Constants.REFERENCE;
-import static com.au.easyreference.app.Utils.Constants.REFERENCE_ID;
-import static com.au.easyreference.app.Utils.Constants.REFERENCE_LIST;
-import static com.au.easyreference.app.Utils.Constants.REFERENCE_LIST_TYPE;
+import static com.au.easyreference.app.utils.Constants.REFERENCE;
+import static com.au.easyreference.app.utils.Constants.REFERENCE_ID;
+import static com.au.easyreference.app.utils.Constants.REFERENCE_LIST;
+import static com.au.easyreference.app.utils.Constants.REFERENCE_LIST_TYPE;
 
 /**
  * @author Marcus Hooper

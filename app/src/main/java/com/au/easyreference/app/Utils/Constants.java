@@ -1,4 +1,4 @@
-package com.au.easyreference.app.Utils;
+package com.au.easyreference.app.utils;
 
 /**
  * @author Marcus Hooper

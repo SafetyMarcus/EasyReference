@@ -1,10 +1,10 @@
-package com.au.easyreference.app.Utils;
+package com.au.easyreference.app.utils;
 
 import android.app.Application;
 import android.os.Environment;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
-import com.au.easyreference.app.References.ReferenceList;
+import com.au.easyreference.app.references.ReferenceItem;
+import com.au.easyreference.app.references.ReferenceList;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;

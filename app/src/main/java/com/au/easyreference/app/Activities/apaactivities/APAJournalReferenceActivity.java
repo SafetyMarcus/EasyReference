@@ -1,21 +1,18 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.activities.apaactivities;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.DialogActivity;
+import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
+import com.au.easyreference.app.references.ReferenceItem;
 
 /**
  * @author Marcus Hooper
  */
-public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFragment
+public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 {
 	@InjectView(R.id.journal_title)
 	public EditText journalTitle;
@@ -28,17 +25,14 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 	@InjectView(R.id.doi)
 	public EditText doi;
 
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_journal_reference_layout, container, false);
-		ButterKnife.inject(this, layout);
+		setContentView(R.layout.apa_journal_reference_layout);
+		ButterKnife.inject(this);
 
-		super.onCreateView(inflater, container, savedInstanceState);
-		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.apa_journal_reference));
-
-		setHasOptionsMenu(true);
+		toolbar.setTitle(getString(R.string.apa_journal_reference));
+		super.onCreate(savedInstanceState);
 
 		if(currentReference == null)
 		{
@@ -52,16 +46,14 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 			public void onClick(View view)
 			{
 				save();
-				getActivity().onBackPressed();
+				onBackPressed();
 			}
 		});
 
-		Bundle args = getArguments();
+		Bundle args = getIntent().getExtras();
 
 		if(args != null && args.containsKey(KEY_ID))
 			setUpView(args.getString(KEY_ID));
-
-		return layout;
 	}
 
 	@Override
@@ -86,7 +78,6 @@ public class APAJournalReferenceDialogFragment extends BaseAPAReferenceDialogFra
 				pageNo.setText(currentReference.pageNo);
 			if(currentReference.doi != null && currentReference.doi.length() > 0)
 				doi.setText(currentReference.doi);
-
 		}
 	}
 }

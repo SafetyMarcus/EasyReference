@@ -1,4 +1,4 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,9 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.DialogActivity;
+import com.au.easyreference.app.activities.DialogActivity;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
+import com.au.easyreference.app.references.ReferenceItem;
 
 import java.util.ArrayList;
 

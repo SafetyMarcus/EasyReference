@@ -1,8 +1,8 @@
-package com.au.easyreference.app.Utils;
+package com.au.easyreference.app.utils;
 
 import android.app.Application;
 import android.util.Log;
-import com.au.easyreference.app.References.ReferenceList;
+import com.au.easyreference.app.references.ReferenceList;
 import com.squareup.otto.Bus;
 import org.json.JSONException;
 import org.json.JSONObject;

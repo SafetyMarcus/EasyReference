@@ -1,39 +1,32 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.activities.apaactivities;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.DialogActivity;
+import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
+import com.au.easyreference.app.references.ReferenceItem;
 
 /**
  * @author Marcus Hooper
  */
-public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragment
+public class APABookReferenceActivity extends BaseAPAReferenceActivity
 {
 	@InjectView(R.id.location)
 	public EditText location;
 	@InjectView(R.id.publisher)
 	public EditText publisher;
 
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
-		View layout = getActivity().getLayoutInflater().inflate(R.layout.apa_book_reference_layout, container, false);
-		ButterKnife.inject(this, layout);
+		setContentView(R.layout.apa_book_reference_layout);
+		ButterKnife.inject(this);
 
-		super.onCreateView(inflater, container, savedInstanceState);
-		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.apa_book_reference));
-		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.apa_book_reference));
-
-		setHasOptionsMenu(true);
+		toolbar.setTitle(getString(R.string.apa_book_reference));
+		super.onCreate(savedInstanceState);
 
 		if(currentReference == null)
 		{
@@ -47,16 +40,14 @@ public class APABookReferenceDialogFragment extends BaseAPAReferenceDialogFragme
 			public void onClick(View view)
 			{
 				save();
-				getActivity().onBackPressed();
+				onBackPressed();
 			}
 		});
 
-		Bundle args = getArguments();
+		Bundle args = getIntent().getExtras();
 
 		if(args != null && args.containsKey(KEY_ID))
 			setUpView(args.getString(KEY_ID));
-
-		return layout;
 	}
 
 	@Override

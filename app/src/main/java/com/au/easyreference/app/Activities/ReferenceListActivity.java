@@ -1,11 +1,10 @@
-package com.au.easyreference.app.Activities;
+package com.au.easyreference.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,19 +16,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Fragments.APABookChapterReferenceDialogFragment;
-import com.au.easyreference.app.Fragments.APABookReferenceDialogFragment;
-import com.au.easyreference.app.Fragments.APAJournalReferenceDialogFragment;
-import com.au.easyreference.app.Fragments.APAWebPageReferenceDialogFragment;
-import com.au.easyreference.app.Fragments.SearchDialog;
-import com.au.easyreference.app.Fragments.TypeDialog;
+import com.au.easyreference.app.activities.apaactivities.APABookChapterReferenceActivity;
+import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
+import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
+import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
+import com.au.easyreference.app.fragments.SearchDialog;
+import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
-import com.au.easyreference.app.References.ReferenceList;
-import com.au.easyreference.app.References.ReferenceListAdapter;
-import com.au.easyreference.app.Utils.ERApplication;
-import com.au.easyreference.app.Utils.HelperFunctions;
-import com.au.easyreference.app.Utils.Result;
+import com.au.easyreference.app.references.ReferenceItem;
+import com.au.easyreference.app.references.ReferenceList;
+import com.au.easyreference.app.references.ReferenceListAdapter;
+import com.au.easyreference.app.utils.ERApplication;
+import com.au.easyreference.app.utils.HelperFunctions;
+import com.au.easyreference.app.utils.Result;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
@@ -220,24 +219,24 @@ public class ReferenceListActivity extends ActionBarActivity
 		{
 			ReferenceItem referenceItem = adapter.getItem(position);
 
-			Fragment dialog = null;
+			Class intentClass = null;
 			if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
-				dialog = new APABookReferenceDialogFragment();
+				intentClass = APABookReferenceActivity.class;
 			else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
-				dialog = new APAJournalReferenceDialogFragment();
+				intentClass = APAJournalReferenceActivity.class;
 			else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
-				dialog = new APABookChapterReferenceDialogFragment();
+				intentClass = APABookChapterReferenceActivity.class;
 			else if(referenceItem.type == ReferenceItem.WEB_PAGE)
-				dialog = new APAWebPageReferenceDialogFragment();
+				intentClass = APAWebPageReferenceActivity.class;
 
-			if(dialog != null)
+			if(intentClass != null)
 			{
-				Bundle args = new Bundle();
-				args.putString(APABookReferenceDialogFragment.KEY_LIST_ID, referenceList.id);
-				args.putString(APABookReferenceDialogFragment.KEY_ID, referenceItem.id);
-				dialog.setArguments(args);
+				Intent intent = new Intent(ReferenceListActivity.this, intentClass);
 
-				DialogActivity.showDialog(getActivity(), dialog);
+				intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
+				intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
+
+				startActivity(intent);
 			}
 		}
 	}

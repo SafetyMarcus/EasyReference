@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.References.ReferenceList;
-import com.au.easyreference.app.Utils.HelperFunctions;
-import com.au.easyreference.app.Utils.PDFGenerator;
+import com.au.easyreference.app.references.ReferenceList;
+import com.au.easyreference.app.utils.HelperFunctions;
+import com.au.easyreference.app.utils.PDFGenerator;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.DialogActivity;
+import com.au.easyreference.app.activities.DialogActivity;
 import com.au.easyreference.app.R;
 
 /**

@@ -1,4 +1,4 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,9 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.Activities.DialogActivity;
+import com.au.easyreference.app.activities.DialogActivity;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.Utils.Result;
+import com.au.easyreference.app.utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.au.easyreference.app.Utils.ERApplication.BUS;
+import static com.au.easyreference.app.utils.ERApplication.BUS;
 
 /**
  * @author Marcus Hooper

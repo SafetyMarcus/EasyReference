@@ -1,28 +1,28 @@
-package com.au.easyreference.app.Fragments;
+package com.au.easyreference.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import butterknife.InjectView;
 import butterknife.Optional;
-import com.au.easyreference.app.Activities.DialogActivity;
+import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.References.ReferenceItem;
-import com.au.easyreference.app.References.ReferenceList;
-import com.au.easyreference.app.Utils.ERApplication;
+import com.au.easyreference.app.references.ReferenceItem;
+import com.au.easyreference.app.references.ReferenceList;
+import com.au.easyreference.app.utils.ERApplication;
 
 /**
  * @author Marcus Hooper
  */
-public class BaseAPAReferenceDialogFragment extends Fragment
+public class BaseAPAReferenceActivity extends ActionBarActivity
 {
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
@@ -44,23 +44,32 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 	@InjectView(R.id.save)
 	protected Button save;
 
+	@InjectView(R.id.toolbar)
+	protected Toolbar toolbar;
+
 	public ReferenceList referenceList;
 	public ReferenceItem currentReference;
 
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
-		cancel.setOnClickListener(new View.OnClickListener()
+		super.onCreate(savedInstanceState);
+
+		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{
 			@Override
-			public void onClick(View view)
+			public void onClick(View v)
 			{
-				getActivity().onBackPressed();
+				onBackPressed();
 			}
 		});
 
-		Bundle args = getArguments();
+		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
+		setSupportActionBar(toolbar);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
+
+		Bundle args = getIntent().getExtras();
 
 		if(args != null)
 		{
@@ -73,8 +82,6 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 		}
 
 		authorButton.setOnClickListener(new AuthorClickListener());
-
-		return null;
 	}
 
 	@Override
@@ -83,7 +90,7 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 		switch(item.getItemId())
 		{
 			case android.R.id.home:
-				getActivity().onBackPressed();
+				onBackPressed();
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -140,7 +147,7 @@ public class BaseAPAReferenceDialogFragment extends Fragment
 		public void onClick(View v)
 		{
 			Fragment authorFragment = new AuthorDialogFragment();
-			DialogActivity.showDialog(getActivity(), authorFragment, AuthorDialogFragment.GET_AUTHOR);
+			DialogActivity.showDialog(BaseAPAReferenceActivity.this, authorFragment, AuthorDialogFragment.GET_AUTHOR);
 		}
 	}
 }

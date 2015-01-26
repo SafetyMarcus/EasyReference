@@ -1,4 +1,4 @@
-package com.au.easyreference.app.References;
+package com.au.easyreference.app.references;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.Utils.HelperFunctions;
+import com.au.easyreference.app.utils.HelperFunctions;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 
 /**

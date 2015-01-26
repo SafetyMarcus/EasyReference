@@ -1,30 +1,30 @@
-package com.au.easyreference.app.References;
+package com.au.easyreference.app.references;
 
 import android.content.Context;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.Utils.Result;
+import com.au.easyreference.app.utils.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.UUID;
 
-import static com.au.easyreference.app.Utils.Constants.AUTHOR;
-import static com.au.easyreference.app.Utils.Constants.BOOK_SUBTITLE;
-import static com.au.easyreference.app.Utils.Constants.BOOK_TITLE;
-import static com.au.easyreference.app.Utils.Constants.DOI;
-import static com.au.easyreference.app.Utils.Constants.EDITORS;
-import static com.au.easyreference.app.Utils.Constants.ISSUE;
-import static com.au.easyreference.app.Utils.Constants.ITEM_TYPE;
-import static com.au.easyreference.app.Utils.Constants.JOURNAL_TITLE;
-import static com.au.easyreference.app.Utils.Constants.LOCATION;
-import static com.au.easyreference.app.Utils.Constants.PAGE_NO;
-import static com.au.easyreference.app.Utils.Constants.PUBLISHER;
-import static com.au.easyreference.app.Utils.Constants.REFERENCE_ITEM_ID;
-import static com.au.easyreference.app.Utils.Constants.SUBTITLE;
-import static com.au.easyreference.app.Utils.Constants.TITLE;
-import static com.au.easyreference.app.Utils.Constants.URL;
-import static com.au.easyreference.app.Utils.Constants.VOLUME_NO;
-import static com.au.easyreference.app.Utils.Constants.YEAR;
+import static com.au.easyreference.app.utils.Constants.AUTHOR;
+import static com.au.easyreference.app.utils.Constants.BOOK_SUBTITLE;
+import static com.au.easyreference.app.utils.Constants.BOOK_TITLE;
+import static com.au.easyreference.app.utils.Constants.DOI;
+import static com.au.easyreference.app.utils.Constants.EDITORS;
+import static com.au.easyreference.app.utils.Constants.ISSUE;
+import static com.au.easyreference.app.utils.Constants.ITEM_TYPE;
+import static com.au.easyreference.app.utils.Constants.JOURNAL_TITLE;
+import static com.au.easyreference.app.utils.Constants.LOCATION;
+import static com.au.easyreference.app.utils.Constants.PAGE_NO;
+import static com.au.easyreference.app.utils.Constants.PUBLISHER;
+import static com.au.easyreference.app.utils.Constants.REFERENCE_ITEM_ID;
+import static com.au.easyreference.app.utils.Constants.SUBTITLE;
+import static com.au.easyreference.app.utils.Constants.TITLE;
+import static com.au.easyreference.app.utils.Constants.URL;
+import static com.au.easyreference.app.utils.Constants.VOLUME_NO;
+import static com.au.easyreference.app.utils.Constants.YEAR;
 
 /**
  * @author Marcus Hooper

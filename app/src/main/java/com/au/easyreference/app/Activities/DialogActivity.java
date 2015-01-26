@@ -1,4 +1,4 @@
-package com.au.easyreference.app.Activities;
+package com.au.easyreference.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;

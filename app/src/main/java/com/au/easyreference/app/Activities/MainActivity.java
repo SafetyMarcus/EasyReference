@@ -1,4 +1,4 @@
-package com.au.easyreference.app.Activities;
+package com.au.easyreference.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,8 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.Utils.ERApplication;
-import com.au.easyreference.app.Utils.HelperFunctions;
+import com.au.easyreference.app.utils.ERApplication;
+import com.au.easyreference.app.utils.HelperFunctions;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
