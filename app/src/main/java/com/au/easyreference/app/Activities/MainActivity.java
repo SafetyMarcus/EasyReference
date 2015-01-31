@@ -119,6 +119,7 @@ public class MainActivity extends ActionBarActivity
 				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
 				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(i).id);
 				startActivity(referenceIntent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			}
 		});
 

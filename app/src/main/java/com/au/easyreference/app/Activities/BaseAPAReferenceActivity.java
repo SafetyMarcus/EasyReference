@@ -119,6 +119,13 @@ public class BaseAPAReferenceActivity extends ActionBarActivity
 	}
 
 	@Override
+	public void onBackPressed()
+	{
+		super.onBackPressed();
+		overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+	}
+
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		if(resultCode != Activity.RESULT_OK)

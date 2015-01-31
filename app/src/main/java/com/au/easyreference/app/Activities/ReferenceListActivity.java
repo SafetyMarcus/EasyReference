@@ -169,6 +169,7 @@ public class ReferenceListActivity extends ActionBarActivity
 		referenceList.title = title.getText().toString();
 		referenceList.saveToFile(getApplication());
 		super.onBackPressed();
+		overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 
 	@Override
@@ -237,6 +238,7 @@ public class ReferenceListActivity extends ActionBarActivity
 				intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
 
 				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			}
 		}
 	}
