@@ -62,7 +62,7 @@ public class ReferenceListAdapter extends ArrayAdapter implements UndoAdapter
 		else if(currentReference.type == ReferenceItem.WEB_PAGE)
 			title = HelperFunctions.getAPAWebPageReferenceString(currentReference);
 
-		information.setText(title.length() > 0 ? title : information.getResources().getString(R.string.no_title));
+		information.setText(title.length() > 0 ? title : information.getResources().getString(R.string.tap_to_edit_reference));
 
 		return convertView;
 	}

@@ -19,7 +19,12 @@
     <string name="new_list">New</string>
     <string name="add_new">Add new reference</string>
     <string name="new_reference">Add new reference</string>
-    <string name="empty_references_list">There are no references on your device</string>
+
+    <!-- Empty list messages -->
+    <string name="empty_reference_lists_title">You have no reference lists!</string>
+    <string name="empty_reference_lists_text">Press the plus button below\nto start adding reference lists</string>
+    <string name="empty_reference_list_title">No references added</string>
+    <string name="empty_reference_list_text">Press the plus button below\nto start adding a reference</string>
 
     <!-- Strings for APA style -->
     <string name="new_apa_list">New APA Reference List</string>
@@ -71,7 +76,6 @@
     <string name="apa_book_chapter_reference">APA Book Chapter Reference</string>
     <string name="selecty_type">Select Type</string>
     <string name="no_title">No Title</string>
-    <string name="no_reference_message">No References Added</string>
     <string name="references">References</string>
     <string name="chapter_title">Chapter Title</string>
     <string name="chapter_sub_title">Chapter Subtitle (optional)</string>
@@ -94,4 +98,5 @@
     <string name="first_name">First Name</string>
     <string name="middle_name">Middle Name</string>
     <string name="last_name">Last Name</string>
+    <string name="tap_to_edit_reference">Tap to edit reference!</string>
 </resources>

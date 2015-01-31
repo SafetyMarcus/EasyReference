@@ -55,8 +55,6 @@ public class ReferenceListActivity extends ActionBarActivity
 	protected EditText title;
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
-	@InjectView(R.id.empty_view)
-	protected View emptyView;
 
 	public ReferenceListAdapter adapter;
 	public int type;
@@ -120,7 +118,7 @@ public class ReferenceListActivity extends ActionBarActivity
 		referencesListView.setAdapter(swipeUndoAdapter);
 		referencesListView.enableSimpleSwipeUndo();
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
-		referencesListView.setEmptyView(emptyView);
+		referencesListView.setEmptyView(findViewById(android.R.id.empty));
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{

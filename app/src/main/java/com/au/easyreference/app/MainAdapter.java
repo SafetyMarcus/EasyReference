@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,8 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 		else
 			holder = (OldReferenceHolder) layout.getTag();
 
-		holder.title.setText(list.get(position).title);
+		String title = list.get(position).title;
+		holder.title.setText(TextUtils.isEmpty(title) ? holder.title.getResources().getString(R.string.no_title) : title);
 		holder.subtext.setText(HelperFunctions.getReferenceListTypeString(list.get(position).referenceType, getContext()));
 		holder.export.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 		holder.export.setOnClickListener(new View.OnClickListener()

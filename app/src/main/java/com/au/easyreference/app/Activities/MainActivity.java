@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.MainAdapter;
@@ -33,8 +32,6 @@ public class MainActivity extends ActionBarActivity
 	protected Toolbar toolbar;
 	@InjectView(R.id.old_references_list)
 	protected DynamicListView referenceLists;
-	@InjectView(R.id.empty_references)
-	protected TextView emptyView;
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
 
@@ -64,6 +61,7 @@ public class MainActivity extends ActionBarActivity
 
 		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
 		referenceLists.setDivider(null);
+		referenceLists.setEmptyView(findViewById(android.R.id.empty));
 
 		/*
 		ArrayList<String> referenceTypes = new ArrayList<String>(2);
@@ -134,7 +132,6 @@ public class MainActivity extends ActionBarActivity
 		});
 
 		plusButton.getDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-		referenceLists.setEmptyView(emptyView);
 	}
 
 	@Override
