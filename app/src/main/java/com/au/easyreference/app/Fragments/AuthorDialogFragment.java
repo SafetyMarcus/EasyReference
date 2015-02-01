@@ -1,9 +1,7 @@
 package com.au.easyreference.app.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +12,7 @@ import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 
 /**
  * @author Marcus Hooper
@@ -63,11 +62,8 @@ public class AuthorDialogFragment extends Fragment
 					showWarningDialog(false);
 				else
 				{
-					Intent result = new Intent();
-					result.putExtra(AUTHOR_STRING, getAuthorString());
-					getActivity().setResult(Activity.RESULT_OK, result);
-
-					getActivity().onBackPressed();
+					((BaseAPAReferenceActivity) getActivity()).addAuthor(getAuthorString());
+					((ContainerDialogFragment) getParentFragment()).dismiss();
 				}
 			}
 		});

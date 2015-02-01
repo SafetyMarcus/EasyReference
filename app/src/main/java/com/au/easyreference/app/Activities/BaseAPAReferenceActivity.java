@@ -1,7 +1,5 @@
 package com.au.easyreference.app.activities;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -125,24 +123,12 @@ public class BaseAPAReferenceActivity extends ActionBarActivity
 		overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	public void addAuthor(String authorString)
 	{
-		if(resultCode != Activity.RESULT_OK)
-			return;
+		if(author.getText().length() > 0)
+			author.append(", ");
 
-		switch(requestCode)
-		{
-			case AuthorDialogFragment.GET_AUTHOR:
-				if(author.getText().length() > 0)
-					author.append(", ");
-
-				author.append(data.getStringExtra(AuthorDialogFragment.AUTHOR_STRING));
-				break;
-
-			default:
-				super.onActivityResult(requestCode, resultCode, data);
-		}
+		author.append(authorString);
 	}
 
 	public class AuthorClickListener implements View.OnClickListener

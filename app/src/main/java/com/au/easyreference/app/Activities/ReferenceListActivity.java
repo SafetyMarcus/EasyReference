@@ -1,6 +1,5 @@
 package com.au.easyreference.app.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.apaactivities.APABookChapterReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
@@ -23,7 +23,6 @@ import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActi
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.fragments.SearchDialog;
 import com.au.easyreference.app.fragments.TypeDialog;
-import com.au.easyreference.app.R;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
@@ -200,11 +199,6 @@ public class ReferenceListActivity extends ActionBarActivity
 	{
 		ERApplication.BUS.unregister(this);
 		super.onPause();
-	}
-
-	private Activity getActivity()
-	{
-		return this;
 	}
 
 	@Override
