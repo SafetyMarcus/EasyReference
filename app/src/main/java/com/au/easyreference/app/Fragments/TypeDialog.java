@@ -1,14 +1,13 @@
 package com.au.easyreference.app.fragments;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.activities.DialogActivity;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.references.ReferenceItem;
 
@@ -55,9 +53,7 @@ public class TypeDialog extends Fragment
 		View view = inflater.inflate(R.layout.types_dialog, container, false);
 		ButterKnife.inject(this, view);
 
-		setHasOptionsMenu(true);
-		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.selecty_type));
-		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.selecty_type));
+		((ContainerDialogFragment) getParentFragment()).toolbar.setTitle(getString(R.string.selecty_type));
 
 		TypeAdapter adapter = new TypeAdapter();
 		typesList.setAdapter(adapter);
@@ -85,24 +81,12 @@ public class TypeDialog extends Fragment
 					args.putInt(SearchDialog.TYPE, position);
 					dialog.setArguments(args);
 
-					((DialogActivity) getActivity()).swapFragments(dialog);
+					((ContainerDialogFragment) getParentFragment()).showChild(dialog);
 				}
 			}
 		});
 
 		return view;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-			case android.R.id.home:
-				getActivity().setResult(Activity.RESULT_CANCELED);
-				getActivity().onBackPressed();
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	private class TypeAdapter extends ArrayAdapter<String>

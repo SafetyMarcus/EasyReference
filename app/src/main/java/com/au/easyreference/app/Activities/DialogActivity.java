@@ -46,7 +46,7 @@ public class DialogActivity extends ActionBarActivity
 		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dialog_activity);
+		setContentView(R.layout.container_dialog_fragment);
 
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

@@ -20,6 +20,7 @@ import com.au.easyreference.app.activities.apaactivities.APABookChapterReference
 import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
+import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.fragments.SearchDialog;
 import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.R;
@@ -125,7 +126,12 @@ public class ReferenceListActivity extends ActionBarActivity
 			@Override
 			public void onClick(View v)
 			{
-				DialogActivity.showDialog(getActivity(), new TypeDialog(), REQUEST_TYPE);
+				Bundle args = new Bundle();
+				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
+
+				ContainerDialogFragment container = new ContainerDialogFragment();
+				container.setArguments(args);
+				container.show(getFragmentManager(), "Container");
 			}
 		});
 	}
@@ -145,12 +151,13 @@ public class ReferenceListActivity extends ActionBarActivity
 			case android.R.id.home:
 				onBackPressed();
 			case 0:
-				TypeDialog dialog = new TypeDialog();
 				Bundle args = new Bundle();
+				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
 				args.putBoolean(TypeDialog.SEARCH, true);
-				dialog.setArguments(args);
 
-				DialogActivity.showDialog(getActivity(), dialog, REQUEST_SEARCH);
+				ContainerDialogFragment container = new ContainerDialogFragment();
+				container.setArguments(args);
+				container.show(getFragmentManager(), "Container");
 		}
 		return super.onOptionsItemSelected(item);
 	}

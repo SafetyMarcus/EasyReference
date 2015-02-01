@@ -1,14 +1,13 @@
 package com.au.easyreference.app.fragments;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,7 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.activities.DialogActivity;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
@@ -81,9 +79,7 @@ public class SearchDialog extends Fragment
 		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, container, false);
 		ButterKnife.inject(this, layout);
 
-		setHasOptionsMenu(true);
-		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.search));
-		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.search));
+		((ContainerDialogFragment) getParentFragment()).toolbar.setTitle(getString(R.string.search));
 		results = new ArrayList<>();
 
 		type = getArguments().getInt(TYPE);
@@ -132,18 +128,6 @@ public class SearchDialog extends Fragment
 	{
 		super.onResume();
 		BUS.register(this);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-			case android.R.id.home:
-				getActivity().setResult(Activity.RESULT_CANCELED);
-				getActivity().onBackPressed();
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	private class TabClickListener implements View.OnClickListener
