@@ -27,7 +27,9 @@ public class ContainerDialogFragment extends DialogFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		if(getResources().getBoolean(R.bool.is_tablet))
+			getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		View view = inflater.inflate(R.layout.container_dialog_fragment, container, false);
 		ButterKnife.inject(this, view);
 
@@ -52,7 +54,12 @@ public class ContainerDialogFragment extends DialogFragment
 		if(getChildFragmentManager().getBackStackEntryCount() > 1)
 			getChildFragmentManager().popBackStack();
 		else
-			dismiss();
+		{
+			if(getResources().getBoolean(R.bool.is_tablet))
+				dismiss();
+			else
+				getActivity().onBackPressed();
+		}
 	}
 
 	private void instantiateChild(String key, Bundle args)

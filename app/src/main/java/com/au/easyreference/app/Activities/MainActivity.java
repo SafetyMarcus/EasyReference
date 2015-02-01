@@ -1,6 +1,5 @@
 package com.au.easyreference.app.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -35,8 +34,6 @@ public class MainActivity extends ActionBarActivity
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
 
-	private Activity activity;
-
 	private MainAdapter referenceListAdapter;
 	//	private ArrayAdapter<String> referenceTypeAdapter;
 
@@ -47,8 +44,6 @@ public class MainActivity extends ActionBarActivity
 
 		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
-		activity = this;
-
 		ButterKnife.inject(this);
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
@@ -114,7 +109,7 @@ public class MainActivity extends ActionBarActivity
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
+				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
 				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(i).id);
 				startActivity(referenceIntent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -126,7 +121,7 @@ public class MainActivity extends ActionBarActivity
 			@Override
 			public void onClick(View view)
 			{
-				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
+				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
 				startActivity(referenceIntent);
 			}
 		});

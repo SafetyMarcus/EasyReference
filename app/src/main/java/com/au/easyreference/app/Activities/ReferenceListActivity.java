@@ -129,9 +129,18 @@ public class ReferenceListActivity extends ActionBarActivity
 				Bundle args = new Bundle();
 				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
 
-				ContainerDialogFragment container = new ContainerDialogFragment();
-				container.setArguments(args);
-				container.show(getFragmentManager(), "Container");
+				if(getResources().getBoolean(R.bool.is_tablet))
+				{
+					ContainerDialogFragment container = new ContainerDialogFragment();
+					container.setArguments(args);
+					container.show(getFragmentManager(), "Container");
+				}
+				else
+				{
+					Intent intent = new Intent(ReferenceListActivity.this, ContainerActivity.class);
+					intent.putExtras(args);
+					startActivity(intent);
+				}
 			}
 		});
 	}
@@ -155,9 +164,18 @@ public class ReferenceListActivity extends ActionBarActivity
 				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
 				args.putBoolean(TypeDialog.SEARCH, true);
 
-				ContainerDialogFragment container = new ContainerDialogFragment();
-				container.setArguments(args);
-				container.show(getFragmentManager(), "Container");
+				if(getResources().getBoolean(R.bool.is_tablet))
+				{
+					ContainerDialogFragment container = new ContainerDialogFragment();
+					container.setArguments(args);
+					container.show(getFragmentManager(), "Container");
+				}
+				else
+				{
+					Intent intent = new Intent(ReferenceListActivity.this, ContainerActivity.class);
+					intent.putExtras(args);
+					startActivity(intent);
+				}
 		}
 		return super.onOptionsItemSelected(item);
 	}
