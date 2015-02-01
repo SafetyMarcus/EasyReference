@@ -47,7 +47,7 @@ public class AuthorDialogFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				getActivity().onBackPressed();
+				((ContainerDialogFragment) getParentFragment()).dismiss();
 			}
 		});
 

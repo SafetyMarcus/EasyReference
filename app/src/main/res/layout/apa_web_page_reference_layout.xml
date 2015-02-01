@@ -47,8 +47,8 @@
                     android:layout_margin="8dp"
                     android:padding="8dp"
                     android:textColor="@android:color/white"
-                    android:text="add\nauthor"
-                    android:background="@color/easy_reference_red"/>
+                    android:text="@string/add_author"
+                    android:background="@drawable/red_ripple"/>
             </LinearLayout>
 
             <TextView
