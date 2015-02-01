@@ -64,15 +64,16 @@ public class ContainerDialogFragment extends DialogFragment
 
 	private void instantiateChild(String key, Bundle args)
 	{
-		Fragment fragment = null;
-
-		if(key.equalsIgnoreCase(SearchDialog.class.toString()))
-			fragment = new SearchDialog();
-		else if(key.equalsIgnoreCase(TypeDialog.class.toString()))
-			fragment = new TypeDialog();
-
-		fragment.setArguments(args);
-		showChild(fragment);
+		try
+		{
+			Fragment fragment = (Fragment) Class.forName("com.au.easyreference.app.fragments." + key.substring(key.lastIndexOf(".") + 1)).newInstance();
+			fragment.setArguments(args);
+			showChild(fragment);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public void showChild(Fragment fragment)

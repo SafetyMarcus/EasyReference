@@ -2,10 +2,10 @@ package com.au.easyreference.app.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.au.easyreference.app.activities.DialogActivity;
 import com.au.easyreference.app.R;
 
 /**
@@ -42,16 +41,7 @@ public class AuthorDialogFragment extends Fragment
 		View layout = inflater.inflate(R.layout.author_dialog_fragment, container, false);
 		ButterKnife.inject(this, layout);
 		setHasOptionsMenu(false);
-		((DialogActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.author));
-		((DialogActivity) getActivity()).toolbar.setTitle(getString(R.string.author));
-		((DialogActivity) getActivity()).toolbar.setNavigationOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				getActivity().onBackPressed();
-			}
-		});
+		((ContainerDialogFragment) getParentFragment()).toolbar.setTitle(getString(R.string.author));
 
 		cancel.setOnClickListener(new View.OnClickListener()
 		{

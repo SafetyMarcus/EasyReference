@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -13,8 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.InjectView;
 import butterknife.Optional;
-import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.fragments.AuthorDialogFragment;
+import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
@@ -150,8 +150,11 @@ public class BaseAPAReferenceActivity extends ActionBarActivity
 		@Override
 		public void onClick(View v)
 		{
-			Fragment authorFragment = new AuthorDialogFragment();
-			DialogActivity.showDialog(BaseAPAReferenceActivity.this, authorFragment, AuthorDialogFragment.GET_AUTHOR);
+			ContainerDialogFragment container = new ContainerDialogFragment();
+			Bundle args = new Bundle();
+			args.putString(ContainerDialogFragment.TYPE_KEY, AuthorDialogFragment.class.getName());
+			container.setArguments(args);
+			container.show(getFragmentManager(), "Container");
 		}
 	}
 }
