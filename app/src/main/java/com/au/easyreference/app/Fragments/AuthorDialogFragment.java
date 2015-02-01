@@ -19,9 +19,6 @@ import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
  */
 public class AuthorDialogFragment extends Fragment
 {
-	public static final int GET_AUTHOR = 1111;
-	public static final String AUTHOR_STRING = "author";
-
 	@InjectView(R.id.first_name)
 	public EditText firstName;
 	@InjectView(R.id.middle_name)
