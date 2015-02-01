@@ -1,8 +1,6 @@
 package com.au.easyreference.app.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -18,7 +16,9 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.events.TypeResultEvent;
 import com.au.easyreference.app.references.ReferenceItem;
+import com.au.easyreference.app.utils.ERApplication;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,6 @@ import java.util.ArrayList;
  */
 public class TypeDialog extends Fragment
 {
-	public static final String TYPE = "type";
 	public static final String SEARCH = "search";
 
 	@InjectView(R.id.types_list)
@@ -69,10 +68,8 @@ public class TypeDialog extends Fragment
 			{
 				if(!shouldSearch)
 				{
-					Intent result = new Intent();
-					result.putExtra(TYPE, position);
-					getActivity().setResult(Activity.RESULT_OK, result);
-					getActivity().onBackPressed();
+					ERApplication.BUS.post(new TypeResultEvent(position));
+					((ContainerDialogFragment) getParentFragment()).dismiss();
 				}
 				else
 				{

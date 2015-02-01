@@ -1,9 +1,7 @@
 package com.au.easyreference.app.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +18,8 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.events.SearchResultEvent;
+import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
@@ -35,7 +35,6 @@ import static com.au.easyreference.app.utils.ERApplication.BUS;
  */
 public class SearchDialog extends Fragment
 {
-	public static final String RESULT = "result";
 	public static final String TYPE = "type";
 
 	private static final String URL = "http://api.springer.com/metadata/json?q=";
@@ -96,11 +95,8 @@ public class SearchDialog extends Fragment
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				Intent result = new Intent();
-				result.putExtra(RESULT, resultsAdapter.getItem(i));
-				getActivity().setResult(Activity.RESULT_OK, result);
-
-				getActivity().onBackPressed();
+				ERApplication.BUS.post(new SearchResultEvent(resultsAdapter.getItem(i)));
+				((ContainerDialogFragment) getParentFragment()).dismiss();
 			}
 		});
 

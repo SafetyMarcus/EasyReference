@@ -20,6 +20,8 @@ import com.au.easyreference.app.activities.apaactivities.APABookChapterReference
 import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
+import com.au.easyreference.app.events.SearchResultEvent;
+import com.au.easyreference.app.events.TypeResultEvent;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.fragments.SearchDialog;
 import com.au.easyreference.app.fragments.TypeDialog;
@@ -33,6 +35,7 @@ import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SwipeUndoAdapter;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -209,25 +212,16 @@ public class ReferenceListActivity extends ActionBarActivity
 		ERApplication.BUS.register(this);
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	@Subscribe
+	public void searchResult(SearchResultEvent event)
 	{
-		if(resultCode == RESULT_OK)
-		{
-			switch(requestCode)
-			{
-				case REQUEST_SEARCH:
-					ReferenceItem newReference = new ReferenceItem((Result) data.getParcelableExtra(SearchDialog.RESULT));
-					addReferenceItem(newReference);
-					break;
+		addReferenceItem(new ReferenceItem(event.result));
+	}
 
-				case REQUEST_TYPE:
-					ReferenceItem reference = new ReferenceItem(data.getIntExtra(TypeDialog.TYPE, 0));
-					addReferenceItem(reference);
-					break;
-			}
-		}
-		super.onActivityResult(requestCode, resultCode, data);
+	@Subscribe
+	public void typeResult(TypeResultEvent event)
+	{
+		addReferenceItem(new ReferenceItem(event.type));
 	}
 
 	public class ReferenceClickedListener implements AdapterView.OnItemClickListener

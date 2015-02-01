@@ -54,12 +54,18 @@ public class APABookReferenceActivity extends BaseAPAReferenceActivity
 		switch(item.getItemId())
 		{
 			case SAVE:
-				save();
 				onBackPressed();
 
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		save();
+		super.onBackPressed();
 	}
 
 	@Override
