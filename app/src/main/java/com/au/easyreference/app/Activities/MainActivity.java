@@ -21,7 +21,6 @@ import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.Simple
 
 import java.io.File;
 
-
 public class MainActivity extends BaseActivity
 {
 	@InjectView(R.id.old_references_list)
@@ -30,13 +29,12 @@ public class MainActivity extends BaseActivity
 	protected ImageView plusButton;
 
 	private MainAdapter referenceListAdapter;
-	//	private ArrayAdapter<String> referenceTypeAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_view);
 		ButterKnife.inject(this);
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
@@ -48,34 +46,6 @@ public class MainActivity extends BaseActivity
 		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
 		referenceLists.setDivider(null);
 		referenceLists.setEmptyView(findViewById(android.R.id.empty));
-
-		/*
-		ArrayList<String> referenceTypes = new ArrayList<String>(2);
-		referenceTypes.add("APA Reference List");
-		referenceTypes.add("Harvard Reference List");
-		referenceTypeAdapter = new ArrayAdapter<String>(this, R.layout.list_item, referenceTypes);
-		referenceTypesList.setAdapter(referenceTypeAdapter);
-		referenceTypesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-		{
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
-			{
-				Intent referenceIntent = new Intent(activity, ReferenceListActivity.class);
-
-				switch(position)
-				{
-					case 1:
-						referenceIntent.putExtra(ReferenceListActivity.KEY_TYPE, ReferenceList.APA);
-						break;
-					case 2:
-						referenceIntent.putExtra(ReferenceListActivity.KEY_TYPE, ReferenceList.HARVARD);
-						break;
-				}
-
-				startActivity(referenceIntent);
-			}
-		});
-		*/
 
 		referenceListAdapter = new MainAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
 		SimpleSwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
