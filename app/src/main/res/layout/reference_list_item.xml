@@ -33,10 +33,11 @@
 
     <ImageView
         android:id="@+id/export"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/icon_export"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp"
-        android:layout_marginRight="8dp"/>
+        android:padding="12dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
 </LinearLayout>
