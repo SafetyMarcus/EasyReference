@@ -18,8 +18,6 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.events.SearchResultEvent;
-import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
@@ -95,8 +93,8 @@ public class SearchDialog extends Fragment
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				ERApplication.BUS.post(new SearchResultEvent(resultsAdapter.getItem(i)));
-				((ContainerDialogFragment) getParentFragment()).dismiss();
+				((ContainerDialogFragment) getParentFragment()).closeListener.onClose(resultsAdapter.getItem(i));
+				((ContainerDialogFragment) getParentFragment()).onBackPressed();
 			}
 		});
 

@@ -18,8 +18,6 @@ import com.au.easyreference.app.activities.apaactivities.APABookChapterReference
 import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
-import com.au.easyreference.app.events.SearchResultEvent;
-import com.au.easyreference.app.events.TypeResultEvent;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.references.ReferenceItem;
@@ -31,7 +29,7 @@ import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SwipeUndoAdapter;
-import com.squareup.otto.Subscribe;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -121,18 +119,10 @@ public class ReferenceListActivity extends BaseActivity
 				Bundle args = new Bundle();
 				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
 
-				if(getResources().getBoolean(R.bool.is_tablet))
-				{
-					ContainerDialogFragment container = new ContainerDialogFragment();
-					container.setArguments(args);
-					container.show(getFragmentManager(), "Container");
-				}
-				else
-				{
-					Intent intent = new Intent(ReferenceListActivity.this, ContainerActivity.class);
-					intent.putExtras(args);
-					startActivityForVersion(ReferenceListActivity.this, intent);
-				}
+				ContainerDialogFragment container = new ContainerDialogFragment();
+				container.setArguments(args);
+				container.setCloseListener(closeListener);
+				container.show(getFragmentManager(), "Container");
 			}
 		});
 	}
@@ -156,21 +146,25 @@ public class ReferenceListActivity extends BaseActivity
 				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
 				args.putBoolean(TypeDialog.SEARCH, true);
 
-				if(getResources().getBoolean(R.bool.is_tablet))
-				{
-					ContainerDialogFragment container = new ContainerDialogFragment();
-					container.setArguments(args);
-					container.show(getFragmentManager(), "Container");
-				}
-				else
-				{
-					Intent intent = new Intent(ReferenceListActivity.this, ContainerActivity.class);
-					intent.putExtras(args);
-					startActivityForVersion(ReferenceListActivity.this, intent);
-				}
+				ContainerDialogFragment container = new ContainerDialogFragment();
+				container.setArguments(args);
+				container.setCloseListener(closeListener);
+				container.show(getFragmentManager(), "Container");
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	private ContainerDialogFragment.CloseListener closeListener = new ContainerDialogFragment.CloseListener()
+	{
+		@Override
+		public void onClose(Object result)
+		{
+			if(result instanceof Integer)
+				addReferenceItem(new ReferenceItem((Integer) result));
+			else if(result instanceof JSONObject)
+				addReferenceItem(new ReferenceItem((JSONObject) result));
+		}
+	};
 
 	public void addReferenceItem(ReferenceItem newReference)
 	{
@@ -185,9 +179,7 @@ public class ReferenceListActivity extends BaseActivity
 		referenceList.saveToFile(getApplication());
 
 		super.onBackPressed();
-		if(ERApplication.is21Plus)
-			finishAfterTransition();
-		else
+		if(!ERApplication.is21Plus)
 			overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 
@@ -204,18 +196,6 @@ public class ReferenceListActivity extends BaseActivity
 		super.onResume();
 		adapter.notifyDataSetChanged();
 		ERApplication.BUS.register(this);
-	}
-
-	@Subscribe
-	public void searchResult(SearchResultEvent event)
-	{
-		addReferenceItem(new ReferenceItem(event.result));
-	}
-
-	@Subscribe
-	public void typeResult(TypeResultEvent event)
-	{
-		addReferenceItem(new ReferenceItem(event.type));
 	}
 
 	public class ReferenceClickedListener implements AdapterView.OnItemClickListener

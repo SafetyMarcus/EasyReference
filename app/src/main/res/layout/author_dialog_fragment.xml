@@ -1,51 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="500dp"
-              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minWidth="400dp"
               android:background="@android:color/white">
 
     <include layout="@layout/toolbar"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/light_gray"
+        android:padding="8dp"
         android:text="@string/first_name"
         android:layout_marginLeft="8dp"/>
 
     <EditText
         android:id="@+id/first_name"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:hint="@string/year_hint"
         android:layout_marginLeft="8dp"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/light_gray"
+        android:padding="8dp"
         android:text="@string/middle_name"
         android:layout_marginLeft="8dp"/>
 
     <EditText
         android:id="@+id/middle_name"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:hint="@string/year_hint"
         android:layout_marginLeft="8dp"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/light_gray"
+        android:padding="8dp"
         android:text="@string/last_name"
         android:layout_marginLeft="8dp"/>
 
     <EditText
         android:id="@+id/last_name"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:hint="@string/year_hint"
         android:layout_marginLeft="8dp"/>
 

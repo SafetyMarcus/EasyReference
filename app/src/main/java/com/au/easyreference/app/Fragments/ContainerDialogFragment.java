@@ -23,12 +23,13 @@ public class ContainerDialogFragment extends DialogFragment
 	@InjectView(R.id.toolbar)
 	public Toolbar toolbar;
 
+	protected CloseListener closeListener;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		if(getResources().getBoolean(R.bool.is_tablet))
-			getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		View view = inflater.inflate(R.layout.container_dialog_fragment, container, false);
 		ButterKnife.inject(this, view);
@@ -54,12 +55,7 @@ public class ContainerDialogFragment extends DialogFragment
 		if(getChildFragmentManager().getBackStackEntryCount() > 1)
 			getChildFragmentManager().popBackStack();
 		else
-		{
-			if(getResources().getBoolean(R.bool.is_tablet))
-				dismiss();
-			else
-				getActivity().onBackPressed();
-		}
+			dismiss();
 	}
 
 	private void instantiateChild(String key, Bundle args)
@@ -80,5 +76,15 @@ public class ContainerDialogFragment extends DialogFragment
 	{
 		getChildFragmentManager().beginTransaction().replace(R.id.fragment_frame, fragment)
 				.addToBackStack(fragment.getClass().toString()).commit();
+	}
+
+	public void setCloseListener(CloseListener closeListener)
+	{
+		this.closeListener = closeListener;
+	}
+
+	public interface CloseListener
+	{
+		public abstract void onClose(Object result);
 	}
 }

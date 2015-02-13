@@ -16,9 +16,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.events.TypeResultEvent;
 import com.au.easyreference.app.references.ReferenceItem;
-import com.au.easyreference.app.utils.ERApplication;
 
 import java.util.ArrayList;
 
@@ -68,7 +66,7 @@ public class TypeDialog extends Fragment
 			{
 				if(!shouldSearch)
 				{
-					ERApplication.BUS.post(new TypeResultEvent(position));
+					((ContainerDialogFragment) getParentFragment()).closeListener.onClose(position);
 					((ContainerDialogFragment) getParentFragment()).onBackPressed();
 				}
 				else

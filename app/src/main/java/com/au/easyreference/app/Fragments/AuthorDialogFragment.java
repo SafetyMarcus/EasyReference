@@ -7,12 +7,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 
 /**
  * @author Marcus Hooper
@@ -26,9 +25,9 @@ public class AuthorDialogFragment extends Fragment
 	@InjectView(R.id.last_name)
 	public EditText lastName;
 	@InjectView(R.id.cancel)
-	public Button cancel;
+	public TextView cancel;
 	@InjectView(R.id.save)
-	public Button save;
+	public TextView save;
 
 	@Nullable
 	@Override
@@ -44,7 +43,7 @@ public class AuthorDialogFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				((ContainerDialogFragment) getParentFragment()).dismiss();
+				((ContainerDialogFragment) getParentFragment()).onBackPressed();
 			}
 		});
 
@@ -59,8 +58,8 @@ public class AuthorDialogFragment extends Fragment
 					showWarningDialog(false);
 				else
 				{
-					((BaseAPAReferenceActivity) getActivity()).addAuthor(getAuthorString());
-					((ContainerDialogFragment) getParentFragment()).dismiss();
+					((ContainerDialogFragment) getParentFragment()).closeListener.onClose(getAuthorString());
+					((ContainerDialogFragment) getParentFragment()).onBackPressed();
 				}
 			}
 		});

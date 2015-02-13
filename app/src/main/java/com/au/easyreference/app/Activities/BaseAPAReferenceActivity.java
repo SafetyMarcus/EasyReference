@@ -139,6 +139,16 @@ public class BaseAPAReferenceActivity extends BaseActivity
 			Bundle args = new Bundle();
 			args.putString(ContainerDialogFragment.TYPE_KEY, AuthorDialogFragment.class.getName());
 			container.setArguments(args);
+
+			container.setCloseListener(new ContainerDialogFragment.CloseListener()
+			{
+				@Override
+				public void onClose(Object result)
+				{
+					addAuthor((String) result);
+				}
+			});
+
 			container.show(getFragmentManager(), "Container");
 		}
 	}
