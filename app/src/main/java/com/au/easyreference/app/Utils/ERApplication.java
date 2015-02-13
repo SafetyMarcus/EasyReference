@@ -1,6 +1,7 @@
 package com.au.easyreference.app.utils;
 
 import android.app.Application;
+import android.os.Build;
 import android.util.Log;
 import com.au.easyreference.app.references.ReferenceList;
 import com.squareup.otto.Bus;
@@ -23,6 +24,7 @@ public class ERApplication extends Application
 {
 	public static ArrayList<ReferenceList> referenceLists;
 	public static final Bus BUS = new Bus();
+	public static final boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
 	@Override
 	public void onCreate()

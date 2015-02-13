@@ -26,6 +26,7 @@
             android:label="@string/reference_list">
         </activity>
 
+        <activity android:name=".activities.BaseActivity"/>
         <activity android:name=".activities.ContainerActivity"/>
 
         <activity android:name=".activities.apaactivities.APABookReferenceActivity"

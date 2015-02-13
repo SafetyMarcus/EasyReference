@@ -2,7 +2,6 @@ package com.au.easyreference.app.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.au.easyreference.app.utils.ERApplication;
 /**
  * @author Marcus Hooper
  */
-public class BaseAPAReferenceActivity extends ActionBarActivity
+public class BaseAPAReferenceActivity extends BaseActivity
 {
 	public static final int SAVE = 1;
 	public static final String KEY_LIST_ID = "key_list_id";

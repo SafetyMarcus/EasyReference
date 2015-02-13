@@ -69,7 +69,7 @@ public class TypeDialog extends Fragment
 				if(!shouldSearch)
 				{
 					ERApplication.BUS.post(new TypeResultEvent(position));
-					((ContainerDialogFragment) getParentFragment()).dismiss();
+					((ContainerDialogFragment) getParentFragment()).onBackPressed();
 				}
 				else
 				{

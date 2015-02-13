@@ -3,11 +3,8 @@ package com.au.easyreference.app.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,10 +22,8 @@ import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.Simple
 import java.io.File;
 
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends BaseActivity
 {
-	@InjectView(R.id.toolbar)
-	protected Toolbar toolbar;
 	@InjectView(R.id.old_references_list)
 	protected DynamicListView referenceLists;
 	@InjectView(R.id.plus_button)
@@ -40,16 +35,12 @@ public class MainActivity extends ActionBarActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-
 		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
 		ButterKnife.inject(this);
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
 		setSupportActionBar(toolbar);
-		if(is21Plus)
-			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
 
 		if(savedInstanceState == null)
 			((ERApplication) getApplication()).retrieveReferencesService();
@@ -111,8 +102,7 @@ public class MainActivity extends ActionBarActivity
 			{
 				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
 				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(i).id);
-				startActivity(referenceIntent);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				startActivityForVersion(MainActivity.this, referenceIntent);
 			}
 		});
 
@@ -122,7 +112,7 @@ public class MainActivity extends ActionBarActivity
 			public void onClick(View view)
 			{
 				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
-				startActivity(referenceIntent);
+				startActivityForVersion(MainActivity.this, referenceIntent);
 			}
 		});
 

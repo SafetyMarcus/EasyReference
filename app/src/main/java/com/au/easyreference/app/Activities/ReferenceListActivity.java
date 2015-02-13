@@ -1,10 +1,8 @@
 package com.au.easyreference.app.activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,14 +21,12 @@ import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActi
 import com.au.easyreference.app.events.SearchResultEvent;
 import com.au.easyreference.app.events.TypeResultEvent;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
-import com.au.easyreference.app.fragments.SearchDialog;
 import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
-import com.au.easyreference.app.utils.Result;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
@@ -42,11 +38,8 @@ import java.util.ArrayList;
 /**
  * @author Marcus Hooper
  */
-public class ReferenceListActivity extends ActionBarActivity
+public class ReferenceListActivity extends BaseActivity
 {
-	public static final int REQUEST_SEARCH = 1111;
-	public static final int REQUEST_TYPE = 1112;
-
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
 
@@ -66,16 +59,13 @@ public class ReferenceListActivity extends ActionBarActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reference_list_activity);
 		ButterKnife.inject(this);
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
 		setSupportActionBar(toolbar);
-		if(is21Plus)
-			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
+
 		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{
@@ -141,7 +131,7 @@ public class ReferenceListActivity extends ActionBarActivity
 				{
 					Intent intent = new Intent(ReferenceListActivity.this, ContainerActivity.class);
 					intent.putExtras(args);
-					startActivity(intent);
+					startActivityForVersion(ReferenceListActivity.this, intent);
 				}
 			}
 		});
@@ -176,7 +166,7 @@ public class ReferenceListActivity extends ActionBarActivity
 				{
 					Intent intent = new Intent(ReferenceListActivity.this, ContainerActivity.class);
 					intent.putExtras(args);
-					startActivity(intent);
+					startActivityForVersion(ReferenceListActivity.this, intent);
 				}
 		}
 		return super.onOptionsItemSelected(item);
@@ -193,8 +183,12 @@ public class ReferenceListActivity extends ActionBarActivity
 	{
 		referenceList.title = title.getText().toString();
 		referenceList.saveToFile(getApplication());
+
 		super.onBackPressed();
-		overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+		if(ERApplication.is21Plus)
+			finishAfterTransition();
+		else
+			overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 
 	@Override
@@ -248,7 +242,7 @@ public class ReferenceListActivity extends ActionBarActivity
 				intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
 				intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
 
-				startActivity(intent);
+				startActivityForVersion(ReferenceListActivity.this, intent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			}
 		}
