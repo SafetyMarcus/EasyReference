@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -58,7 +57,7 @@ public class SearchDialog extends Fragment
 	@InjectView(R.id.search)
 	EditText search;
 	@InjectView(R.id.search_button)
-	Button searchButton;
+	TextView searchButton;
 
 	@InjectView(R.id.results_list)
 	ListView resultsList;
