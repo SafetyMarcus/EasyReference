@@ -88,6 +88,8 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 
 			intent = new Intent(Intent.ACTION_SEND);
 			intent.putExtra(Intent.EXTRA_STREAM, uri);
+			intent.putExtra(Intent.EXTRA_SUBJECT, referenceList.title);
+			intent.putExtra(Intent.EXTRA_TEXT, activity.get().getString(R.string.email_text));
 
 			intent.setType("message/rfc822");
 			activity.get().startActivity(Intent.createChooser(intent, "Email"));

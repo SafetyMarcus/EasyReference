@@ -103,4 +103,5 @@
     <string name="first_name_hint">enter first name</string>
     <string name="middle_name_hint">enter middle name</string>
     <string name="last_name_hint">enter last name</string>
+    <string name="email_text">\n\nReference List generated in EasyReference</string>
 </resources>
