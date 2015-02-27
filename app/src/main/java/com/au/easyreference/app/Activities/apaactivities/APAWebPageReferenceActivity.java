@@ -1,8 +1,6 @@
 package com.au.easyreference.app.activities.apaactivities;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -37,26 +35,6 @@ public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 
 		if(args != null && args.containsKey(KEY_ID))
 			setUpView(args.getString(KEY_ID));
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		menu.add(Menu.NONE, SAVE, SAVE, getString(R.string.save)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-			case SAVE:
-				onBackPressed();
-
-			default:
-				return super.onOptionsItemSelected(item);
-		}
 	}
 
 	@Override

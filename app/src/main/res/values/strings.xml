@@ -100,4 +100,7 @@
     <string name="last_name">Last Name</string>
     <string name="tap_to_edit_reference">Tap to edit reference!</string>
     <string name="add_author">add<xliff:g id="one_line_space">\n</xliff:g>author</string>
+    <string name="first_name_hint">enter first name</string>
+    <string name="middle_name_hint">enter middle name</string>
+    <string name="last_name_hint">enter last name</string>
 </resources>
