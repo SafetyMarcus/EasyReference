@@ -1,6 +1,5 @@
 package com.au.easyreference.app.activities;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -60,8 +59,6 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
 		setSupportActionBar(toolbar);
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-			getWindow().setStatusBarColor(getResources().getColor(R.color.dark_red));
 
 		Bundle args = getIntent().getExtras();
 

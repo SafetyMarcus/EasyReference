@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/easy_reference_red</item>
+        <item name="android:colorPrimaryDark">@color/dark_red</item>
+
+        <!-- re enable when you have an actual test device
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/slide_right</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
+        -->
+    </style>
 </resources>

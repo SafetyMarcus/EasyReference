@@ -179,8 +179,6 @@ public class ReferenceListActivity extends BaseActivity
 		referenceList.saveToFile(getApplication());
 
 		super.onBackPressed();
-		if(!ERApplication.is21Plus)
-			overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 
 	@Override
@@ -223,7 +221,6 @@ public class ReferenceListActivity extends BaseActivity
 				intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
 
 				startActivityForVersion(ReferenceListActivity.this, intent);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			}
 		}
 	}
