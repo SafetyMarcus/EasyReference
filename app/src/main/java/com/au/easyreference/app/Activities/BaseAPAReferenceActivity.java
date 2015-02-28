@@ -124,7 +124,33 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		if(author.getText().length() > 0)
 			author.append(", ");
 
-		author.append(authorString);
+		author.append(getFormattedAuthorString(authorString));
+	}
+
+	private String getFormattedAuthorString(String originalString)
+	{
+		String formattedString = "";
+
+		String[] author = originalString.split(",");
+		formattedString += firstLetterToUppercase(author[0]) + ", ";
+		formattedString += author[1].toUpperCase();
+
+		return formattedString;
+	}
+
+	private String firstLetterToUppercase(String originalString)
+	{
+		String formattedString = "";
+
+		char[] characters = originalString.toCharArray();
+		String firstLetter = String.valueOf(characters[0]);
+		firstLetter = firstLetter.toUpperCase();
+
+		formattedString += firstLetter;
+		for(int i = 1; i < characters.length; i++)
+			formattedString += characters[i];
+
+		return formattedString;
 	}
 
 	public class AuthorClickListener implements View.OnClickListener
