@@ -20,7 +20,6 @@ import com.au.easyreference.app.utils.ERApplication;
  */
 public class BaseAPAReferenceActivity extends BaseActivity
 {
-	public static final int SAVE = 1;
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
