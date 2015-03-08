@@ -105,4 +105,6 @@
     <string name="middle_name_hint">enter middle name</string>
     <string name="last_name_hint">enter last name</string>
     <string name="email_text">\n\nReference List generated in EasyReference</string>
+    <string name="list_deleted">List Deleted!</string>
+    <string name="click_to_undo">Click to undo</string>
 </resources>

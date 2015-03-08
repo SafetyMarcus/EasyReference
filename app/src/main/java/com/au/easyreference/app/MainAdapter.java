@@ -115,7 +115,7 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 	@Override
 	public View getUndoClickView(@NonNull View convertView)
 	{
-		return convertView.findViewById(R.id.undo_button);
+		return convertView.findViewById(R.id.undo_view);
 	}
 
 	public class OldReferenceHolder
