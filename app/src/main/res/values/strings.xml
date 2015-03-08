@@ -23,7 +23,7 @@
 
     <!-- Empty list messages -->
     <string name="empty_reference_lists_title">You have no reference lists!</string>
-    <string name="empty_reference_lists_text">Press the plus button below\<xliff:g id="one_line_space">\n</xliff:g>to start adding reference lists</string>
+    <string name="empty_reference_lists_text">Press the plus button below<xliff:g id="one_line_space">\n</xliff:g>to start adding reference lists</string>
     <string name="empty_reference_list_title">No references added</string>
     <string name="empty_reference_list_text">Press the plus button below<xliff:g id="one_line_space">\n</xliff:g>to start adding a reference</string>
 
