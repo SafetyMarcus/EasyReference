@@ -31,19 +31,26 @@ public class BounceInAnimation
 		viewToAnimate.setVisibility(View.VISIBLE);
 
 		ObjectAnimator bounceUpAnimator = ObjectAnimator.ofFloat(viewToAnimate, "translationY", -50);
-		bounceUpAnimator.setDuration(100);
+		bounceUpAnimator.setDuration(75);
 		bounceUpAnimator.setInterpolator(interpolator);
 
 		ObjectAnimator settleAnimator = ObjectAnimator.ofFloat(viewToAnimate, "translationY", 0);
-		settleAnimator.setDuration(100);
+		settleAnimator.setDuration(50);
+		settleAnimator.setInterpolator(interpolator);
+
+		ObjectAnimator outAnimator = ObjectAnimator.ofFloat(viewToAnimate, "translationY", -1000);
+		settleAnimator.setDuration(200);
 		settleAnimator.setInterpolator(interpolator);
 
 		inAnimator.addListener(new BounceAnimationListener(bounceUpAnimator, 50));
 		bounceUpAnimator.addListener(new BounceAnimationListener(settleAnimator, 25));
+		settleAnimator.addListener(new BounceAnimationListener(outAnimator, 5000));
+		outAnimator.addListener(new BounceAnimationListener(true));
 
 		animations.add(inAnimator);
 		animations.add(bounceUpAnimator);
 		animations.add(settleAnimator);
+		animations.add(outAnimator);
 	}
 
 	public void startAnimation()
@@ -55,6 +62,7 @@ public class BounceInAnimation
 	{
 		ObjectAnimator nextAnimation;
 		int delay;
+		boolean finish;
 
 		public BounceAnimationListener(ObjectAnimator nextAnimation, int delay)
 		{
@@ -62,14 +70,24 @@ public class BounceInAnimation
 			this.delay = delay;
 		}
 
+		public BounceAnimationListener(boolean finish)
+		{
+			this.finish = finish;
+		}
+
 		@Override
 		public void onAnimationStart(Animator animation)
 		{
+			if(finish)
+				viewToAnimate.setVisibility(View.GONE);
 		}
 
 		@Override
 		public void onAnimationEnd(Animator animation)
 		{
+			if(finish)
+				return;
+
 			viewToAnimate.postDelayed(new Runnable()
 			{
 				@Override
