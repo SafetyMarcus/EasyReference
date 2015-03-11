@@ -1,5 +1,6 @@
 package com.au.easyreference.app.fragments;
 
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.ui.BounceInAnimation;
 import com.au.easyreference.app.utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
@@ -66,6 +68,9 @@ public class SearchDialog extends Fragment
 	@InjectView(R.id.results_list)
 	ListView resultsList;
 
+	@InjectView(R.id.first_time_info)
+	View firstTimeInfo;
+
 	private ArrayList<Result> results;
 	private ResultsAdapter resultsAdapter;
 
@@ -112,6 +117,13 @@ public class SearchDialog extends Fragment
 				new QueryDatabaseAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 		});
+
+		firstTimeInfo.setVisibility(View.GONE);
+		ObjectAnimator hideAnimator = ObjectAnimator.ofFloat(firstTimeInfo, "translationY", -1000);
+		hideAnimator.setDuration(0);
+		hideAnimator.start();
+
+		new BounceInAnimation(firstTimeInfo).startAnimation();
 
 		return layout;
 	}
