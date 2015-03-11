@@ -96,12 +96,19 @@
         android:textColor="@color/bright_blue"
         android:text="@string/search"/>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/results_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:visibility="gone"
         android:layout_weight="1"/>
-
 </LinearLayout>

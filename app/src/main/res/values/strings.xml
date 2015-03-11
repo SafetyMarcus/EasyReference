@@ -107,4 +107,5 @@
     <string name="email_text">\n\nReference List generated in EasyReference</string>
     <string name="list_deleted">List Deleted!</string>
     <string name="click_to_undo">Click to undo</string>
+    <string name="no_results">No results for search</string>
 </resources>

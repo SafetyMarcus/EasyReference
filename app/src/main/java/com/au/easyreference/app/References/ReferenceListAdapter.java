@@ -75,7 +75,6 @@ public class ReferenceListAdapter extends ArrayAdapter implements UndoAdapter
 			convertView = inflater.inflate(R.layout.undo_view, parent, false);
 
 		convertView.getLayoutParams().height = 96;
-
 		return convertView;
 	}
 

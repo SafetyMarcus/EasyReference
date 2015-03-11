@@ -13,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -59,6 +61,8 @@ public class SearchDialog extends Fragment
 	@InjectView(R.id.search_button)
 	TextView searchButton;
 
+	@InjectView(R.id.progress_bar)
+	ProgressBar progressBar;
 	@InjectView(R.id.results_list)
 	ListView resultsList;
 
@@ -102,6 +106,9 @@ public class SearchDialog extends Fragment
 			@Override
 			public void onClick(View view)
 			{
+				resultsList.setVisibility(View.GONE);
+				searchButton.setEnabled(false);
+				progressBar.setVisibility(View.VISIBLE);
 				new QueryDatabaseAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
 		});
@@ -164,6 +171,7 @@ public class SearchDialog extends Fragment
 
 	private void setUpList(JSONObject resultsObject)
 	{
+		resultsList.setVisibility(View.VISIBLE);
 		results.clear();
 
 		JSONArray resultsArray = resultsObject.optJSONArray("records");
@@ -211,8 +219,13 @@ public class SearchDialog extends Fragment
 		{
 			try
 			{
+				searchButton.setEnabled(true);
 				if(response != null && response.length() > 0)
 					setUpList(new JSONObject(response));
+				else
+					Toast.makeText(getActivity(), R.string.no_results, Toast.LENGTH_SHORT).show();
+
+				progressBar.setVisibility(View.GONE);
 			}
 			catch(JSONException e)
 			{
