@@ -108,4 +108,5 @@
     <string name="list_deleted">List Deleted!</string>
     <string name="click_to_undo">Click to undo</string>
     <string name="no_results">No results for search</string>
+    <string name="search_info">Here you can search the Springer database!</string>
 </resources>

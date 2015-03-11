@@ -1,6 +1,7 @@
 package com.au.easyreference.app.utils;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 import com.au.easyreference.app.references.ReferenceList;
@@ -22,15 +23,34 @@ import java.util.ArrayList;
  */
 public class ERApplication extends Application
 {
+	private static String PREFS_KEY = "prefs_edit";
+	private static String SEARCH_INFO_KEY = "search_info";
+
 	public static ArrayList<ReferenceList> referenceLists;
 	public static final Bus BUS = new Bus();
 	public static final boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+
+	public static boolean hasSeenSearchInfo = false;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
-		referenceLists = new ArrayList<ReferenceList>();
+		referenceLists = new ArrayList<>();
+		loadSettings();
+	}
+
+	public void loadSettings()
+	{
+		SharedPreferences prefs = getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
+		hasSeenSearchInfo = prefs.getBoolean(SEARCH_INFO_KEY, false);
+	}
+
+	public void saveSettings()
+	{
+		SharedPreferences.Editor prefs = getSharedPreferences(PREFS_KEY, MODE_PRIVATE).edit();
+		prefs.putBoolean(SEARCH_INFO_KEY, hasSeenSearchInfo);
+		prefs.apply();
 	}
 
 	public void retrieveReferencesService()

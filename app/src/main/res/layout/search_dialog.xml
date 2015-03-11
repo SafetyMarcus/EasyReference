@@ -14,7 +14,8 @@
         android:gravity="center"
         android:background="@color/easy_reference_red"
         android:textColor="@android:color/white"
-        android:text="Here you can search the Springer database!"
+        android:text="@string/search_info"
+        android:visibility="gone"
         android:padding="8dp"/>
 
     <LinearLayout

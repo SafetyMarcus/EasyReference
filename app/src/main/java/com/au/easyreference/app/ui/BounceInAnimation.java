@@ -12,8 +12,9 @@ import java.util.ArrayList;
  */
 public class BounceInAnimation
 {
-	View viewToAnimate;
-	ArrayList<ObjectAnimator> animations = new ArrayList<>();
+	private View viewToAnimate;
+	private ArrayList<ObjectAnimator> animations = new ArrayList<>();
+	private FinishListener finishListener;
 
 	public BounceInAnimation(View viewToAnimate)
 	{
@@ -53,6 +54,11 @@ public class BounceInAnimation
 		animations.add(outAnimator);
 	}
 
+	public void setFinishListener(FinishListener listener)
+	{
+		finishListener = listener;
+	}
+
 	public void startAnimation()
 	{
 		animations.get(0).start();
@@ -86,7 +92,10 @@ public class BounceInAnimation
 		public void onAnimationEnd(Animator animation)
 		{
 			if(finish)
+			{
+				finishListener.onFinish();
 				return;
+			}
 
 			viewToAnimate.postDelayed(new Runnable()
 			{
@@ -107,5 +116,10 @@ public class BounceInAnimation
 		public void onAnimationRepeat(Animator animation)
 		{
 		}
+	}
+
+	public interface FinishListener
+	{
+		public void onFinish();
 	}
 }

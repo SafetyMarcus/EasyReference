@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.ui.BounceInAnimation;
+import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import static com.au.easyreference.app.utils.ERApplication.BUS;
+import static com.au.easyreference.app.utils.ERApplication.hasSeenSearchInfo;
 
 /**
  * @author Marcus Hooper
@@ -118,14 +120,30 @@ public class SearchDialog extends Fragment
 			}
 		});
 
-		firstTimeInfo.setVisibility(View.GONE);
+		if(!hasSeenSearchInfo)
+			performFirstTimeAnimation();
+
+		return layout;
+	}
+
+	private void performFirstTimeAnimation()
+	{
 		ObjectAnimator hideAnimator = ObjectAnimator.ofFloat(firstTimeInfo, "translationY", -1000);
 		hideAnimator.setDuration(0);
 		hideAnimator.start();
 
-		new BounceInAnimation(firstTimeInfo).startAnimation();
+		BounceInAnimation bounce = new BounceInAnimation(firstTimeInfo);
+		bounce.setFinishListener(new BounceInAnimation.FinishListener()
+		{
+			@Override
+			public void onFinish()
+			{
+				hasSeenSearchInfo = true;
+				((ERApplication) getActivity().getApplication()).saveSettings();
+			}
+		});
 
-		return layout;
+		bounce.startAnimation();
 	}
 
 	@Override
