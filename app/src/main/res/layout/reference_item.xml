@@ -14,7 +14,6 @@
         android:paddingBottom="16dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <LinearLayout
