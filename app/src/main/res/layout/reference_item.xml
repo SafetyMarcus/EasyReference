@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_ripple"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/reference_information"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <LinearLayout
+        android:id="@+id/options_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:animateLayoutChanges="true">
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_edit"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="12dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_delete"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="12dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+    </LinearLayout>
 </LinearLayout>

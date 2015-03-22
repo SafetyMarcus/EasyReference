@@ -1,7 +1,5 @@
 package com.au.easyreference.app;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -9,9 +7,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +16,7 @@ import butterknife.InjectView;
 import com.au.easyreference.app.activities.MainActivity;
 import com.au.easyreference.app.activities.ReferenceListActivity;
 import com.au.easyreference.app.references.ReferenceList;
+import com.au.easyreference.app.ui.ShowOptionsAdapter;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
 import com.au.easyreference.app.utils.PDFGenerator;
@@ -31,7 +28,7 @@ import java.util.ArrayList;
 /**
  * @author Marcus Hooper
  */
-public class MainAdapter extends ArrayAdapter<ReferenceList>
+public class MainAdapter extends ShowOptionsAdapter
 {
 	private LayoutInflater inflater;
 	private ArrayList<ReferenceList> lists;
@@ -81,63 +78,6 @@ public class MainAdapter extends ArrayAdapter<ReferenceList>
 			hideOptions(holder.optionsLayout);
 
 		return layout;
-	}
-
-	private void showOptions(final View viewToShow)
-	{
-		if(!ERApplication.is21Plus)
-		{
-			viewToShow.setVisibility(View.VISIBLE);
-			return;
-		}
-
-		// get the center for the clipping circle
-		viewToShow.setVisibility(View.VISIBLE);
-		int cx = viewToShow.getWidth() / 2;
-		int cy = viewToShow.getHeight() / 2;
-
-		// get the final radius for the clipping circle
-		int finalRadius = Math.max(viewToShow.getWidth(), viewToShow.getHeight());
-
-		// create the animator for this view (the start radius is zero)
-		Animator anim = ViewAnimationUtils.createCircularReveal(viewToShow, cx, cy, 0, finalRadius);
-		anim.setDuration(1000);
-
-		// make the view visible and start the animation
-		anim.start();
-	}
-
-	private void hideOptions(final View viewToHide)
-	{
-		if(!ERApplication.is21Plus)
-		{
-			viewToHide.setVisibility(View.INVISIBLE);
-			return;
-		}
-
-		// get the center for the clipping circle
-		int cx = viewToHide.getWidth() / 2;
-		int cy = viewToHide.getHeight() / 2;
-
-		// get the initial radius for the clipping circle
-		int initialRadius = viewToHide.getWidth();
-
-		// create the animation (the final radius is zero)
-		Animator anim = ViewAnimationUtils.createCircularReveal(viewToHide, cx, cy, initialRadius, 0);
-
-		// make the view invisible when the animation is done
-		anim.addListener(new AnimatorListenerAdapter()
-		{
-			@Override
-			public void onAnimationEnd(Animator animation)
-			{
-				super.onAnimationEnd(animation);
-				viewToHide.setVisibility(View.INVISIBLE);
-			}
-		});
-
-		// start the animation
-		anim.start();
 	}
 
 	public class OldReferenceHolder

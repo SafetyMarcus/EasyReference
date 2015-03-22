@@ -6,17 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
-import com.au.easyreference.app.activities.apaactivities.APABookChapterReferenceActivity;
-import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
-import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
-import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.references.ReferenceItem;
@@ -90,18 +85,8 @@ public class ReferenceListActivity extends BaseActivity
 			title.setText(referenceList.title);
 		}
 
-		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceList, getLayoutInflater());
-//		SwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(adapter, this, new OnDismissCallback()
-//		{
-//			@Override
-//			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] ints)
-//			{
-//				for(int position : ints)
-//					referenceList.referenceList.remove(position);
-//			}
-//		});
+		adapter = new ReferenceListAdapter(this, referenceList, getLayoutInflater());
 		referencesListView.setAdapter(adapter);
-		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
 		referencesListView.setEmptyView(findViewById(android.R.id.empty));
 
 		plusButton.setOnClickListener(new View.OnClickListener()
@@ -187,34 +172,5 @@ public class ReferenceListActivity extends BaseActivity
 		super.onResume();
 		adapter.notifyDataSetChanged();
 		ERApplication.BUS.register(this);
-	}
-
-	public class ReferenceClickedListener implements AdapterView.OnItemClickListener
-	{
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-		{
-			ReferenceItem referenceItem = adapter.getItem(position);
-
-			Class intentClass = null;
-			if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
-				intentClass = APABookReferenceActivity.class;
-			else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
-				intentClass = APAJournalReferenceActivity.class;
-			else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
-				intentClass = APABookChapterReferenceActivity.class;
-			else if(referenceItem.type == ReferenceItem.WEB_PAGE)
-				intentClass = APAWebPageReferenceActivity.class;
-
-			if(intentClass != null)
-			{
-				Intent intent = new Intent(ReferenceListActivity.this, intentClass);
-
-				intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
-				intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
-
-				startActivityForVersion(ReferenceListActivity.this, intent);
-			}
-		}
 	}
 }
