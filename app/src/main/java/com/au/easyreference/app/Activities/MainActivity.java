@@ -18,20 +18,18 @@ public class MainActivity extends BaseActivity
 	@InjectView(R.id.old_references_list)
 	protected ListView referenceLists;
 	@InjectView(R.id.plus_button)
-	protected ImageView plusButton;
+	public ImageView plusButton;
 
 	private MainAdapter referenceListAdapter;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_view);
+		super.onCreate(savedInstanceState);
 		ButterKnife.inject(this);
 
-		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
 		setSupportActionBar(toolbar);
-
 		if(savedInstanceState == null)
 			((ERApplication) getApplication()).retrieveReferencesService();
 
@@ -47,7 +45,7 @@ public class MainActivity extends BaseActivity
 			public void onClick(View view)
 			{
 				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
-				startActivityForVersion(MainActivity.this, referenceIntent);
+				startActivityForVersion(referenceIntent);
 			}
 		});
 

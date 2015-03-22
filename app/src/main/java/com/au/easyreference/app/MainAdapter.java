@@ -47,17 +47,17 @@ public class MainAdapter extends ShowOptionsAdapter
 	public View getView(final int position, View convertView, ViewGroup parent)
 	{
 		View layout = convertView;
-		OldReferenceHolder holder;
+		ReferenceListHolder holder;
 
 		if(layout == null)
 		{
 			layout = inflater.inflate(R.layout.reference_list_item, parent, false);
-			holder = new OldReferenceHolder(layout);
+			holder = new ReferenceListHolder(layout);
 
 			layout.setTag(holder);
 		}
 		else
-			holder = (OldReferenceHolder) layout.getTag();
+			holder = (ReferenceListHolder) layout.getTag();
 
 		String title = lists.get(position).title;
 		holder.title.setText(TextUtils.isEmpty(title) ? holder.title.getResources().getString(R.string.no_title) : title);
@@ -67,8 +67,10 @@ public class MainAdapter extends ShowOptionsAdapter
 		holder.export.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 		holder.delete.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 
-		layout.setOnClickListener(new OnRowClickListener(position));
-		holder.edit.setOnClickListener(new OnRowClickListener(position));
+		OnEditClickListener listener = new OnEditClickListener(position);
+		layout.setOnClickListener(listener);
+		holder.edit.setOnClickListener(listener);
+
 		holder.export.setOnClickListener(new OnExportClickListener(position));
 		holder.delete.setOnClickListener(new OnDeleteClickListener(position));
 
@@ -80,9 +82,9 @@ public class MainAdapter extends ShowOptionsAdapter
 		return layout;
 	}
 
-	public class OldReferenceHolder
+	public class ReferenceListHolder
 	{
-		@InjectView(R.id.reference_information)
+		@InjectView(R.id.reference_title)
 		public TextView title;
 		@InjectView(R.id.reference_subtext)
 		public TextView subtext;
@@ -95,7 +97,7 @@ public class MainAdapter extends ShowOptionsAdapter
 		@InjectView(R.id.options_layout)
 		public LinearLayout optionsLayout;
 
-		public OldReferenceHolder(View view)
+		public ReferenceListHolder(View view)
 		{
 			ButterKnife.inject(this, view);
 		}
@@ -137,11 +139,11 @@ public class MainAdapter extends ShowOptionsAdapter
 		}
 	}
 
-	public class OnRowClickListener implements View.OnClickListener
+	public class OnEditClickListener implements View.OnClickListener
 	{
 		private int position;
 
-		public OnRowClickListener(int position)
+		public OnEditClickListener(int position)
 		{
 			this.position = position;
 		}
@@ -158,7 +160,7 @@ public class MainAdapter extends ShowOptionsAdapter
 			{
 				Intent referenceIntent = new Intent(activity.get(), ReferenceListActivity.class);
 				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(position).id);
-				activity.get().startActivityForVersion(activity.get(), referenceIntent);
+				activity.get().startActivityForVersion(referenceIntent, activity.get().plusButton);
 			}
 		}
 	}

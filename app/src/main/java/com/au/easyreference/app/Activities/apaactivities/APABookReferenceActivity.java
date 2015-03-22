@@ -19,7 +19,7 @@ public class APABookReferenceActivity extends BaseAPAReferenceActivity
 	public EditText publisher;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
 		setContentView(R.layout.apa_book_reference_layout);
 		ButterKnife.inject(this);

@@ -25,7 +25,7 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 	public EditText doi;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
 		setContentView(R.layout.apa_journal_reference_layout);
 		ButterKnife.inject(this);

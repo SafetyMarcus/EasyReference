@@ -35,7 +35,7 @@ public class ReferenceListActivity extends BaseActivity
 	protected Toolbar toolbar;
 	@InjectView(R.id.references_list_view)
 	protected ListView referencesListView;
-	@InjectView(R.id.new_list_title)
+	@InjectView(R.id.list_title)
 	protected EditText title;
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
@@ -45,15 +45,13 @@ public class ReferenceListActivity extends BaseActivity
 	public ReferenceList referenceList;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reference_list_activity);
+		super.onCreate(savedInstanceState);
 		ButterKnife.inject(this);
 
-		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
 		setSupportActionBar(toolbar);
-
 		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{

@@ -98,7 +98,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 
 	public class ReferenceItemHolder
 	{
-		@InjectView(R.id.reference_information)
+		@InjectView(R.id.reference_title)
 		public TextView information;
 		@InjectView(R.id.edit)
 		public ImageView edit;
@@ -151,7 +151,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 					intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
 					intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
 
-					activity.get().startActivityForVersion(activity.get(), intent);
+					activity.get().startActivityForVersion(intent);
 				}
 			}
 		}

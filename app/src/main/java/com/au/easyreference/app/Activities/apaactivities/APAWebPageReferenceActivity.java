@@ -17,7 +17,7 @@ public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 	protected EditText url;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
 		setContentView(R.layout.apa_web_page_reference_layout);
 		ButterKnife.inject(this);
