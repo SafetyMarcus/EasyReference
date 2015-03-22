@@ -41,7 +41,7 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 		this.inflater = context.getLayoutInflater();
 		this.list = referenceLists;
 		layoutResourceId = resource;
-		activity = new WeakReference<Activity>(context);
+		activity = new WeakReference<>(context);
 	}
 
 	@Override

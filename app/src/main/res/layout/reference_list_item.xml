@@ -31,13 +31,39 @@
             android:textColor="@color/subtext_colour"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/export"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/icon_export"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="12dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+    <LinearLayout
+        android:id="@+id/options_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_edit"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="12dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <ImageView
+            android:id="@+id/export"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_export"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="12dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_delete"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="12dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+    </LinearLayout>
 </LinearLayout>
