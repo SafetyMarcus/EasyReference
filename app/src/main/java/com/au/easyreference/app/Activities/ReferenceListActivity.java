@@ -2,15 +2,14 @@ package com.au.easyreference.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -25,10 +24,6 @@ import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SwipeUndoAdapter;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -44,7 +39,7 @@ public class ReferenceListActivity extends BaseActivity
 	@InjectView(R.id.toolbar)
 	protected Toolbar toolbar;
 	@InjectView(R.id.references_list_view)
-	protected DynamicListView referencesListView;
+	protected ListView referencesListView;
 	@InjectView(R.id.new_list_title)
 	protected EditText title;
 	@InjectView(R.id.plus_button)
@@ -96,18 +91,16 @@ public class ReferenceListActivity extends BaseActivity
 		}
 
 		adapter = new ReferenceListAdapter(this, R.layout.reference_item, referenceList, getLayoutInflater());
-		SwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(adapter, this, new OnDismissCallback()
-		{
-			@Override
-			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] ints)
-			{
-				for(int position : ints)
-					referenceList.referenceList.remove(position);
-			}
-		});
-		swipeUndoAdapter.setAbsListView(referencesListView);
-		referencesListView.setAdapter(swipeUndoAdapter);
-		referencesListView.enableSimpleSwipeUndo();
+//		SwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(adapter, this, new OnDismissCallback()
+//		{
+//			@Override
+//			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] ints)
+//			{
+//				for(int position : ints)
+//					referenceList.referenceList.remove(position);
+//			}
+//		});
+		referencesListView.setAdapter(adapter);
 		referencesListView.setOnItemClickListener(new ReferenceClickedListener());
 		referencesListView.setEmptyView(findViewById(android.R.id.empty));
 

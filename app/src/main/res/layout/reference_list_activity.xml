@@ -31,7 +31,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
 
-    <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+    <ListView
         android:layout_below="@id/title_layout"
         android:id="@+id/references_list_view"
         android:layout_width="match_parent"

@@ -1,8 +1,6 @@
 package com.au.easyreference.app.references;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.utils.HelperFunctions;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 
 /**
  * @author Marcus Hooper
  */
-public class ReferenceListAdapter extends ArrayAdapter implements UndoAdapter
+public class ReferenceListAdapter extends ArrayAdapter
 {
 	private LayoutInflater inflater;
 	private int layoutResourceId;
@@ -65,24 +62,5 @@ public class ReferenceListAdapter extends ArrayAdapter implements UndoAdapter
 		information.setText(title.length() > 0 ? title : information.getResources().getString(R.string.tap_to_edit_reference));
 
 		return convertView;
-	}
-
-	@NonNull
-	@Override
-	public View getUndoView(int i, @Nullable View convertView, @NonNull ViewGroup parent)
-	{
-		if(convertView == null)
-			convertView = inflater.inflate(R.layout.undo_view, parent, false);
-
-		convertView.getLayoutParams().height = 96;
-		return convertView;
-	}
-
-
-	@NonNull
-	@Override
-	public View getUndoClickView(@NonNull View convertView)
-	{
-		return convertView.findViewById(R.id.undo_view);
 	}
 }

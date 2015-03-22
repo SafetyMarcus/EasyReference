@@ -4,26 +4,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.utils.ERApplication;
-import com.au.easyreference.app.utils.HelperFunctions;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
-
-import java.io.File;
 
 public class MainActivity extends BaseActivity
 {
 	@InjectView(R.id.old_references_list)
-	protected DynamicListView referenceLists;
+	protected ListView referenceLists;
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
 
@@ -46,24 +39,8 @@ public class MainActivity extends BaseActivity
 		referenceLists.setDivider(null);
 		referenceLists.setEmptyView(findViewById(android.R.id.empty));
 
-		referenceListAdapter = new MainAdapter(this, R.layout.reference_list_item, ERApplication.referenceLists);
-		SimpleSwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(referenceListAdapter, this, new OnDismissCallback()
-		{
-			@Override
-			public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] reverseSortedPositions)
-			{
-				for(int position : reverseSortedPositions)
-				{
-					new File(HelperFunctions.getReferenceListPath(ERApplication.referenceLists.get(position).id, getApplication())).delete();
-					ERApplication.referenceLists.remove(position);
-					referenceListAdapter.notifyDataSetChanged();
-				}
-			}
-		});
-
-		swipeUndoAdapter.setAbsListView(referenceLists);
-		referenceLists.setAdapter(swipeUndoAdapter);
-		referenceLists.enableSimpleSwipeUndo();
+		referenceListAdapter = new MainAdapter(this, ERApplication.referenceLists);
+		referenceLists.setAdapter(referenceListAdapter);
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{

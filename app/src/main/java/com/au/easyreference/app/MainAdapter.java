@@ -1,17 +1,19 @@
 package com.au.easyreference.app;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,7 +23,6 @@ import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
 import com.au.easyreference.app.utils.PDFGenerator;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -30,19 +31,18 @@ import java.util.ArrayList;
 /**
  * @author Marcus Hooper
  */
-public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdapter
+public class MainAdapter extends ArrayAdapter<ReferenceList>
 {
 	private LayoutInflater inflater;
 	private ArrayList<ReferenceList> lists;
-	private int layoutResourceId;
 	private WeakReference<MainActivity> activity;
+	private int selected = -1;
 
-	public MainAdapter(MainActivity context, int resource, ArrayList<ReferenceList> referenceLists)
+	public MainAdapter(MainActivity context, ArrayList<ReferenceList> referenceLists)
 	{
-		super(context, resource, referenceLists);
+		super(context, R.layout.reference_list_item, referenceLists);
 		this.inflater = context.getLayoutInflater();
 		this.lists = referenceLists;
-		layoutResourceId = resource;
 		activity = new WeakReference<>(context);
 	}
 
@@ -54,7 +54,7 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 
 		if(layout == null)
 		{
-			layout = inflater.inflate(layoutResourceId, parent, false);
+			layout = inflater.inflate(R.layout.reference_list_item, parent, false);
 			holder = new OldReferenceHolder(layout);
 
 			layout.setTag(holder);
@@ -70,30 +70,12 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 		holder.export.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 		holder.delete.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 
-		convertView.setOnClickListener(new OnRowClickListener(position));
-		holder.edit.setOnClickListener(new OnRowClickListener(position));
+		layout.setOnClickListener(new OnRowClickListener(position, holder.optionsLayout));
+		holder.edit.setOnClickListener(new OnRowClickListener(position, holder.optionsLayout));
 		holder.export.setOnClickListener(new OnExportClickListener(position));
 		holder.delete.setOnClickListener(new OnDeleteClickListener(position));
 
 		return layout;
-	}
-
-	@NonNull
-	@Override
-	public View getUndoView(int i, @Nullable View convertView, @NonNull ViewGroup parent)
-	{
-		if(convertView == null)
-			convertView = inflater.inflate(R.layout.undo_view, parent, false);
-
-		convertView.getLayoutParams().height = 96;
-		return convertView;
-	}
-
-	@NonNull
-	@Override
-	public View getUndoClickView(@NonNull View convertView)
-	{
-		return convertView.findViewById(R.id.undo_view);
 	}
 
 	public class OldReferenceHolder
@@ -108,6 +90,8 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 		public ImageView export;
 		@InjectView(R.id.delete)
 		public ImageView delete;
+		@InjectView(R.id.options_layout)
+		public LinearLayout optionsLayout;
 
 		public OldReferenceHolder(View view)
 		{
@@ -154,18 +138,41 @@ public class MainAdapter extends ArrayAdapter<ReferenceList> implements UndoAdap
 	public class OnRowClickListener implements View.OnClickListener
 	{
 		private int position;
+		private View viewToShow;
 
-		public OnRowClickListener(int position)
+		public OnRowClickListener(int position, View viewToShow)
 		{
 			this.position = position;
+			this.viewToShow = viewToShow;
 		}
 
 		@Override
 		public void onClick(View v)
 		{
-			Intent referenceIntent = new Intent(activity.get(), ReferenceListActivity.class);
-			referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(position).id);
-			activity.get().startActivityForVersion(activity.get(), referenceIntent);
+			if(selected == -1 || selected != position)
+			{
+				selected = position;
+
+				// get the center for the clipping circle
+				int cx = (viewToShow.getLeft() + viewToShow.getRight()) / 2;
+				int cy = (viewToShow.getTop() + viewToShow.getBottom()) / 2;
+
+				// get the final radius for the clipping circle
+				int finalRadius = Math.max(viewToShow.getWidth(), viewToShow.getHeight());
+
+				// create the animator for this view (the start radius is zero)
+				Animator anim = ViewAnimationUtils.createCircularReveal(viewToShow, cx, cy, 0, finalRadius);
+
+				// make the view visible and start the animation
+				viewToShow.setVisibility(View.VISIBLE);
+				anim.start();
+			}
+			else
+			{
+				Intent referenceIntent = new Intent(activity.get(), ReferenceListActivity.class);
+				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(position).id);
+				activity.get().startActivityForVersion(activity.get(), referenceIntent);
+			}
 		}
 	}
 
