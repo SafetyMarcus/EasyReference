@@ -1,11 +1,11 @@
 package com.au.easyreference.app;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,12 +70,74 @@ public class MainAdapter extends ArrayAdapter<ReferenceList>
 		holder.export.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 		holder.delete.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 
-		layout.setOnClickListener(new OnRowClickListener(position, holder.optionsLayout));
-		holder.edit.setOnClickListener(new OnRowClickListener(position, holder.optionsLayout));
+		layout.setOnClickListener(new OnRowClickListener(position));
+		holder.edit.setOnClickListener(new OnRowClickListener(position));
 		holder.export.setOnClickListener(new OnExportClickListener(position));
 		holder.delete.setOnClickListener(new OnDeleteClickListener(position));
 
+		if(selected == position)
+			showOptions(holder.optionsLayout);
+		else if(holder.optionsLayout.getVisibility() == View.VISIBLE)
+			hideOptions(holder.optionsLayout);
+
 		return layout;
+	}
+
+	private void showOptions(final View viewToShow)
+	{
+		if(!ERApplication.is21Plus)
+		{
+			viewToShow.setVisibility(View.VISIBLE);
+			return;
+		}
+
+		// get the center for the clipping circle
+		viewToShow.setVisibility(View.VISIBLE);
+		int cx = viewToShow.getWidth() / 2;
+		int cy = viewToShow.getHeight() / 2;
+
+		// get the final radius for the clipping circle
+		int finalRadius = Math.max(viewToShow.getWidth(), viewToShow.getHeight());
+
+		// create the animator for this view (the start radius is zero)
+		Animator anim = ViewAnimationUtils.createCircularReveal(viewToShow, cx, cy, 0, finalRadius);
+		anim.setDuration(1000);
+
+		// make the view visible and start the animation
+		anim.start();
+	}
+
+	private void hideOptions(final View viewToHide)
+	{
+		if(!ERApplication.is21Plus)
+		{
+			viewToHide.setVisibility(View.INVISIBLE);
+			return;
+		}
+
+		// get the center for the clipping circle
+		int cx = viewToHide.getWidth() / 2;
+		int cy = viewToHide.getHeight() / 2;
+
+		// get the initial radius for the clipping circle
+		int initialRadius = viewToHide.getWidth();
+
+		// create the animation (the final radius is zero)
+		Animator anim = ViewAnimationUtils.createCircularReveal(viewToHide, cx, cy, initialRadius, 0);
+
+		// make the view invisible when the animation is done
+		anim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation)
+			{
+				super.onAnimationEnd(animation);
+				viewToHide.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		// start the animation
+		anim.start();
 	}
 
 	public class OldReferenceHolder
@@ -138,12 +200,10 @@ public class MainAdapter extends ArrayAdapter<ReferenceList>
 	public class OnRowClickListener implements View.OnClickListener
 	{
 		private int position;
-		private View viewToShow;
 
-		public OnRowClickListener(int position, View viewToShow)
+		public OnRowClickListener(int position)
 		{
 			this.position = position;
-			this.viewToShow = viewToShow;
 		}
 
 		@Override
@@ -152,20 +212,7 @@ public class MainAdapter extends ArrayAdapter<ReferenceList>
 			if(selected == -1 || selected != position)
 			{
 				selected = position;
-
-				// get the center for the clipping circle
-				int cx = (viewToShow.getLeft() + viewToShow.getRight()) / 2;
-				int cy = (viewToShow.getTop() + viewToShow.getBottom()) / 2;
-
-				// get the final radius for the clipping circle
-				int finalRadius = Math.max(viewToShow.getWidth(), viewToShow.getHeight());
-
-				// create the animator for this view (the start radius is zero)
-				Animator anim = ViewAnimationUtils.createCircularReveal(viewToShow, cx, cy, 0, finalRadius);
-
-				// make the view visible and start the animation
-				viewToShow.setVisibility(View.VISIBLE);
-				anim.start();
+				notifyDataSetChanged();
 			}
 			else
 			{

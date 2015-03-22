@@ -23,13 +23,6 @@
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/butterknife-4.0.1-d216a209e160fe095364a525da86eb2d94ad3a00.jar" />
     </item>
     <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/listviewanimations_lib-manipulation_3.1.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="63737e512fcd9e0ebe9bcd0bb375c2dded74116f">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/listviewanimations_lib-manipulation_3.1.0-6fb9ea36d567ee40dfe923fcfc4c3040b5190e68.jar" />
-    </item>
-    <item
         jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.github.kevinsawicki/http-request/5.6/168305b7a983142b6311a005f0ad96d3b34d92d/http-request-5.6.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -42,13 +35,6 @@
         revision="21.1.1"
         sha1="0168305b7a983142b6311a005f0ad96d3b34d92d">
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/http-request-5.6-3512226fdbe646065e69da4398f02fe220eb17e8.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/listviewanimations_lib-core-slh_3.1.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="a4fe703aabd23e8c287c90396514418119109dd1">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/listviewanimations_lib-core-slh_3.1.0-fd3b1be67bd04c88e9173431c810dd4622ff4331.jar" />
     </item>
     <item
         jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/4.0.1/f43b36925363701633d01adb8e54df7150397a78/butterknife-4.0.1.jar"
@@ -79,25 +65,11 @@
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/droidText.0.5.5-307472639d650c0b761829bbd803565dec45f237.jar" />
     </item>
     <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/listviewanimations_lib-manipulation_3.1.0.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="63737e512fcd9e0ebe9bcd0bb375c2dded74116f">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/listviewanimations_lib-manipulation_3.1.0-6fb9ea36d567ee40dfe923fcfc4c3040b5190e68.jar" />
-    </item>
-    <item
         jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-b91798155a999bbca64542d4fab8479767c1b139.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/listviewanimations_lib-core_3.1.0.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="f3f9629b068554d8513a2aaf34418171bf430851">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/listviewanimations_lib-core_3.1.0-2b7bfb7e1ab6bbb22a1e1fb0bf34dab772dd8303.jar" />
     </item>
     <item
         jar="/Users/Marcus/Documents/Android SDK/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
@@ -112,34 +84,6 @@
         revision="21.1.2"
         sha1="d84409890828e07d344a3b9b1da545dba9897b51">
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-94181cae223cbff470c64e142d68b5875750c23c.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/listviewanimations_lib-core-slh_3.1.0.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="a4fe703aabd23e8c287c90396514418119109dd1">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/listviewanimations_lib-core-slh_3.1.0-fd3b1be67bd04c88e9173431c810dd4622ff4331.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/listviewanimations_lib-core_3.1.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f3f9629b068554d8513a2aaf34418171bf430851">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/listviewanimations_lib-core_3.1.0-2b7bfb7e1ab6bbb22a1e1fb0bf34dab772dd8303.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/nineoldandroids-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/nineoldandroids-2.4.0-12bc37c8bbb6268f3819a06cd2e1ba7d4780b085.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/nineoldandroids-2.4.0.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/nineoldandroids-2.4.0-12bc37c8bbb6268f3819a06cd2e1ba7d4780b085.jar" />
     </item>
 
 </items>

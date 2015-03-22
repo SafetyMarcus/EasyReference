@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity
 			((ERApplication) getApplication()).retrieveReferencesService();
 
 		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
-		referenceLists.setDivider(null);
 		referenceLists.setEmptyView(findViewById(android.R.id.empty));
 
 		referenceListAdapter = new MainAdapter(this, ERApplication.referenceLists);
