@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -65,16 +64,6 @@ public class MainActivity extends BaseActivity
 		swipeUndoAdapter.setAbsListView(referenceLists);
 		referenceLists.setAdapter(swipeUndoAdapter);
 		referenceLists.enableSimpleSwipeUndo();
-		referenceLists.setOnItemClickListener(new AdapterView.OnItemClickListener()
-		{
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-			{
-				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
-				referenceIntent.putExtra(ReferenceListActivity.KEY_ID, ERApplication.referenceLists.get(i).id);
-				startActivityForVersion(MainActivity.this, referenceIntent);
-			}
-		});
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{

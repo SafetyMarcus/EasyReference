@@ -16,7 +16,7 @@ public class BaseActivity extends ActionBarActivity
 	@InjectView(R.id.toolbar)
 	protected Toolbar toolbar;
 
-	protected void startActivityForVersion(Activity activity, Intent intent)
+	public void startActivityForVersion(Activity activity, Intent intent)
 	{
 		if(false) //TODO re-enable to test with an actual device -- ERApplication.is21Plus
 		{
