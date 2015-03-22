@@ -15,7 +15,7 @@ import com.au.easyreference.app.utils.ERApplication;
 
 public class MainActivity extends BaseActivity
 {
-	@InjectView(R.id.old_references_list)
+	@InjectView(R.id.references_list)
 	protected ListView referenceLists;
 	@InjectView(R.id.plus_button)
 	public ImageView plusButton;
@@ -33,11 +33,10 @@ public class MainActivity extends BaseActivity
 		if(savedInstanceState == null)
 			((ERApplication) getApplication()).retrieveReferencesService();
 
-		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
-		referenceLists.setEmptyView(findViewById(android.R.id.empty));
-
 		referenceListAdapter = new MainAdapter(this, ERApplication.referenceLists);
 		referenceLists.setAdapter(referenceListAdapter);
+		referenceLists.setEmptyView(findViewById(android.R.id.empty));
+		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{

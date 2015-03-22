@@ -4,6 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
+                android:background="@android:color/white"
                 android:focusableInTouchMode="true">
 
     <include layout="@layout/toolbar"/>
@@ -11,10 +12,10 @@
     <EditText
         android:id="@+id/list_title"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="?android:attr/actionBarSize"
         android:paddingLeft="8dp"
-        android:background="@android:color/white"
+        android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:textSize="32sp"
         android:hint="@string/title_hint"
