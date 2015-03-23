@@ -174,6 +174,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 		public void onClick(View v)
 		{
 			referenceList.referenceList.remove(position);
+			selected = -1;
 			notifyDataSetChanged();
 		}
 	}

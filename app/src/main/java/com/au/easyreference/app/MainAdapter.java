@@ -177,6 +177,7 @@ public class MainAdapter extends ShowOptionsAdapter
 		@Override
 		public void onClick(View v)
 		{
+			selected = -1;
 			new File(HelperFunctions.getReferenceListPath(ERApplication.referenceLists.get(position).id, activity.get().getApplication())).delete();
 			ERApplication.referenceLists.remove(position);
 			notifyDataSetChanged();
