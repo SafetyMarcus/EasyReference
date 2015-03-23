@@ -223,6 +223,11 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		return referenceObject;
 	}
 
+	public boolean hasItalics()
+	{
+		return italicsStart > -1 && italicsEnd > -1 && italicsStart < italicsEnd;
+	}
+
 	@Override
 	public int compareTo(@NonNull ReferenceItem another)
 	{

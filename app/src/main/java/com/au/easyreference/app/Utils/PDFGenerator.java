@@ -111,7 +111,7 @@ public class PDFGenerator
 	private PdfPCell getReferenceCell(ReferenceItem referenceItem, String phrase)
 	{
 		Phrase fullReference = new Phrase();
-		if(referenceItem.italicsStart != -1 && referenceItem.italicsEnd != -1)
+		if(referenceItem.hasItalics())
 		{
 			Phrase start = new Phrase(mainFont.process(phrase.substring(0, referenceItem.italicsStart)));
 			Phrase italics = new Phrase(mainFontItalics.process(phrase.substring(referenceItem.italicsStart, referenceItem.italicsEnd)));

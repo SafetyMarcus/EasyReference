@@ -3,6 +3,10 @@ package com.au.easyreference.app.references;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +74,16 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 		holder.information.setVisibility(View.VISIBLE);
 
 		String title = HelperFunctions.getReferenceString(currentReference);
-		holder.information.setText(title.length() > 0 ? title : activity.get().getString(R.string.tap_to_edit_reference));
+		if(title.length() > 0)
+		{
+			SpannableStringBuilder builder = new SpannableStringBuilder(title);
+			if(currentReference.hasItalics())
+				builder.setSpan(new StyleSpan(Typeface.ITALIC), currentReference.italicsStart, currentReference.italicsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+			holder.information.setText(builder);
+		}
+		else
+			holder.information.setText(activity.get().getString(R.string.tap_to_edit_reference));
 
 		holder.edit.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 		holder.delete.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
