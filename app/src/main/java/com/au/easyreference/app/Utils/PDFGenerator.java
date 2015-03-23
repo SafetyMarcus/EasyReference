@@ -110,14 +110,19 @@ public class PDFGenerator
 
 	private PdfPCell getReferenceCell(ReferenceItem referenceItem, String phrase)
 	{
-		Phrase start = new Phrase(mainFont.process(phrase.substring(0, referenceItem.italicsStart)));
-		Phrase italics = new Phrase(mainFontItalics.process(phrase.substring(referenceItem.italicsStart, referenceItem.italicsEnd)));
-		Phrase end = new Phrase(mainFont.process(phrase.substring(referenceItem.italicsEnd)));
-
 		Phrase fullReference = new Phrase();
-		fullReference.add(start);
-		fullReference.add(italics);
-		fullReference.add(end);
+		if(referenceItem.italicsStart != -1 && referenceItem.italicsEnd != -1)
+		{
+			Phrase start = new Phrase(mainFont.process(phrase.substring(0, referenceItem.italicsStart)));
+			Phrase italics = new Phrase(mainFontItalics.process(phrase.substring(referenceItem.italicsStart, referenceItem.italicsEnd)));
+			Phrase end = new Phrase(mainFont.process(phrase.substring(referenceItem.italicsEnd)));
+
+			fullReference.add(start);
+			fullReference.add(italics);
+			fullReference.add(end);
+		}
+		else
+			fullReference.add(mainFont.process(phrase));
 
 		PdfPCell textCell = new PdfPCell(fullReference);
 		textCell.setColspan(1);

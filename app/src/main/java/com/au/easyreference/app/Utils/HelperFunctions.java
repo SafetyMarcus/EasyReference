@@ -99,13 +99,24 @@ public class HelperFunctions
 			informationBuilder.append('(').append(currentReference.year).append("). ");
 		if(!TextUtils.isEmpty(currentReference.title))
 		{
-			currentReference.italicsStart = informationBuilder.length() - 1;
+			if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+				currentReference.italicsStart = informationBuilder.length() - 1;
+
 			informationBuilder.append(currentReference.title);
+
+			if(currentReference.type == ReferenceItem.BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle))
+				currentReference.italicsEnd = informationBuilder.length();
 		}
 		if(!TextUtils.isEmpty(currentReference.subtitle))
+		{
+			if(currentReference.type == ReferenceItem.BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title))
+				currentReference.italicsStart = informationBuilder.length() - 1;
+
 			informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
 
-		currentReference.italicsEnd = informationBuilder.length();
+			if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+				currentReference.italicsEnd = informationBuilder.length();
+		}
 
 		return informationBuilder.toString();
 	}
@@ -135,11 +146,22 @@ public class HelperFunctions
 					.append(context.getString(R.string.eds))
 					.append(", ");
 		if(!TextUtils.isEmpty(currentReference.bookTitle))
+		{
+			currentReference.italicsStart = informationBuilder.length() - 1;
 			informationBuilder.append(currentReference.bookTitle);
+
+			if(TextUtils.isEmpty(currentReference.bookSubtitle))
+				currentReference.italicsEnd = informationBuilder.length();
+		}
 		if(!TextUtils.isEmpty(currentReference.bookSubtitle))
-			informationBuilder
-					.append(": ")
+		{
+			if(TextUtils.isEmpty(currentReference.bookTitle))
+				currentReference.italicsStart = informationBuilder.length() - 1;
+
+			informationBuilder.append(": ")
 					.append(currentReference.bookSubtitle);
+			currentReference.italicsEnd = informationBuilder.length();
+		}
 		if(!TextUtils.isEmpty(currentReference.pagesOfChapter))
 			informationBuilder.append("(")
 					.append(context.getString(R.string.pp))
@@ -158,9 +180,23 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 
 		if(!TextUtils.isEmpty(currentReference.journalTitle))
+		{
+			currentReference.italicsStart = informationBuilder.length() - 1;
+
 			informationBuilder.append(' ').append(currentReference.journalTitle).append(", ");
+
+			if(TextUtils.isEmpty(currentReference.volumeNo))
+				currentReference.italicsEnd = informationBuilder.length();
+		}
 		if(!TextUtils.isEmpty(currentReference.volumeNo))
+		{
+			if(TextUtils.isEmpty(currentReference.journalTitle))
+				currentReference.italicsStart = informationBuilder.length() - 1;
+
 			informationBuilder.append(currentReference.volumeNo);
+
+			currentReference.italicsEnd = informationBuilder.length();
+		}
 		if(!TextUtils.isEmpty(currentReference.issue))
 			informationBuilder.append('(').append(currentReference.issue).append("), ");
 		if(!TextUtils.isEmpty(currentReference.pageNo))
