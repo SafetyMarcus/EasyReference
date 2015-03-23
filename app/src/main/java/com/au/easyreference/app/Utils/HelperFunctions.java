@@ -212,7 +212,7 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 
 		if(!TextUtils.isEmpty(currentReference.url))
-			informationBuilder.append("Retrieved from ").append(currentReference.url);
+			informationBuilder.append(" Retrieved from ").append(currentReference.url);
 
 		return informationBuilder.toString();
 	}
