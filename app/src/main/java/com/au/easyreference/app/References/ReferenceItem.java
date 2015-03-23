@@ -160,7 +160,7 @@ public class ReferenceItem
 		title = referenceObject.optString(TITLE);
 		subtitle = referenceObject.optString(SUBTITLE);
 		location = referenceObject.optString(LOCATION);
-		publisher = referenceObject.optString(publisher);
+		publisher = referenceObject.optString(PUBLISHER);
 
 		//Journal
 		journalTitle = referenceObject.optString(JOURNAL_TITLE);
