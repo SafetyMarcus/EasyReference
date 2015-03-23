@@ -26,6 +26,7 @@ public class ERApplication extends Application
 	private static String PREFS_KEY = "prefs_edit";
 	private static String SEARCH_INFO_KEY = "search_info";
 
+	private static ERApplication instance;
 	public static ArrayList<ReferenceList> referenceLists;
 	public static final Bus BUS = new Bus();
 	public static final boolean is21Plus = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
@@ -37,7 +38,13 @@ public class ERApplication extends Application
 	{
 		super.onCreate();
 		referenceLists = new ArrayList<>();
+		instance = this;
 		loadSettings();
+	}
+
+	public static ERApplication getInstance()
+	{
+		return instance;
 	}
 
 	public void loadSettings()

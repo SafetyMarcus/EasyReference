@@ -41,7 +41,7 @@ public class ReferenceList
 		title = referenceObject.optString(REFERENCE);
 		referenceType = referenceObject.optInt(REFERENCE_LIST_TYPE);
 
-		referenceList = new ArrayList<ReferenceItem>();
+		referenceList = new ArrayList<>();
 		JSONArray referenceArray = referenceObject.optJSONArray(REFERENCE_LIST);
 		if(referenceArray != null)
 		{

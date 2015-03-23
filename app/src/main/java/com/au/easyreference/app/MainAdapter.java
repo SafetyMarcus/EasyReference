@@ -119,7 +119,7 @@ public class MainAdapter extends ShowOptionsAdapter
 			PDFGenerator pdfGenerator = new PDFGenerator();
 			try
 			{
-				File pdf = new File(pdfGenerator.generate(referenceList, activity.get().getApplication()));
+				File pdf = new File(pdfGenerator.generate(referenceList));
 				Uri uri = Uri.fromFile(pdf);
 
 				Intent intent;

@@ -69,16 +69,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 
 		holder.information.setVisibility(View.VISIBLE);
 
-		String title = "";
-		if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
-			title = HelperFunctions.getAPABookReferenceString(currentReference);
-		else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
-			title = HelperFunctions.getAPAJournalReferenceString(currentReference);
-		else if(currentReference.type == ReferenceItem.BOOK_CHAPTER)
-			title = HelperFunctions.getAPABookChapterReferenceString(currentReference, getContext());
-		else if(currentReference.type == ReferenceItem.WEB_PAGE)
-			title = HelperFunctions.getAPAWebPageReferenceString(currentReference);
-
+		String title = HelperFunctions.getReferenceString(currentReference);
 		holder.information.setText(title.length() > 0 ? title : activity.get().getString(R.string.tap_to_edit_reference));
 
 		holder.edit.getDrawable().mutate().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);

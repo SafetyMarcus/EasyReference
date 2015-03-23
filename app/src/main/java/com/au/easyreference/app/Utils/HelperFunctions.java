@@ -2,6 +2,7 @@ package com.au.easyreference.app.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
- * Created by Marcus on 10/07/2014.
+ * @author Marcus Hooper
  */
 public class HelperFunctions
 {
@@ -91,14 +92,20 @@ public class HelperFunctions
 	private static String getAPAReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder();
-		if(currentReference.author != null && currentReference.author.length() > 0)
+
+		if(!TextUtils.isEmpty(currentReference.author))
 			informationBuilder.append(currentReference.author).append(' ');
-		if(currentReference.year != null && currentReference.year.length() > 0)
+		if(!TextUtils.isDigitsOnly(currentReference.year))
 			informationBuilder.append('(').append(currentReference.year).append("). ");
-		if(currentReference.title != null && currentReference.title.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.title))
+		{
+			currentReference.italicsStart = informationBuilder.length() - 1;
 			informationBuilder.append(currentReference.title);
-		if(currentReference.subtitle != null && currentReference.subtitle.length() > 0)
+		}
+		if(!TextUtils.isEmpty(currentReference.subtitle))
 			informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
+
+		currentReference.italicsEnd = informationBuilder.length();
 
 		return informationBuilder.toString();
 	}
@@ -107,39 +114,40 @@ public class HelperFunctions
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 
-		if(currentReference.location != null && currentReference.location.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.location))
 			informationBuilder.append(currentReference.location).append(": ");
-		if(currentReference.publisher != null && currentReference.publisher.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.publisher))
 			informationBuilder.append(currentReference.publisher).append('.');
 
 		return informationBuilder.toString();
 	}
 
-	public static String getAPABookChapterReferenceString(ReferenceItem currentReference, Context context)
+	public static String getAPABookChapterReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+		Context context = ERApplication.getInstance();
 
-		if(currentReference.editors != null && currentReference.editors.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.editors))
 			informationBuilder.append(context.getString(R.string.in))
 					.append(' ')
 					.append(currentReference.editors)
 					.append(". ")
 					.append(context.getString(R.string.eds))
 					.append(", ");
-		if(currentReference.bookTitle != null && currentReference.bookTitle.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.bookTitle))
 			informationBuilder.append(currentReference.bookTitle);
-		if(currentReference.bookSubtitle != null && currentReference.bookSubtitle.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.bookSubtitle))
 			informationBuilder
 					.append(": ")
 					.append(currentReference.bookSubtitle);
-		if(currentReference.pagesOfChapter != null && currentReference.pagesOfChapter.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.pagesOfChapter))
 			informationBuilder.append("(")
 					.append(context.getString(R.string.pp))
 					.append(currentReference.pagesOfChapter)
 					.append("). ");
-		if(currentReference.location != null && currentReference.location.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.location))
 			informationBuilder.append(currentReference.location).append(": ");
-		if(currentReference.publisher != null && currentReference.publisher.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.publisher))
 			informationBuilder.append(currentReference.publisher).append('.');
 
 		return informationBuilder.toString();
@@ -149,15 +157,15 @@ public class HelperFunctions
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 
-		if(currentReference.journalTitle != null && currentReference.journalTitle.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.journalTitle))
 			informationBuilder.append(' ').append(currentReference.journalTitle).append(", ");
-		if(currentReference.journalTitle != null && currentReference.journalTitle.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.volumeNo))
 			informationBuilder.append(currentReference.volumeNo);
-		if(currentReference.issue != null && currentReference.issue.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.issue))
 			informationBuilder.append('(').append(currentReference.issue).append("), ");
-		if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.pageNo))
 			informationBuilder.append(currentReference.pageNo).append('.');
-		if(currentReference.doi != null && currentReference.doi.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.doi))
 			informationBuilder.append(" doi:").append(currentReference.doi);
 
 		return informationBuilder.toString();
@@ -167,9 +175,23 @@ public class HelperFunctions
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 
-		if(currentReference.url != null && currentReference.url.length() > 0)
+		if(!TextUtils.isEmpty(currentReference.url))
 			informationBuilder.append("Retrieved from ").append(currentReference.url);
 
 		return informationBuilder.toString();
+	}
+
+	public static String getReferenceString(ReferenceItem currentReference)
+	{
+		if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+			return getAPABookReferenceString(currentReference);
+		else if(currentReference.type == ReferenceItem.BOOK_CHAPTER)
+			return getAPABookChapterReferenceString(currentReference);
+		else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
+			return getAPAJournalReferenceString(currentReference);
+		else if(currentReference.type == ReferenceItem.WEB_PAGE)
+			return getAPAWebPageReferenceString(currentReference);
+
+		return "";
 	}
 }

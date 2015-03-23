@@ -1,7 +1,9 @@
 package com.au.easyreference.app.references;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.utils.HelperFunctions;
 import com.au.easyreference.app.utils.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,12 +31,15 @@ import static com.au.easyreference.app.utils.Constants.YEAR;
 /**
  * @author Marcus Hooper
  */
-public class ReferenceItem
+public class ReferenceItem implements Comparable<ReferenceItem>
 {
 	public final static int BOOK_REFERENCE = 0;
 	public final static int JOURNAL_REFERENCE = 1;
 	public final static int BOOK_CHAPTER = 2;
 	public final static int WEB_PAGE = 3;
+
+	public int italicsStart = -1;
+	public int italicsEnd = -1;
 
 	public String id;
 	public String author;
@@ -216,5 +221,11 @@ public class ReferenceItem
 		}
 
 		return referenceObject;
+	}
+
+	@Override
+	public int compareTo(@NonNull ReferenceItem another)
+	{
+		return HelperFunctions.getReferenceString(this).compareTo(HelperFunctions.getReferenceString(another));
 	}
 }
