@@ -37,6 +37,20 @@
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/http-request-5.6-3512226fdbe646065e69da4398f02fe220eb17e8.jar" />
     </item>
     <item
+        jar="/Users/Marcus/Documents/Android SDK/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-23e54625db814a8713808b2b6acd0b6fe387764a.jar" />
+    </item>
+    <item
+        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-94181cae223cbff470c64e142d68b5875750c23c.jar" />
+    </item>
+    <item
         jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/4.0.1/f43b36925363701633d01adb8e54df7150397a78/butterknife-4.0.1.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -70,20 +84,6 @@
         revision="21.1.2"
         sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-b91798155a999bbca64542d4fab8479767c1b139.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Android SDK/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-23e54625db814a8713808b2b6acd0b6fe387764a.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-94181cae223cbff470c64e142d68b5875750c23c.jar" />
     </item>
 
 </items>
