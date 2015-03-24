@@ -53,20 +53,17 @@ public class PDFGenerator
 
 	private PdfPTable getReferenceTable(ReferenceList referenceList) throws DocumentException
 	{
-		PdfPTable referenceTable = new PdfPTable(2);
-		referenceTable.setWidths(new float[]{10f, 90f});
+		PdfPTable referenceTable = new PdfPTable(1);
+		referenceTable.setWidths(new float[]{100f});
 		referenceTable.addCell(getTitleCell());
 
-		int count = 0;
 		Collections.sort(referenceList.referenceList);
 		for(ReferenceItem referenceItem : referenceList.referenceList)
 		{
-			count++;
 			String phrase = "";
 			if(referenceList.referenceType == ReferenceList.APA)
 				phrase = HelperFunctions.getReferenceString(referenceItem);
 
-			referenceTable.addCell(getNumberCell(count));
 			referenceTable.addCell(getReferenceCell(referenceItem, phrase));
 		}
 		return referenceTable;
@@ -97,15 +94,6 @@ public class PDFGenerator
 		titleCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
 		titleCell.setPadding(64);
 		return titleCell;
-	}
-
-	private PdfPCell getNumberCell(int count)
-	{
-		PdfPCell numberCell = new PdfPCell(new Phrase(mainFont.process(count + ".")));
-		numberCell.setColspan(1);
-		numberCell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-		disableBorders(numberCell);
-		return numberCell;
 	}
 
 	private PdfPCell getReferenceCell(ReferenceItem referenceItem, String phrase)
