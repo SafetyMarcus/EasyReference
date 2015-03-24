@@ -4,15 +4,14 @@ import android.os.Environment;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.FontSelector;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import harmony.java.awt.Color;
 
@@ -30,9 +29,11 @@ public class PDFGenerator
 	private FontSelector mainFont;
 	private FontSelector mainFontItalics;
 
+	private Document referenceDocument;
+
 	public String generate(ReferenceList referenceList) throws FileNotFoundException, DocumentException
 	{
-		Document referenceDocument = new Document();
+		referenceDocument = new Document();
 		setUpFonts();
 
 		String title = referenceList.title .length() > 0 ? referenceList.title : ERApplication.getInstance().getString(R.string.no_title);
@@ -45,18 +46,16 @@ public class PDFGenerator
 		pdf.getParentFile().mkdirs();
 
 		setUpDocument(referenceDocument, path);
-		referenceDocument.add(getReferenceTable(referenceList));
+		referenceDocument.add(getTitle());
+		referenceDocument.add(Chunk.NEWLINE);
+		addReferences(referenceList);
 		referenceDocument.close();
 
 		return path;
 	}
 
-	private PdfPTable getReferenceTable(ReferenceList referenceList) throws DocumentException
+	private void addReferences(ReferenceList referenceList) throws DocumentException
 	{
-		PdfPTable referenceTable = new PdfPTable(1);
-		referenceTable.setWidths(new float[]{100f});
-		referenceTable.addCell(getTitleCell());
-
 		Collections.sort(referenceList.referenceList);
 		for(ReferenceItem referenceItem : referenceList.referenceList)
 		{
@@ -64,9 +63,8 @@ public class PDFGenerator
 			if(referenceList.referenceType == ReferenceList.APA)
 				phrase = HelperFunctions.getReferenceString(referenceItem);
 
-			referenceTable.addCell(getReferenceCell(referenceItem, phrase));
+			referenceDocument.add(getReferenceCell(referenceItem, phrase));
 		}
-		return referenceTable;
 	}
 
 	private void setUpDocument(Document referenceDocument, String path) throws FileNotFoundException, DocumentException
@@ -76,7 +74,7 @@ public class PDFGenerator
 
 		writer = PdfWriter.getInstance(referenceDocument, outputStream);
 		writer.setLinearPageMode();
-		referenceDocument.setMargins(16, 16, referenceDocument.topMargin(), 16);
+		referenceDocument.setMargins(32, 32, referenceDocument.topMargin(), 32);
 
 		Rectangle rect = new Rectangle(referenceDocument.getPageSize());
 
@@ -86,37 +84,28 @@ public class PDFGenerator
 		referenceDocument.open();
 	}
 
-	private PdfPCell getTitleCell()
+	private Paragraph getTitle()
 	{
-		PdfPCell titleCell = new PdfPCell(new Paragraph(titleFont.process(ERApplication.getInstance().getText(R.string.references).toString())));
-		titleCell.setColspan(2);
-		disableBorders(titleCell);
-		titleCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-		titleCell.setPadding(64);
-		return titleCell;
+		Paragraph title = new Paragraph(titleFont.process(ERApplication.getInstance().getString(R.string.references)));
+		title.setAlignment(Element.ALIGN_CENTER);
+		return title;
 	}
 
-	private PdfPCell getReferenceCell(ReferenceItem referenceItem, String phrase)
+	private Paragraph getReferenceCell(ReferenceItem referenceItem, String phrase)
 	{
-		Phrase fullReference = new Phrase();
+		Paragraph paragraph = new Paragraph();
 		if(referenceItem.hasItalics())
 		{
-			Phrase start = new Phrase(mainFont.process(phrase.substring(0, referenceItem.italicsStart)));
-			Phrase italics = new Phrase(mainFontItalics.process(phrase.substring(referenceItem.italicsStart, referenceItem.italicsEnd)));
-			Phrase end = new Phrase(mainFont.process(phrase.substring(referenceItem.italicsEnd)));
-
-			fullReference.add(start);
-			fullReference.add(italics);
-			fullReference.add(end);
+			paragraph.add(paragraph.size(), mainFont.process(phrase.substring(0, referenceItem.italicsStart)));
+			paragraph.add(paragraph.size(), mainFontItalics.process(phrase.substring(referenceItem.italicsStart, referenceItem.italicsEnd)));
+			paragraph.add(paragraph.size(), mainFont.process(phrase.substring(referenceItem.italicsEnd)));
 		}
 		else
-			fullReference.add(mainFont.process(phrase));
+			paragraph.add(mainFont.process(phrase));
 
-		PdfPCell textCell = new PdfPCell(fullReference);
-		textCell.setColspan(1);
-		textCell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-		disableBorders(textCell);
-		return textCell;
+		paragraph.setFirstLineIndent(-30);
+		paragraph.setIndentationLeft(30);
+		return paragraph;
 	}
 
 	private void setUpFonts()
@@ -129,13 +118,5 @@ public class PDFGenerator
 
 		mainFontItalics = new FontSelector();
 		mainFontItalics.addFont(new Font(Font.TIMES_ROMAN, 12, Font.ITALIC, Color.BLACK));
-	}
-
-	private void disableBorders(PdfPCell cell)
-	{
-		cell.disableBorderSide(PdfPCell.TOP);
-		cell.disableBorderSide(PdfPCell.LEFT);
-		cell.disableBorderSide(PdfPCell.RIGHT);
-		cell.disableBorderSide(PdfPCell.BOTTOM);
 	}
 }
