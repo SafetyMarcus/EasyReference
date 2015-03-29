@@ -221,6 +221,9 @@ public class SearchDialog extends DialogFragment
 			results.add(new Result(resultsArray.optJSONObject(i), type));
 
 		resultsAdapter.notifyDataSetChanged();
+
+		if(results.size() == 0)
+			Toast.makeText(getActivity(), R.string.no_results_toast, Toast.LENGTH_LONG).show();
 	}
 
 	private class QueryDatabaseAsync extends AsyncTask
