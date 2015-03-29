@@ -58,7 +58,7 @@ public class BaseActivity extends ActionBarActivity
 			options = ActivityOptions.makeSceneTransitionAnimation(this, views.toArray(new Pair[views.size()])).toBundle();
 		}
 		else
-			options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, toolbar, toolbar.getTransitionName()).toBundle();
+			options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, toolbar, "toolbar").toBundle();
 
 		startActivity(intent, options);
 	}
