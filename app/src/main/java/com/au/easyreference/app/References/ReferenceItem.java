@@ -138,7 +138,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 			year = result.publicationDate;
 
 		title = result.title;
-		subtitle = "";
+		subtitle = result.subtitle;
 		location = "";
 		publisher = result.publisher;
 		journalTitle = result.publicationName;

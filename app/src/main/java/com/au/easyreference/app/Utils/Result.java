@@ -2,7 +2,9 @@ package com.au.easyreference.app.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 public class Result implements Parcelable
 {
 	public String title;
+	public String subtitle;
 	public String volume;
 	public String publicationName;
 	public String publicationDate;
@@ -26,18 +29,36 @@ public class Result implements Parcelable
 
 	public Result(JSONObject result, int type)
 	{
+		try
+		{
+			Log.d("RESULT", result.toString(4));
+		}
+		catch(JSONException e)
+		{
+			e.printStackTrace();
+		}
+
 		this.type = type;
 
-		title = result.optString("title");
+		String[] titleSubTitle = result.optString("title").split(":");
+
+		if(titleSubTitle.length == 0 || titleSubTitle.length == 1)
+			title = result.optString("title");
+		else if(titleSubTitle.length >= 2)
+		{
+			title = titleSubTitle[0].trim();
+			subtitle = titleSubTitle[1].trim();
+		}
+
 		volume = result.optString("volume");
 		publicationName = result.optString("publicationName");
 		publicationDate = result.optString("publicationDate");
 		publisher = result.optString("publisher");
-		issue = result.optString("volume");
-		pageNo = result.optString("number");
+		issue = result.optString("number");
+		pageNo = result.optString("startingPage");
 		doi = result.optString("doi");
 
-		ArrayList<String> authors = new ArrayList<String>();
+		ArrayList<String> authors = new ArrayList<>();
 		JSONArray authorsArray = result.optJSONArray("creators");
 		if(authorsArray != null)
 		{

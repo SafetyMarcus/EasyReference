@@ -2,6 +2,7 @@ package com.au.easyreference.app.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +12,11 @@ import butterknife.Optional;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
+import com.au.easyreference.app.fragments.SearchDialog;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
+import com.au.easyreference.app.utils.Result;
 
 /**
  * @author Marcus Hooper
@@ -74,16 +77,49 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		menu.add(Menu.NONE, 0, 0, getString(R.string.search)).setIcon(R.drawable.actionbar_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch(item.getItemId())
 		{
 			case android.R.id.home:
 				onBackPressed();
+				break;
+
+			case 0:
+				Bundle args = new Bundle();
+				args.putInt(SearchDialog.TYPE, currentReference.type);
+
+				SearchDialog dialog = new SearchDialog();
+				dialog.setArguments(args);
+				dialog.show(getSupportFragmentManager(), "search");
+				dialog.setCloseListener(closeListener);
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
+
+	private ContainerDialogFragment.CloseListener closeListener = new ContainerDialogFragment.CloseListener()
+	{
+		@Override
+		public void onClose(Object result)
+		{
+			int index = referenceList.referenceList.indexOf(referenceList.getReferenceForId(currentReference.id));
+			referenceList.referenceList.remove(referenceList.getReferenceForId(currentReference.id));
+
+			ReferenceItem newReference = new ReferenceItem((Result) result);
+			newReference.id = currentReference.id;
+
+			referenceList.referenceList.add(index, newReference);
+			setUpView(currentReference.id);
+		}
+	};
 
 	public void setUpView(String id)
 	{

@@ -1,14 +1,16 @@
 package com.au.easyreference.app.fragments;
 
 import android.animation.ObjectAnimator;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -36,7 +38,7 @@ import static com.au.easyreference.app.utils.ERApplication.hasSeenSearchInfo;
 /**
  * @author Marcus Hooper
  */
-public class SearchDialog extends Fragment
+public class SearchDialog extends DialogFragment
 {
 	public static final String TYPE = "type";
 
@@ -72,6 +74,8 @@ public class SearchDialog extends Fragment
 
 	@InjectView(R.id.first_time_info)
 	View firstTimeInfo;
+	@InjectView(R.id.toolbar)
+	Toolbar toolbar;
 
 	private ArrayList<Result> results;
 	private ResultsAdapter resultsAdapter;
@@ -79,14 +83,17 @@ public class SearchDialog extends Fragment
 	private int visibleView = DOI;
 	private int type;
 
+	private ContainerDialogFragment.CloseListener closeListener;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, container, false);
 		ButterKnife.inject(this, layout);
 
-		((ContainerDialogFragment) getParentFragment()).toolbar.setTitle(getString(R.string.search));
+		toolbar.setTitle(getString(R.string.search));
 		results = new ArrayList<>();
 
 		type = getArguments().getInt(TYPE);
@@ -103,8 +110,8 @@ public class SearchDialog extends Fragment
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
-				((ContainerDialogFragment) getParentFragment()).closeListener.onClose(resultsAdapter.getItem(i));
-				((ContainerDialogFragment) getParentFragment()).onBackPressed();
+				closeListener.onClose(resultsAdapter.getItem(i));
+				dismiss();
 			}
 		});
 
@@ -124,6 +131,11 @@ public class SearchDialog extends Fragment
 			performFirstTimeAnimation();
 
 		return layout;
+	}
+
+	public void setCloseListener(ContainerDialogFragment.CloseListener listener)
+	{
+		this.closeListener = listener;
 	}
 
 	private void performFirstTimeAnimation()

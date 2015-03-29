@@ -68,11 +68,15 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 		super.setUpView(id);
 		if(currentReference != null)
 		{
-			if(currentReference.issue != null && currentReference.issue.length() > 0)
+			if(!currentReference.journalTitle.isEmpty())
+				journalTitle.setText(currentReference.journalTitle);
+			if(!currentReference.volumeNo.isEmpty())
+				volumeNumber.setText(currentReference.volumeNo);
+			if(!currentReference.issue.isEmpty())
 				issue.setText(currentReference.issue);
-			if(currentReference.pageNo != null && currentReference.pageNo.length() > 0)
+			if(!currentReference.pageNo.isEmpty())
 				pageNo.setText(currentReference.pageNo);
-			if(currentReference.doi != null && currentReference.doi.length() > 0)
+			if(!currentReference.doi.isEmpty())
 				doi.setText(currentReference.doi);
 		}
 	}

@@ -1,13 +1,15 @@
 package com.au.easyreference.app.fragments;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -23,15 +25,15 @@ import java.util.ArrayList;
 /**
  * @author Marcus Hooper
  */
-public class TypeDialog extends Fragment
+public class TypeDialog extends DialogFragment
 {
-	public static final String SEARCH = "search";
-
 	@InjectView(R.id.types_list)
 	protected ListView typesList;
+	@InjectView(R.id.toolbar)
+	protected Toolbar toolbar;
 
 	private ArrayList<String> types;
-	private boolean shouldSearch = false;
+	private ContainerDialogFragment.CloseListener closeListener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -47,41 +49,32 @@ public class TypeDialog extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
+		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		View view = inflater.inflate(R.layout.types_dialog, container, false);
 		ButterKnife.inject(this, view);
 
-		((ContainerDialogFragment) getParentFragment()).toolbar.setTitle(getString(R.string.selecty_type));
+		toolbar.setTitle(getString(R.string.selecty_type));
 
 		TypeAdapter adapter = new TypeAdapter();
 		typesList.setAdapter(adapter);
 		typesList.setDivider(null);
-
-		if(getArguments() != null)
-			shouldSearch = getArguments().getBoolean(SEARCH, false);
 
 		typesList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				if(!shouldSearch)
-				{
-					((ContainerDialogFragment) getParentFragment()).closeListener.onClose(position);
-					((ContainerDialogFragment) getParentFragment()).onBackPressed();
-				}
-				else
-				{
-					SearchDialog dialog = new SearchDialog();
-					Bundle args = new Bundle();
-					args.putInt(SearchDialog.TYPE, position);
-					dialog.setArguments(args);
-
-					((ContainerDialogFragment) getParentFragment()).showChild(dialog);
-				}
+				closeListener.onClose(position);
+				dismiss();
 			}
 		});
 
 		return view;
+	}
+
+	public void setCloseListener(ContainerDialogFragment.CloseListener listener)
+	{
+		this.closeListener = listener;
 	}
 
 	private class TypeAdapter extends ArrayAdapter<String>

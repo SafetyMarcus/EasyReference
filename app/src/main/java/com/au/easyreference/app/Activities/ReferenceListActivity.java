@@ -3,7 +3,6 @@ package com.au.easyreference.app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -93,22 +91,11 @@ public class ReferenceListActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				Bundle args = new Bundle();
-				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
-
-				ContainerDialogFragment container = new ContainerDialogFragment();
-				container.setArguments(args);
-				container.setCloseListener(closeListener);
-				container.show(getFragmentManager(), "Container");
+				TypeDialog dialog = new TypeDialog();
+				dialog.setCloseListener(closeListener);
+				dialog.show(getSupportFragmentManager(), "type");
 			}
 		});
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		menu.add(Menu.NONE, 0, 0, getString(R.string.search)).setIcon(R.drawable.actionbar_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -118,15 +105,6 @@ public class ReferenceListActivity extends BaseActivity
 		{
 			case android.R.id.home:
 				onBackPressed();
-			case 0:
-				Bundle args = new Bundle();
-				args.putString(ContainerDialogFragment.TYPE_KEY, TypeDialog.class.toString());
-				args.putBoolean(TypeDialog.SEARCH, true);
-
-				ContainerDialogFragment container = new ContainerDialogFragment();
-				container.setArguments(args);
-				container.setCloseListener(closeListener);
-				container.show(getFragmentManager(), "Container");
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -136,18 +114,10 @@ public class ReferenceListActivity extends BaseActivity
 		@Override
 		public void onClose(Object result)
 		{
-			if(result instanceof Integer)
-				addReferenceItem(new ReferenceItem((Integer) result));
-			else if(result instanceof JSONObject)
-				addReferenceItem(new ReferenceItem((JSONObject) result));
+			referenceList.referenceList.add(new ReferenceItem((Integer) result));
+			adapter.notifyDataSetChanged();
 		}
 	};
-
-	public void addReferenceItem(ReferenceItem newReference)
-	{
-		referenceList.referenceList.add(newReference);
-		adapter.notifyDataSetChanged();
-	}
 
 	@Override
 	public void onBackPressed()
