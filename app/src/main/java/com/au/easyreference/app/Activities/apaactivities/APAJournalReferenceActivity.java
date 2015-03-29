@@ -1,6 +1,7 @@
 package com.au.easyreference.app.activities.apaactivities;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -68,15 +69,15 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 		super.setUpView(id);
 		if(currentReference != null)
 		{
-			if(!currentReference.journalTitle.isEmpty())
+			if(!TextUtils.isEmpty(currentReference.journalTitle))
 				journalTitle.setText(currentReference.journalTitle);
-			if(!currentReference.volumeNo.isEmpty())
+			if(!TextUtils.isEmpty(currentReference.volumeNo))
 				volumeNumber.setText(currentReference.volumeNo);
-			if(!currentReference.issue.isEmpty())
+			if(!TextUtils.isEmpty(currentReference.issue))
 				issue.setText(currentReference.issue);
-			if(!currentReference.pageNo.isEmpty())
+			if(!TextUtils.isEmpty(currentReference.pageNo))
 				pageNo.setText(currentReference.pageNo);
-			if(!currentReference.doi.isEmpty())
+			if(!TextUtils.isEmpty(currentReference.doi))
 				doi.setText(currentReference.doi);
 		}
 	}

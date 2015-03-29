@@ -300,7 +300,7 @@ public class SearchDialog extends DialogFragment
 			TextView publicationDate = (TextView) convertView.findViewById(R.id.result_publication_date);
 			TextView volume = (TextView) convertView.findViewById(R.id.result_publication_volume);
 
-			title.setText(result.title);
+			title.setText(result.getAdapterTitle());
 			publisher.setText(getString(R.string.result_publisher) + ' ' + result.publisher);
 			publicationName.setText(getString(R.string.result_publication) + ' ' + result.publicationName);
 			publicationDate.setText(getString(R.string.result_publication_date) + ' ' + result.publicationDate);

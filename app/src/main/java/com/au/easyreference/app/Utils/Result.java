@@ -2,9 +2,8 @@ package com.au.easyreference.app.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
+import android.text.TextUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,15 +28,6 @@ public class Result implements Parcelable
 
 	public Result(JSONObject result, int type)
 	{
-		try
-		{
-			Log.d("RESULT", result.toString(4));
-		}
-		catch(JSONException e)
-		{
-			e.printStackTrace();
-		}
-
 		this.type = type;
 
 		String[] titleSubTitle = result.optString("title").split(":");
@@ -106,6 +96,14 @@ public class Result implements Parcelable
 		pageNo = data[7];
 		doi = data[8];
 		type = in.readInt();
+	}
+
+	public String getAdapterTitle()
+	{
+		if(TextUtils.isEmpty(title))
+			return title;
+		else
+			return title + ": " + subtitle;
 	}
 
 	public static final Parcelable.Creator CREATOR = new Parcelable.Creator()
