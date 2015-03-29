@@ -85,6 +85,7 @@ public class ReferenceListActivity extends BaseActivity
 		referencesListView.setAdapter(adapter);
 		referencesListView.setEmptyView(findViewById(android.R.id.empty));
 		referencesListView.addFooterView(getLayoutInflater().inflate(R.layout.footer, referencesListView, false), null, false);
+		referencesListView.setFooterDividersEnabled(false);
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{

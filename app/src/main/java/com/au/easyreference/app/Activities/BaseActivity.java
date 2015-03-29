@@ -60,7 +60,11 @@ public class BaseActivity extends ActionBarActivity
 		else
 			options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, toolbar, "toolbar").toBundle();
 
-		startActivity(intent, options);
+		if(android.os.Build.VERSION.SDK_INT >= 16)
+			startActivity(intent, options);
+		else
+			startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 
 	public void startActivityForVersion(Intent intent)

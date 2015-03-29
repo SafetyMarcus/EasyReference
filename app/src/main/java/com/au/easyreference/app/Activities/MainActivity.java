@@ -37,6 +37,7 @@ public class MainActivity extends BaseActivity
 		referenceLists.setAdapter(referenceListAdapter);
 		referenceLists.setEmptyView(findViewById(android.R.id.empty));
 		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
+		referenceLists.setFooterDividersEnabled(false);
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{
