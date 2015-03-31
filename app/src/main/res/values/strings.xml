@@ -110,4 +110,5 @@
     <string name="no_results">No results for search</string>
     <string name="search_info">Here you can search the Springer database!</string>
     <string name="no_results_toast">No results found for search</string>
+    <string name="pages_of_chapter_hint">Enter chapters of</string>
 </resources>
