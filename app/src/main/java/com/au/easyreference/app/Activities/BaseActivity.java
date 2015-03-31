@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.util.Pair;
+import android.view.Surface;
 import android.view.View;
 import android.view.Window;
 import butterknife.InjectView;
@@ -42,28 +43,35 @@ public class BaseActivity extends ActionBarActivity
 
 	public void startActivityForVersion(Intent intent, View... sharedViews)
 	{
-		Bundle options;
-		if(ERApplication.is21Plus)
+		Bundle options = new Bundle();
+
+		//TODO figure out crash starting activity while rotated
+		int rotation = getWindow().getWindowManager().getDefaultDisplay().getRotation();
+		if(rotation != Surface.ROTATION_90 && rotation != Surface.ROTATION_270)
 		{
-			View statusBar = findViewById(android.R.id.statusBarBackground);
-			View navigationBar = findViewById(android.R.id.navigationBarBackground);
+			if(ERApplication.is21Plus)
+			{
+				View statusBar = findViewById(android.R.id.statusBarBackground);
+				View navigationBar = findViewById(android.R.id.navigationBarBackground);
 
-			List<Pair<View, String>> views = new ArrayList<>();
-			views.add(Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME));
-			views.add(Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME));
-			views.add(Pair.create(findViewById(R.id.toolbar), toolbar.getTransitionName()));
-			for(View sharedView : sharedViews)
-				views.add(new Pair<>(sharedView, sharedView.getTransitionName()));
+				List<Pair<View, String>> views = new ArrayList<>();
+				views.add(Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME));
+				views.add(Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME));
+				views.add(Pair.create(findViewById(R.id.toolbar), toolbar.getTransitionName()));
+				for(View sharedView : sharedViews)
+					views.add(new Pair<>(sharedView, sharedView.getTransitionName()));
 
-			options = ActivityOptions.makeSceneTransitionAnimation(this, views.toArray(new Pair[views.size()])).toBundle();
+				options = ActivityOptions.makeSceneTransitionAnimation(this, views.toArray(new Pair[views.size()])).toBundle();
+			}
+			else
+				options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, toolbar, "toolbar").toBundle();
 		}
-		else
-			options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, toolbar, "toolbar").toBundle();
 
-		if(android.os.Build.VERSION.SDK_INT >= 16)
-			startActivity(intent, options);
-		else
+		if(android.os.Build.VERSION.SDK_INT < 16)
 			startActivity(intent);
+		else
+			startActivity(intent, options);
+
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 
