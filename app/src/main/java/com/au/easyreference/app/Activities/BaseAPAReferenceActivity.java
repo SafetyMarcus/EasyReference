@@ -156,7 +156,14 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public void addAuthor(String authorString)
 	{
 		if(author.getText().length() > 0)
-			author.append(", ");
+		{
+			String currentText = author.getText().toString();
+
+			if(currentText.contains(" & "))
+				currentText = currentText.replace(" & ", "");
+
+			author.setText(currentText + ", & ");
+		}
 
 		author.append(getFormattedAuthorString(authorString));
 	}

@@ -133,6 +133,7 @@ public class ReferenceListActivity extends BaseActivity
 	public void onPause()
 	{
 		ERApplication.BUS.unregister(this);
+		referenceList.saveToFile(getApplication());
 		super.onPause();
 	}
 

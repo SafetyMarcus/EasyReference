@@ -189,7 +189,7 @@ public class HelperFunctions
 		{
 			currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(' ').append(currentReference.journalTitle).append(", ");
+			informationBuilder.append(' ').append(currentReference.journalTitle);
 
 			if(TextUtils.isEmpty(currentReference.volumeNo))
 				currentReference.italicsEnd = informationBuilder.length();

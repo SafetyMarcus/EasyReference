@@ -230,7 +230,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 
 		String phrase = HelperFunctions.getReferenceString(this);
 		String[] results = phrase.split("\\.");
-		
+
 		return results.length == 0 || results.length == 1 || !results[results.length - 1].equalsIgnoreCase("pdf");
 	}
 
