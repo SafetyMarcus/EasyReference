@@ -92,9 +92,9 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 		holder.edit.setOnClickListener(new OnEditClickListener(position));
 		holder.delete.setOnClickListener(new OnDeleteClickListener(position));
 
-		if(selected == position)
+		if(selected == position && holder.optionsLayout.getVisibility() != View.VISIBLE)
 			showOptions(holder.optionsLayout);
-		else if(holder.optionsLayout.getVisibility() == View.VISIBLE)
+		else if(selected != position && holder.optionsLayout.getVisibility() == View.VISIBLE)
 			hideOptions(holder.optionsLayout);
 
 		return convertView;
