@@ -192,12 +192,8 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		@Override
 		public void onClick(View v)
 		{
-			ContainerDialogFragment container = new ContainerDialogFragment();
-			Bundle args = new Bundle();
-			args.putString(ContainerDialogFragment.TYPE_KEY, AuthorDialogFragment.class.getName());
-			container.setArguments(args);
-
-			container.setCloseListener(new ContainerDialogFragment.CloseListener()
+			AuthorDialogFragment dialogFragment = new AuthorDialogFragment();
+			dialogFragment.setCloseListener(new ContainerDialogFragment.CloseListener()
 			{
 				@Override
 				public void onClose(Object result)
@@ -205,8 +201,7 @@ public class BaseAPAReferenceActivity extends BaseActivity
 					addAuthor((String) result);
 				}
 			});
-
-			container.show(getFragmentManager(), "Container");
+			dialogFragment.show(getFragmentManager(), "Author");
 		}
 	}
 }

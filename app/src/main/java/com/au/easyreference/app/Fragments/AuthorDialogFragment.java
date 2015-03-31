@@ -1,12 +1,14 @@
 package com.au.easyreference.app.fragments;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.ButterKnife;
@@ -16,7 +18,7 @@ import com.au.easyreference.app.R;
 /**
  * @author Marcus Hooper
  */
-public class AuthorDialogFragment extends Fragment
+public class AuthorDialogFragment extends DialogFragment
 {
 	@InjectView(R.id.first_name)
 	public EditText firstName;
@@ -28,22 +30,27 @@ public class AuthorDialogFragment extends Fragment
 	public TextView cancel;
 	@InjectView(R.id.save)
 	public TextView save;
+	@InjectView(R.id.toolbar)
+	public Toolbar toolbar;
+
+	private ContainerDialogFragment.CloseListener closeListener;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		View layout = inflater.inflate(R.layout.author_dialog_fragment, container, false);
 		ButterKnife.inject(this, layout);
 		setHasOptionsMenu(false);
-		((ContainerDialogFragment) getParentFragment()).toolbar.setTitle(getString(R.string.author));
+		toolbar.setTitle(getString(R.string.author));
 
 		cancel.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				((ContainerDialogFragment) getParentFragment()).onBackPressed();
+				dismiss();
 			}
 		});
 
@@ -58,13 +65,18 @@ public class AuthorDialogFragment extends Fragment
 					showWarningDialog(false);
 				else
 				{
-					((ContainerDialogFragment) getParentFragment()).closeListener.onClose(getAuthorString());
-					((ContainerDialogFragment) getParentFragment()).onBackPressed();
+					closeListener.onClose(getAuthorString());
+					dismiss();
 				}
 			}
 		});
 
 		return layout;
+	}
+
+	public void setCloseListener(ContainerDialogFragment.CloseListener listener)
+	{
+		this.closeListener = listener;
 	}
 
 	public String getAuthorString()
