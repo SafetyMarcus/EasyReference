@@ -94,8 +94,8 @@ public class PDFGenerator
 	private Paragraph getReferenceCell(ReferenceItem referenceItem, String phrase)
 	{
 		Paragraph paragraph = new Paragraph();
-		
-		if(referenceItem.hasItalics() && (referenceItem.type == ReferenceItem.WEB_PAGE && !isWebPage(phrase)))
+
+		if(referenceItem.hasItalics() && !referenceItem.isWebPage())
 		{
 			paragraph.add(paragraph.size(), mainFont.process(phrase.substring(0, referenceItem.italicsStart)));
 			paragraph.add(paragraph.size(), mainFontItalics.process(phrase.substring(referenceItem.italicsStart, referenceItem.italicsEnd)));
@@ -107,13 +107,6 @@ public class PDFGenerator
 		paragraph.setFirstLineIndent(-30);
 		paragraph.setIndentationLeft(30);
 		return paragraph;
-	}
-
-	private boolean isWebPage(String phrase)
-	{
-		String[] results = phrase.split(".");
-
-		return results.length == 0 || results.length == 1 || !results[results.length - 1].equalsIgnoreCase("pdf");
 	}
 
 	private void setUpFonts()

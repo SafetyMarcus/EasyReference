@@ -77,7 +77,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 		if(title.length() > 0)
 		{
 			SpannableStringBuilder builder = new SpannableStringBuilder(title);
-			if(currentReference.hasItalics())
+			if(currentReference.hasItalics() && !currentReference.isWebPage())
 				builder.setSpan(new StyleSpan(Typeface.ITALIC), currentReference.italicsStart, currentReference.italicsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 			holder.information.setText(builder);

@@ -223,6 +223,17 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		return referenceObject;
 	}
 
+	public boolean isWebPage()
+	{
+		if(type != WEB_PAGE)
+			return false;
+
+		String phrase = HelperFunctions.getReferenceString(this);
+		String[] results = phrase.split("\\.");
+		
+		return results.length == 0 || results.length == 1 || !results[results.length - 1].equalsIgnoreCase("pdf");
+	}
+
 	public boolean hasItalics()
 	{
 		return italicsStart > -1 && italicsEnd > -1 && italicsStart < italicsEnd;

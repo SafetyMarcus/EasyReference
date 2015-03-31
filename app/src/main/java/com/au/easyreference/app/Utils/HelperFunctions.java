@@ -13,6 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import static com.au.easyreference.app.references.ReferenceItem.BOOK_REFERENCE;
+import static com.au.easyreference.app.references.ReferenceItem.WEB_PAGE;
+
 /**
  * @author Marcus Hooper
  */
@@ -99,22 +102,25 @@ public class HelperFunctions
 			informationBuilder.append('(').append(currentReference.year).append("). ");
 		if(!TextUtils.isEmpty(currentReference.title))
 		{
-			if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+			if(currentReference.type == BOOK_REFERENCE || currentReference.type == WEB_PAGE)
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(currentReference.title);
 
-			if(currentReference.type == ReferenceItem.BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle))
+			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle) || currentReference.type == WEB_PAGE)
 				currentReference.italicsEnd = informationBuilder.length();
+
+			if(TextUtils.isEmpty(currentReference.subtitle))
+				informationBuilder.append('.');
 		}
 		if(!TextUtils.isEmpty(currentReference.subtitle))
 		{
-			if(currentReference.type == ReferenceItem.BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title))
+			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
 
-			if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+			if(currentReference.type == BOOK_REFERENCE)
 				currentReference.italicsEnd = informationBuilder.length();
 		}
 
@@ -219,13 +225,13 @@ public class HelperFunctions
 
 	public static String getReferenceString(ReferenceItem currentReference)
 	{
-		if(currentReference.type == ReferenceItem.BOOK_REFERENCE)
+		if(currentReference.type == BOOK_REFERENCE)
 			return getAPABookReferenceString(currentReference);
 		else if(currentReference.type == ReferenceItem.BOOK_CHAPTER)
 			return getAPABookChapterReferenceString(currentReference);
 		else if(currentReference.type == ReferenceItem.JOURNAL_REFERENCE)
 			return getAPAJournalReferenceString(currentReference);
-		else if(currentReference.type == ReferenceItem.WEB_PAGE)
+		else if(currentReference.type == WEB_PAGE)
 			return getAPAWebPageReferenceString(currentReference);
 
 		return "";
