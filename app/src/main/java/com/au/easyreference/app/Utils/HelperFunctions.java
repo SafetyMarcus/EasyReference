@@ -148,7 +148,7 @@ public class HelperFunctions
 			informationBuilder.append(context.getString(R.string.in))
 					.append(' ')
 					.append(currentReference.editors)
-					.append(". ")
+					.append(' ')
 					.append(context.getString(R.string.eds))
 					.append(", ");
 		if(!TextUtils.isEmpty(currentReference.bookTitle))
@@ -169,12 +169,12 @@ public class HelperFunctions
 			currentReference.italicsEnd = informationBuilder.length();
 		}
 		if(!TextUtils.isEmpty(currentReference.pagesOfChapter))
-			informationBuilder.append("(")
+			informationBuilder.append(" (")
 					.append(context.getString(R.string.pp))
 					.append(currentReference.pagesOfChapter)
-					.append("). ");
+					.append(").");
 		if(!TextUtils.isEmpty(currentReference.location))
-			informationBuilder.append(currentReference.location).append(": ");
+			informationBuilder.append(' ').append(currentReference.location).append(": ");
 		if(!TextUtils.isEmpty(currentReference.publisher))
 			informationBuilder.append(currentReference.publisher).append('.');
 

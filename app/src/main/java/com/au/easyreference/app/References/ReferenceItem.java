@@ -19,6 +19,7 @@ import static com.au.easyreference.app.utils.Constants.ISSUE;
 import static com.au.easyreference.app.utils.Constants.ITEM_TYPE;
 import static com.au.easyreference.app.utils.Constants.JOURNAL_TITLE;
 import static com.au.easyreference.app.utils.Constants.LOCATION;
+import static com.au.easyreference.app.utils.Constants.PAGES_OF_CHAPTER;
 import static com.au.easyreference.app.utils.Constants.PAGE_NO;
 import static com.au.easyreference.app.utils.Constants.PUBLISHER;
 import static com.au.easyreference.app.utils.Constants.REFERENCE_ITEM_ID;
@@ -118,6 +119,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		this.editors = "";
 		this.bookTitle = "";
 		this.bookSubtitle = "";
+		this.pagesOfChapter = "";
 		this.url = "";
 
 		this.type = type;
@@ -178,6 +180,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		editors = referenceObject.optString(EDITORS);
 		bookTitle = referenceObject.optString(BOOK_TITLE);
 		bookSubtitle = referenceObject.optString(BOOK_SUBTITLE);
+		pagesOfChapter = referenceObject.optString(PAGES_OF_CHAPTER);
 
 		//Web Page
 		url = referenceObject.optString(URL);
@@ -211,6 +214,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 			referenceObject.put(EDITORS, editors);
 			referenceObject.put(BOOK_TITLE, bookTitle);
 			referenceObject.put(BOOK_SUBTITLE, bookSubtitle);
+			referenceObject.put(PAGES_OF_CHAPTER, pagesOfChapter);
 
 			//Web Page
 			referenceObject.put(URL, url);

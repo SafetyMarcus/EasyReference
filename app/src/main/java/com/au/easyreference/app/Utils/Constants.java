@@ -32,6 +32,7 @@ public class Constants
 	public static final String EDITORS = "editors";
 	public static final String BOOK_TITLE = "book_title";
 	public static final String BOOK_SUBTITLE = "book_subtitle";
+	public static final String PAGES_OF_CHAPTER = "pages_of_chapter";
 
 	//Web Page
 	public static final String URL = "url";
