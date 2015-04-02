@@ -111,4 +111,5 @@
     <string name="search_info">Here you can search the Springer database!</string>
     <string name="no_results_toast">No results found for search</string>
     <string name="pages_of_chapter_hint">Enter chapters of</string>
+    <string name="author_info_message">Add an author in the format of Last Name, First Initial. Second Initial. e.g. Melville, H. You can also use the add author dialog to do the work for you!</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.au.easyreference.app.activities;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -7,11 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.Optional;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
+import com.au.easyreference.app.fragments.MoreInfoDialog;
 import com.au.easyreference.app.fragments.SearchDialog;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
@@ -26,6 +29,8 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
+	@InjectView(R.id.author_label)
+	public TextView authorLabel;
 	@InjectView(R.id.author)
 	public EditText author;
 	@InjectView(R.id.author_button)
@@ -74,6 +79,9 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		}
 
 		authorButton.setOnClickListener(new AuthorClickListener());
+
+		authorLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		authorLabel.setOnClickListener(new LabelClickListener());
 	}
 
 	@Override
@@ -209,6 +217,31 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				}
 			});
 			dialogFragment.show(getFragmentManager(), "Author");
+		}
+	}
+
+	public class LabelClickListener implements View.OnClickListener
+	{
+		@Override
+		public void onClick(View view)
+		{
+			int message = -1;
+			int image = -1;
+
+			switch(view.getId())
+			{
+				case R.id.author_label:
+					message = R.string.author_info_message;
+					image = R.drawable.add_author_image;
+			}
+
+			Bundle args = new Bundle();
+			args.putString(MoreInfoDialog.MESSAGE, getString(message));
+			args.putInt(MoreInfoDialog.IMAGE, image);
+
+			MoreInfoDialog dialog = new MoreInfoDialog();
+			dialog.setArguments(args);
+			dialog.show(getFragmentManager(), null);
 		}
 	}
 }

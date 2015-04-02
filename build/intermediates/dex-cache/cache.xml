@@ -72,6 +72,13 @@
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/otto-1.3.4-38ebd26996758c63de87aa413a7005774089afa2.jar" />
     </item>
     <item
+        jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-5649a7c4e4b4626146557926a28c47587d23ff94.jar" />
+    </item>
+    <item
         jar="/Users/Marcus/Documents/Personal/EasyReference/app/libs/droidText.0.5.5.jar"
         jumboMode="false"
         revision="21.1.1"
