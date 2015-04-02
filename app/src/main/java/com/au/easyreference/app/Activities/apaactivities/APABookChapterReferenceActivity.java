@@ -15,12 +15,20 @@ import com.au.easyreference.app.references.ReferenceItem;
  */
 public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 {
+	@InjectView(R.id.book_title_label)
+	public TextView bookTitleLabel;
 	@InjectView(R.id.book_title)
 	public EditText bookTitle;
+	@InjectView(R.id.book_subtitle_label)
+	public TextView bookSubtitleLabel;
 	@InjectView(R.id.book_subtitle)
 	public EditText bookSubtitle;
+	@InjectView(R.id.pages_of_chapter_label)
+	public TextView pagesOfChapterLabel;
 	@InjectView(R.id.pages_of_chapter)
 	public EditText pagesOfChapter;
+	@InjectView(R.id.editors_label)
+	public TextView editorsLabel;
 	@InjectView(R.id.editors)
 	public EditText editors;
 
@@ -47,6 +55,18 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 			currentReference = new ReferenceItem(ReferenceItem.BOOK_CHAPTER);
 			referenceList.referenceList.add(currentReference);
 		}
+
+		bookTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		bookTitleLabel.setOnClickListener(new LabelClickListener());
+
+		bookSubtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		bookSubtitleLabel.setOnClickListener(new LabelClickListener());
+
+		pagesOfChapterLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		pagesOfChapterLabel.setOnClickListener(new LabelClickListener());
+
+		editorsLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		editorsLabel.setOnClickListener(new LabelClickListener());
 
 		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
 		locationLabel.setOnClickListener(new LabelClickListener());
@@ -78,9 +98,9 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 			if(currentReference.publisher != null && currentReference.publisher.length() > 0)
 				publisher.setText(currentReference.publisher);
 			if(currentReference.bookTitle != null && currentReference.bookTitle.length() > 0)
-				bookTitle.setText(currentReference.bookTitle);
+				bookTitle.setText(currentReference.title);
 			if(currentReference.bookSubtitle != null && currentReference.bookSubtitle.length() > 0)
-				bookSubtitle.setText(currentReference.bookSubtitle);
+				bookSubtitle.setText(currentReference.subtitle);
 			if(currentReference.editors != null && currentReference.editors.length() > 0)
 				editors.setText(currentReference.editors);
 			if(currentReference.pagesOfChapter != null && currentReference.pagesOfChapter.length() > 0)

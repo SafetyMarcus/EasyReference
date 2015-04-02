@@ -75,7 +75,7 @@
                 android:hint="@string/year_hint"/>
 
             <TextView
-                android:id="@+id/title_label"
+                android:id="@+id/book_title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -83,6 +83,63 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
                 android:text="@string/chapter_title"/>
+
+            <EditText
+                android:id="@+id/book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:inputType="textCapSentences"
+                android:hint="@string/title_hint"/>
+
+            <TextView
+                android:id="@+id/book_subtitle_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/light_gray"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
+                android:text="@string/chapter_sub_title"/>
+
+            <EditText
+                android:id="@+id/book_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:inputType="textCapSentences"
+                android:hint="@string/subtitle_hint"/>
+
+            <TextView
+                android:id="@+id/editors_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/light_gray"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
+                android:text="@string/editors"/>
+
+            <EditText
+                android:id="@+id/editors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="52dp"
+                android:maxLines="4"
+                android:inputType="textCapWords"
+                android:hint="@string/editors_hint"/>
+
+            <TextView
+                android:id="@+id/title_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
+                android:textColor="@color/light_gray"
+                android:text="@string/book_title"/>
 
             <EditText
                 android:id="@+id/title"
@@ -101,7 +158,7 @@
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
-                android:text="@string/chapter_sub_title"/>
+                android:text="@string/book_sub_title"/>
 
             <EditText
                 android:id="@+id/subtitle"
@@ -113,57 +170,12 @@
                 android:hint="@string/subtitle_hint"/>
 
             <TextView
+                android:id="@+id/pages_of_chapter_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textColor="@color/light_gray"
-                android:text="@string/editors"/>
-
-            <EditText
-                android:id="@+id/editors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="52dp"
-                android:maxLines="4"
-                android:inputType="textCapWords"
-                android:hint="@string/editors_hint"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/light_gray"
-                android:text="@string/book_title"/>
-
-            <EditText
-                android:id="@+id/book_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="52dp"
-                android:maxLines="4"
-                android:inputType="textCapSentences"
-                android:hint="@string/title_hint"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/light_gray"
-                android:text="@string/book_sub_title"/>
-
-            <EditText
-                android:id="@+id/book_subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="52dp"
-                android:maxLines="4"
-                android:inputType="textCapSentences"
-                android:hint="@string/subtitle_hint"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
                 android:textColor="@color/light_gray"
                 android:text="@string/pages_of_chapter"/>
 
@@ -173,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="52dp"
                 android:maxLines="4"
-                android:hint="@string/pages_of_chapter_hint"/>
+                android:hint="@string/pages_hint"/>
 
             <TextView
                 android:id="@+id/location_label"

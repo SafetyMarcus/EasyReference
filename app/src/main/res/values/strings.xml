@@ -87,7 +87,7 @@
     <string name="in">In</string>
     <string name="eds">(Eds.)</string>
     <string name="pages_of_chapter">Pages of Chapter</string>
-    <string name="pages_hint">Enter the page numbers that were used e.g. (1–5)</string>
+    <string name="pages_hint">Enter the page numbers that were used e.g. 1–5</string>
     <string name="pp">pp.</string>
     <string name="url">URL</string>
     <string name="url_hint">enter a url</string>
@@ -110,11 +110,14 @@
     <string name="no_results">No results for search</string>
     <string name="search_info">Here you can search the Springer database!</string>
     <string name="no_results_toast">No results found for search</string>
-    <string name="pages_of_chapter_hint">Enter chapters of</string>
     <string name="author_info_message">Add an author in the format of Last Name, First Initial. Second Initial. e.g. Melville, H. You can also use the add author dialog to do the work for you!</string>
     <string name="add_year_message">The year that the resource was published. Pretty self explanatory, just 4 numbers. e.g 1851</string>
     <string name="add_title_message">Add the title of the resource. The title starts with a capital while every other letter is lower case. e.g. Moby dick</string>
     <string name="add_subtitle_message">Add the subtitle of the resource here if it has one. Like the title, it starts with a capital letter and everything else is lowercase. e.g. The whale</string>
     <string name="add_location_hint">Add the location of publishing. If in America put City, State. If anywhere else put City, Country. e.g. London, UK</string>
     <string name="add_publisher_message">Add the publisher of the resource. This should be exactly as written within the document. e.g.Richard Bentley</string>
+    <string name="add_chapter_title_message">Add the chapter of the book that the information came from. This should start with a capital while all other letters are lowercase. e.g. Chapter 1</string>
+    <string name="add_chapter_subtitle_message">Add the subtitle of the chapter that was used, if one exists. This should start with a capital letter while all others are lowercase. e.g. Loomings</string>
+    <string name="add_pages_of_chapter_message">Add the pages of the chapter that the information was retrieved from. e.g. 1<xliff:g id="dash">-</xliff:g>3</string>
+    <string name="add_editors_message">Add the editors of the chapter. This should follow the same format as authors. e.g. Melville, H.</string>
 </resources>

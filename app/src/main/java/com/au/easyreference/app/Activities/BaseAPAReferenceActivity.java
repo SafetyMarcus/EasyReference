@@ -3,6 +3,7 @@ package com.au.easyreference.app.activities;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -159,10 +160,21 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				author.setText(currentReference.author);
 			if(currentReference.year != null && currentReference.year.length() > 0)
 				year.setText(currentReference.year);
-			if(currentReference.title != null && currentReference.title.length() > 0)
-				title.setText(currentReference.title);
-			if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
-				subtitle.setText(currentReference.subtitle);
+
+			if(currentReference.type == ReferenceItem.BOOK_CHAPTER)
+			{
+				if(!TextUtils.isEmpty(currentReference.bookTitle))
+					title.setText(currentReference.bookTitle);
+				if(subtitle != null && !TextUtils.isEmpty(currentReference.subtitle))
+					subtitle.setText(currentReference.bookSubtitle);
+			}
+			else
+			{
+				if(currentReference.title != null && currentReference.title.length() > 0)
+					title.setText(currentReference.title);
+				if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
+					subtitle.setText(currentReference.subtitle);
+			}
 		}
 	}
 
@@ -278,6 +290,26 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				case R.id.publisher_label:
 					message = R.string.add_publisher_message;
 					image = R.drawable.add_publisher_image;
+					break;
+
+				case R.id.book_title_label:
+					message = R.string.add_chapter_title_message;
+					image = R.drawable.add_chapter_title_image;
+					break;
+
+				case R.id.book_subtitle_label:
+					message = R.string.add_chapter_subtitle_message;
+					image = R.drawable.add_chapter_subtitle_image;
+					break;
+
+				case R.id.pages_of_chapter_label:
+					message = R.string.add_pages_of_chapter_message;
+					image = R.drawable.add_pages_of_chapter_image;
+					break;
+
+				case R.id.editors_label:
+					message = R.string.add_editors_message;
+					image = R.drawable.add_editors_image;
 					break;
 			}
 
