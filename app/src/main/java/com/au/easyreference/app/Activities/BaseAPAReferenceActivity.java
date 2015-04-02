@@ -35,10 +35,18 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public EditText author;
 	@InjectView(R.id.author_button)
 	public Button authorButton;
+	@InjectView(R.id.year_label)
+	public TextView yearLabel;
 	@InjectView(R.id.year)
 	public EditText year;
+	@InjectView(R.id.title_label)
+	public TextView titleLabel;
 	@InjectView(R.id.title)
 	public EditText title;
+
+	@Optional
+	@InjectView(R.id.subtitle_label)
+	public TextView subtitleLabel;
 	@Optional
 	@InjectView(R.id.subtitle)
 	public EditText subtitle;
@@ -82,6 +90,18 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 		authorLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
 		authorLabel.setOnClickListener(new LabelClickListener());
+
+		yearLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		yearLabel.setOnClickListener(new LabelClickListener());
+
+		titleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		titleLabel.setOnClickListener(new LabelClickListener());
+
+		if(subtitleLabel != null)
+		{
+			subtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+			subtitleLabel.setOnClickListener(new LabelClickListener());
+		}
 	}
 
 	@Override
@@ -233,6 +253,16 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				case R.id.author_label:
 					message = R.string.author_info_message;
 					image = R.drawable.add_author_image;
+					break;
+
+				case R.id.year_label:
+					message = R.string.add_year_message;
+					image = R.drawable.add_year_image;
+					break;
+
+				case R.id.title_label:
+					message = R.string.add_title_message;
+					image = R.drawable.add_title_image;
 			}
 
 			Bundle args = new Bundle();

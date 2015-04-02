@@ -58,11 +58,14 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/year_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
-                android:text="@string/date_of_publication"/>
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
+                android:text="@string/year"/>
 
             <EditText
                 android:id="@+id/year"
@@ -72,10 +75,13 @@
                 android:hint="@string/date_hint"/>
 
             <TextView
+                android:id="@+id/title_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
                 android:text="@string/title"/>
 
             <EditText

@@ -16,7 +16,7 @@
     <string name="reference_list">Reference List</string>
     <string name="choose_a_style">Choose a style</string>
     <string name="options">Options</string>
-    <string name="reference_title_hint">enter a title</string>
+    <string name="reference_title_hint">enter title</string>
     <string name="new_list">New</string>
     <string name="add_new">Add new reference</string>
     <string name="new_reference">Add new reference</string>
@@ -112,4 +112,6 @@
     <string name="no_results_toast">No results found for search</string>
     <string name="pages_of_chapter_hint">Enter chapters of</string>
     <string name="author_info_message">Add an author in the format of Last Name, First Initial. Second Initial. e.g. Melville, H. You can also use the add author dialog to do the work for you!</string>
+    <string name="add_year_message">The year that the resource was published. Pretty self explanatory, just 4 numbers. e.g 1851</string>
+    <string name="add_title_message">Add the title of the resource. The title starts with a capital while every other letter is lower case. e.g. Moby dick</string>
 </resources>
