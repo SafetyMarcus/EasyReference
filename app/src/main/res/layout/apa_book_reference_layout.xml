@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -22,13 +23,15 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
+                android:gravity="center_vertical"
                 android:text="@string/author"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <EditText
                     android:id="@+id/author"
@@ -44,7 +47,6 @@
                     android:id="@+id/author_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
                     android:padding="8dp"
                     android:textColor="@android:color/white"
@@ -54,7 +56,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:text="@string/year"/>
 
@@ -67,7 +70,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:text="@string/title"/>
 
@@ -82,7 +86,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:text="@string/subtitle"/>
 
@@ -97,7 +102,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:text="@string/location"/>
 
@@ -110,7 +116,8 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:text="@string/publisher"/>
 
