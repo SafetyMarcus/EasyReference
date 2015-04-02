@@ -1,7 +1,9 @@
 package com.au.easyreference.app.activities.apaactivities;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -21,10 +23,15 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 	public EditText pagesOfChapter;
 	@InjectView(R.id.editors)
 	public EditText editors;
+
+	@InjectView(R.id.location_label)
+	public TextView locationLabel;
 	@InjectView(R.id.location)
 	public EditText location;
 	@InjectView(R.id.publisher)
 	public EditText publisher;
+	@InjectView(R.id.publisher_label)
+	public TextView publisherLabel;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -41,8 +48,13 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 			referenceList.referenceList.add(currentReference);
 		}
 
-		Bundle args = getIntent().getExtras();
+		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		locationLabel.setOnClickListener(new LabelClickListener());
 
+		publisherLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		publisherLabel.setOnClickListener(new LabelClickListener());
+
+		Bundle args = getIntent().getExtras();
 		if(args != null && args.containsKey(KEY_ID))
 			setUpView(args.getString(KEY_ID));
 	}

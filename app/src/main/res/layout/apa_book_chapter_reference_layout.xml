@@ -176,10 +176,13 @@
                 android:hint="@string/pages_of_chapter_hint"/>
 
             <TextView
+                android:id="@+id/location_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
                 android:text="@string/location"/>
 
             <EditText
@@ -190,10 +193,13 @@
                 android:hint="@string/location_hint"/>
 
             <TextView
+                android:id="@+id/publisher_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
                 android:text="@string/publisher"/>
 
             <EditText
