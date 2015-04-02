@@ -98,7 +98,7 @@ public class HelperFunctions
 
 		if(!TextUtils.isEmpty(currentReference.author))
 			informationBuilder.append(currentReference.author).append(' ');
-		if(!TextUtils.isDigitsOnly(currentReference.year))
+		if(!TextUtils.isEmpty(currentReference.year))
 			informationBuilder.append('(').append(currentReference.year).append("). ");
 		if(!TextUtils.isEmpty(currentReference.title))
 		{

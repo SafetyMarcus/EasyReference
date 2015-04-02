@@ -39,7 +39,7 @@
     <string name="year">Year</string>
     <string name="year_hint">enter publishing year</string>
     <string name="title">Title</string>
-    <string name="title_hint">enter title</string>
+    <string name="title_hint">enter list title</string>
     <string name="subtitle">Subtitle (optional)</string>
     <string name="subtitle_hint">enter subtitle</string>
     <string name="location">Location</string>

@@ -1,6 +1,5 @@
 package com.au.easyreference.app.references;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -17,10 +16,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.ReferenceListActivity;
-import com.au.easyreference.app.activities.apaactivities.APABookChapterReferenceActivity;
-import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
-import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
-import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
 import com.au.easyreference.app.ui.ShowOptionsAdapter;
 import com.au.easyreference.app.utils.HelperFunctions;
 
@@ -137,26 +132,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 			else
 			{
 				ReferenceItem referenceItem = getItem(position);
-
-				Class intentClass = null;
-				if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
-					intentClass = APABookReferenceActivity.class;
-				else if(referenceItem.type == ReferenceItem.JOURNAL_REFERENCE)
-					intentClass = APAJournalReferenceActivity.class;
-				else if(referenceItem.type == ReferenceItem.BOOK_CHAPTER)
-					intentClass = APABookChapterReferenceActivity.class;
-				else if(referenceItem.type == ReferenceItem.WEB_PAGE)
-					intentClass = APAWebPageReferenceActivity.class;
-
-				if(intentClass != null)
-				{
-					Intent intent = new Intent(activity.get(), intentClass);
-
-					intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
-					intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
-
-					activity.get().startActivityForVersion(intent);
-				}
+				activity.get().showReference(referenceItem);
 			}
 		}
 	}
