@@ -263,6 +263,12 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				case R.id.title_label:
 					message = R.string.add_title_message;
 					image = R.drawable.add_title_image;
+					break;
+
+				case R.id.subtitle_label:
+					message = R.string.add_subtitle_message;
+					image = R.drawable.add_subtitle_image;
+					break;
 			}
 
 			Bundle args = new Bundle();

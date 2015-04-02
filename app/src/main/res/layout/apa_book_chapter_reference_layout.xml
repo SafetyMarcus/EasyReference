@@ -94,10 +94,13 @@
                 android:hint="@string/title_hint"/>
 
             <TextView
+                android:id="@+id/subtitle_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
                 android:text="@string/chapter_sub_title"/>
 
             <EditText
