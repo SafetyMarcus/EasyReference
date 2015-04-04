@@ -91,12 +91,15 @@
                 android:minHeight="52dp"
                 android:maxLines="4"
                 android:inputType="textCapSentences"
-                android:hint="@string/title_hint"/>
+                android:hint="@string/reference_title_hint"/>
 
             <TextView
+                android:id="@+id/url_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableRight="@drawable/info"
                 android:textColor="@color/light_gray"
                 android:text="@string/url"/>
 

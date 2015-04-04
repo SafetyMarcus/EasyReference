@@ -1,7 +1,9 @@
 package com.au.easyreference.app.activities.apaactivities;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -13,6 +15,8 @@ import com.au.easyreference.app.references.ReferenceItem;
  */
 public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 {
+	@InjectView(R.id.url_label)
+	protected TextView urlLabel;
 	@InjectView(R.id.url)
 	protected EditText url;
 
@@ -22,7 +26,7 @@ public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 		setContentView(R.layout.apa_web_page_reference_layout);
 		ButterKnife.inject(this);
 
-		toolbar.setTitle(getString(R.string.apa_book_reference));
+		toolbar.setTitle(getString(R.string.apa_web_reference));
 		super.onCreate(savedInstanceState);
 
 		if(currentReference == null)
@@ -31,8 +35,10 @@ public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 			referenceList.referenceList.add(currentReference);
 		}
 
-		Bundle args = getIntent().getExtras();
+		urlLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		urlLabel.setOnClickListener(new LabelClickListener());
 
+		Bundle args = getIntent().getExtras();
 		if(args != null && args.containsKey(KEY_ID))
 			setUpView(args.getString(KEY_ID));
 	}

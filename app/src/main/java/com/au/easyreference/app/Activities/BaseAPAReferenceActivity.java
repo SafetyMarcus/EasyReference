@@ -256,8 +256,8 @@ public class BaseAPAReferenceActivity extends BaseActivity
 					break;
 
 				case R.id.year_label:
-					message = R.string.add_year_message;
-					image = R.drawable.add_year_image;
+					message = currentReference.type == ReferenceItem.WEB_PAGE ? R.string.add_web_year_message : R.string.add_year_message;
+					image = currentReference.type == ReferenceItem.WEB_PAGE ? R.drawable.add_web_year_image : R.drawable.add_year_image;
 					break;
 
 				case R.id.title_label:
@@ -323,6 +323,11 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				case R.id.doi_label:
 					message = R.string.add_doi_message;
 					image = R.drawable.add_doi_image;
+					break;
+
+				case R.id.url_label:
+					message = R.string.add_url_message;
+					image = R.drawable.add_url_image;
 					break;
 			}
 

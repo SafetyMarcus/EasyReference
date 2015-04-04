@@ -74,6 +74,7 @@
     <string name="volume_number_hint">enter volume number</string>
     <string name="apa_journal_reference">APA Journal Reference</string>
     <string name="apa_book_reference">APA Book Reference</string>
+    <string name="apa_web_reference">APA Web Reference</string>
     <string name="apa_book_chapter_reference">APA Book Chapter Reference</string>
     <string name="selecty_type">Select Type</string>
     <string name="no_title">No Title</string>
@@ -112,6 +113,7 @@
     <string name="no_results_toast">No results found for search</string>
     <string name="author_info_message">Add an author in the format of Last Name, First Initial. Second Initial. e.g. Melville, H. You can also use the add author dialog to do the work for you!</string>
     <string name="add_year_message">The year that the resource was published. Pretty self explanatory, just 4 numbers. e.g 1851</string>
+    <string name="add_web_year_message">The year that the web page was last updated. Like the year used for other resource types, just 4 numbers. e.g 2015</string>
     <string name="add_title_message">Add the title of the resource. The title starts with a capital while every other letter is lower case. e.g. Moby dick</string>
     <string name="add_subtitle_message">Add the subtitle of the resource here if it has one. Like the title, it starts with a capital letter and everything else is lowercase. e.g. The whale</string>
     <string name="add_location_hint">Add the location of publishing. If in America put City, State. If anywhere else put City, Country. e.g. London, UK</string>
@@ -125,4 +127,5 @@
     <string name="add_issue_message">Add the numer of the issue of the journal that this article appeared in. e.g. 4</string>
     <string name="add_pages_message">Add the pages of the journal that contain the information that was used. e.g. 3<xliff:g id="dash">-</xliff:g>7</string>
     <string name="add_doi_message">Add the DOI of the journal article. All DOI\'s should follow the same format. e.g. 10.1000/182</string>
+    <string name="add_url_message">Add the URL that the resource was retrieved from. e.g. http://www.sparknotes.com/lit/mobydick/</string>
 </resources>
