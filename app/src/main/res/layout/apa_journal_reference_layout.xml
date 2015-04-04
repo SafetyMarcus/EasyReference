@@ -55,7 +55,7 @@
                     android:padding="8dp"
                     android:textColor="@android:color/white"
                     android:text="@string/add_author"
-                    android:background="@drawable/red_ripple"/>
+                    android:background="@drawable/rounded_red_button"/>
             </LinearLayout>
 
             <TextView
