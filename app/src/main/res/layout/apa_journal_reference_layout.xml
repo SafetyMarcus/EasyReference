@@ -23,12 +23,13 @@
 
             <TextView
                 android:id="@+id/author_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/author"/>
 
             <LinearLayout
@@ -59,12 +60,13 @@
 
             <TextView
                 android:id="@+id/year_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/year"/>
 
             <EditText
@@ -76,12 +78,13 @@
 
             <TextView
                 android:id="@+id/journal_title_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/title"/>
 
             <EditText
@@ -95,11 +98,12 @@
 
             <TextView
                 android:id="@+id/subtitle_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/subtitle"/>
 
@@ -114,11 +118,12 @@
 
             <TextView
                 android:id="@+id/title_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/journal_title"/>
 
@@ -133,11 +138,12 @@
 
             <TextView
                 android:id="@+id/volume_number_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/volume_number"/>
 
@@ -152,11 +158,12 @@
 
             <TextView
                 android:id="@+id/issue_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/issue"/>
 
@@ -171,11 +178,12 @@
 
             <TextView
                 android:id="@+id/page_no_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/page_no"/>
 
@@ -189,11 +197,12 @@
 
             <TextView
                 android:id="@+id/doi_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/doi"/>
 

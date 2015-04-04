@@ -23,12 +23,13 @@
 
             <TextView
                 android:id="@+id/author_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/author"/>
 
             <LinearLayout
@@ -59,12 +60,13 @@
 
             <TextView
                 android:id="@+id/year_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/year"/>
 
             <EditText
@@ -76,12 +78,13 @@
 
             <TextView
                 android:id="@+id/book_title_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/chapter_title"/>
 
             <EditText
@@ -95,12 +98,13 @@
 
             <TextView
                 android:id="@+id/book_subtitle_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/chapter_sub_title"/>
 
             <EditText
@@ -114,12 +118,13 @@
 
             <TextView
                 android:id="@+id/editors_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/editors"/>
 
             <EditText
@@ -133,11 +138,12 @@
 
             <TextView
                 android:id="@+id/title_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/book_title"/>
 
@@ -152,12 +158,13 @@
 
             <TextView
                 android:id="@+id/subtitle_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/book_sub_title"/>
 
             <EditText
@@ -171,11 +178,12 @@
 
             <TextView
                 android:id="@+id/pages_of_chapter_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/pages_of_chapter"/>
 
@@ -189,12 +197,13 @@
 
             <TextView
                 android:id="@+id/location_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/location"/>
 
             <EditText
@@ -206,12 +215,13 @@
 
             <TextView
                 android:id="@+id/publisher_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/publisher"/>
 
             <EditText

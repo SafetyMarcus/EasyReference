@@ -23,12 +23,13 @@
 
             <TextView
                 android:id="@+id/author_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/author"/>
 
             <LinearLayout
@@ -59,12 +60,13 @@
 
             <TextView
                 android:id="@+id/year_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/year"/>
 
             <EditText
@@ -76,12 +78,13 @@
 
             <TextView
                 android:id="@+id/title_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/light_gray"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:text="@string/title"/>
 
             <EditText
@@ -95,11 +98,12 @@
 
             <TextView
                 android:id="@+id/url_label"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:drawableRight="@drawable/info"
+                android:drawablePadding="4dp"
                 android:textColor="@color/light_gray"
                 android:text="@string/url"/>
 
