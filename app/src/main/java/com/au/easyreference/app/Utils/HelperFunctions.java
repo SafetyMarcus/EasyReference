@@ -201,7 +201,7 @@ public class HelperFunctions
 			if(TextUtils.isEmpty(currentReference.journalTitle))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(currentReference.volumeNo);
+			informationBuilder.append(' ').append(currentReference.volumeNo);
 			currentReference.italicsEnd = informationBuilder.length();
 		}
 		if(!TextUtils.isEmpty(currentReference.issue))
