@@ -56,22 +56,22 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 			referenceList.referenceList.add(currentReference);
 		}
 
-		bookTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		bookTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		bookTitleLabel.setOnClickListener(new LabelClickListener());
 
-		bookSubtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		bookSubtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		bookSubtitleLabel.setOnClickListener(new LabelClickListener());
 
-		pagesOfChapterLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		pagesOfChapterLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		pagesOfChapterLabel.setOnClickListener(new LabelClickListener());
 
-		editorsLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		editorsLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		editorsLabel.setOnClickListener(new LabelClickListener());
 
-		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		locationLabel.setOnClickListener(new LabelClickListener());
 
-		publisherLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		publisherLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		publisherLabel.setOnClickListener(new LabelClickListener());
 
 		Bundle args = getIntent().getExtras();

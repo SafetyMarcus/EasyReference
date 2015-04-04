@@ -88,18 +88,18 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 
-		authorLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		authorLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		authorLabel.setOnClickListener(new LabelClickListener());
 
-		yearLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		yearLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		yearLabel.setOnClickListener(new LabelClickListener());
 
-		titleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		titleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		titleLabel.setOnClickListener(new LabelClickListener());
 
 		if(subtitleLabel != null)
 		{
-			subtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+			subtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 			subtitleLabel.setOnClickListener(new LabelClickListener());
 		}
 	}

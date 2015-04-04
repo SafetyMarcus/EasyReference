@@ -39,10 +39,10 @@ public class APABookReferenceActivity extends BaseAPAReferenceActivity
 			referenceList.referenceList.add(currentReference);
 		}
 
-		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		locationLabel.setOnClickListener(new LabelClickListener());
 
-		publisherLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.easy_reference_red), PorterDuff.Mode.SRC_IN);
+		publisherLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		publisherLabel.setOnClickListener(new LabelClickListener());
 
 		Bundle args = getIntent().getExtras();
