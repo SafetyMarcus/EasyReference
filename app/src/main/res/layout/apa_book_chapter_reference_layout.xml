@@ -94,7 +94,7 @@
                 android:minHeight="52dp"
                 android:maxLines="4"
                 android:inputType="textCapSentences"
-                android:hint="@string/title_hint"/>
+                android:hint="@string/reference_title_hint"/>
 
             <TextView
                 android:id="@+id/book_subtitle_label"
