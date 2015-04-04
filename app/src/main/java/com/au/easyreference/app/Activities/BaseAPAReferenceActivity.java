@@ -3,7 +3,6 @@ package com.au.easyreference.app.activities;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -160,21 +159,10 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				author.setText(currentReference.author);
 			if(currentReference.year != null && currentReference.year.length() > 0)
 				year.setText(currentReference.year);
-
-			if(currentReference.type == ReferenceItem.BOOK_CHAPTER)
-			{
-				if(!TextUtils.isEmpty(currentReference.bookTitle))
-					title.setText(currentReference.bookTitle);
-				if(subtitle != null && !TextUtils.isEmpty(currentReference.subtitle))
-					subtitle.setText(currentReference.bookSubtitle);
-			}
-			else
-			{
-				if(currentReference.title != null && currentReference.title.length() > 0)
-					title.setText(currentReference.title);
-				if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
-					subtitle.setText(currentReference.subtitle);
-			}
+			if(currentReference.title != null && currentReference.title.length() > 0)
+				title.setText(currentReference.title);
+			if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
+				subtitle.setText(currentReference.subtitle);
 		}
 	}
 
@@ -223,7 +211,7 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	{
 		String formattedString = "";
 
-		char[] characters = originalString.toCharArray();
+		char[] characters = originalString.toLowerCase().toCharArray();
 		String firstLetter = String.valueOf(characters[0]);
 		firstLetter = firstLetter.toUpperCase();
 
@@ -310,6 +298,31 @@ public class BaseAPAReferenceActivity extends BaseActivity
 				case R.id.editors_label:
 					message = R.string.add_editors_message;
 					image = R.drawable.add_editors_image;
+					break;
+
+				case R.id.journal_title_label:
+					message = R.string.add_journal_title_message;
+					image = R.drawable.add_journal_title_image;
+					break;
+
+				case R.id.volume_number_label:
+					message = R.string.add_volume_number_message;
+					image = R.drawable.add_volume_number_image;
+					break;
+
+				case R.id.issue_label:
+					message = R.string.add_issue_message;
+					image = R.drawable.add_issue_image;
+					break;
+
+				case R.id.page_no_label:
+					message = R.string.add_pages_message;
+					image = R.drawable.add_pages_image;
+					break;
+
+				case R.id.doi_label:
+					message = R.string.add_doi_message;
+					image = R.drawable.add_doi_image;
 					break;
 			}
 

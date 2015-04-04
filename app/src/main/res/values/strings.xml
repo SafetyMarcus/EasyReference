@@ -120,4 +120,9 @@
     <string name="add_chapter_subtitle_message">Add the subtitle of the chapter that was used, if one exists. This should start with a capital letter while all others are lowercase. e.g. Loomings</string>
     <string name="add_pages_of_chapter_message">Add the pages of the chapter that the information was retrieved from. e.g. 1<xliff:g id="dash">-</xliff:g>3</string>
     <string name="add_editors_message">Add the editors of the chapter. This should follow the same format as authors. e.g. Melville, H.</string>
+    <string name="add_journal_title_message">Add the title of the journal article. This should start with a capital while all other letters are lowercase. e.g. Deconstructing moby</string>
+    <string name="add_volume_number_message">Add the volume number of the journal this article appeared in. e.g. 1</string>
+    <string name="add_issue_message">Add the numer of the issue of the journal that this article appeared in. e.g. 4</string>
+    <string name="add_pages_message">Add the pages of the journal that contain the information that was used. e.g. 3<xliff:g id="dash">-</xliff:g>7</string>
+    <string name="add_doi_message">Add the DOI of the journal article. All DOI\'s should follow the same format. e.g. 10.1000/182</string>
 </resources>

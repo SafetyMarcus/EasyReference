@@ -118,7 +118,7 @@ public class HelperFunctions
 			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(": ").append(currentReference.subtitle).append(". ");
+			informationBuilder.append(": ").append(currentReference.subtitle).append('.');
 
 			if(currentReference.type == BOOK_REFERENCE)
 				currentReference.italicsEnd = informationBuilder.length();
@@ -130,6 +130,7 @@ public class HelperFunctions
 	public static String getAPABookReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+		informationBuilder.append(' ');
 
 		if(!TextUtils.isEmpty(currentReference.location))
 			informationBuilder.append(currentReference.location).append(": ");
@@ -142,6 +143,7 @@ public class HelperFunctions
 	public static String getAPABookChapterReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+		informationBuilder.append(' ');
 		Context context = ERApplication.getInstance();
 
 		if(!TextUtils.isEmpty(currentReference.editors))
@@ -184,12 +186,12 @@ public class HelperFunctions
 	public static String getAPAJournalReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+		informationBuilder.append(' ');
 
 		if(!TextUtils.isEmpty(currentReference.journalTitle))
 		{
 			currentReference.italicsStart = informationBuilder.length() - 1;
-
-			informationBuilder.append(' ').append(currentReference.journalTitle);
+			informationBuilder.append(currentReference.journalTitle);
 
 			if(TextUtils.isEmpty(currentReference.volumeNo))
 				currentReference.italicsEnd = informationBuilder.length();
@@ -200,7 +202,6 @@ public class HelperFunctions
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(currentReference.volumeNo);
-
 			currentReference.italicsEnd = informationBuilder.length();
 		}
 		if(!TextUtils.isEmpty(currentReference.issue))
@@ -216,9 +217,10 @@ public class HelperFunctions
 	public static String getAPAWebPageReferenceString(ReferenceItem currentReference)
 	{
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
+		informationBuilder.append(' ');
 
 		if(!TextUtils.isEmpty(currentReference.url))
-			informationBuilder.append(" Retrieved from ").append(currentReference.url);
+			informationBuilder.append("Retrieved from ").append(currentReference.url);
 
 		return informationBuilder.toString();
 	}
