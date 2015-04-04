@@ -98,7 +98,7 @@
 
             <TextView
                 android:id="@+id/subtitle_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
@@ -118,7 +118,7 @@
 
             <TextView
                 android:id="@+id/location_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
@@ -136,7 +136,7 @@
 
             <TextView
                 android:id="@+id/publisher_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"
                 android:gravity="center_vertical"
