@@ -69,7 +69,7 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 		holder.information.setVisibility(View.VISIBLE);
 
 		String title = HelperFunctions.getReferenceString(currentReference);
-		if(title.length() > 0)
+		if(title.trim().length() > 0)
 		{
 			SpannableStringBuilder builder = new SpannableStringBuilder(title);
 			if(currentReference.hasItalics() && !currentReference.isWebPage())
