@@ -116,7 +116,7 @@
     <string name="add_web_year_message">The year that the web page was last updated. Like the year used for other resource types, just 4 numbers. e.g 2015</string>
     <string name="add_title_message">Add the title of the resource. The title starts with a capital while every other letter is lower case. e.g. Moby dick</string>
     <string name="add_subtitle_message">Add the subtitle of the resource here if it has one. Like the title, it starts with a capital letter and everything else is lowercase. e.g. The whale</string>
-    <string name="add_location_hint">Add the location of publishing. If in America put City, State. If anywhere else put City, Country. e.g. London, GB</string>
+    <string name="add_location_hint">Add the location of publishing. If in America put City, State Code. If anywhere else put City, Country Name. e.g. London, Great Britain</string>
     <string name="add_publisher_message">Add the publisher of the resource. This should be exactly as written within the document. e.g.Richard Bentley</string>
     <string name="add_chapter_title_message">Add the chapter of the book that the information came from. This should start with a capital while all other letters are lowercase. e.g. Chapter 1</string>
     <string name="add_chapter_subtitle_message">Add the subtitle of the chapter that was used, if one exists. This should start with a capital letter while all others are lowercase. e.g. Loomings</string>
