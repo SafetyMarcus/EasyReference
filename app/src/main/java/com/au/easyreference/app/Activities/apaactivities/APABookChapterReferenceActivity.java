@@ -98,9 +98,9 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 			if(currentReference.publisher != null && currentReference.publisher.length() > 0)
 				publisher.setText(currentReference.publisher);
 			if(currentReference.bookTitle != null && currentReference.bookTitle.length() > 0)
-				bookTitle.setText(currentReference.title);
+				bookTitle.setText(currentReference.bookTitle);
 			if(currentReference.bookSubtitle != null && currentReference.bookSubtitle.length() > 0)
-				bookSubtitle.setText(currentReference.subtitle);
+				bookSubtitle.setText(currentReference.bookSubtitle);
 			if(currentReference.editors != null && currentReference.editors.length() > 0)
 				editors.setText(currentReference.editors);
 			if(currentReference.pagesOfChapter != null && currentReference.pagesOfChapter.length() > 0)
