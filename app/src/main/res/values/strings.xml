@@ -4,9 +4,9 @@
     <string name="SpringerMetaDataKey">6jtygkfmyeajyqbkcnu3gry4</string>
     <string name="SpringerOpenAccessKey">cpqdwvwc5n6k4svgpwz4qgdq</string>
 
-    <string name="app_name">EasyReference</string>
-    <string name="shortened_app_name">EasyRef</string>
-    <string name="app_title">Easy Reference</string>
+    <string name="app_name"><xliff:g id="app_name">EasyReference</xliff:g></string>
+    <string name="shortened_app_name"><xliff:g id="short_app_name">EasyRef</xliff:g></string>
+    <string name="app_title"><xliff:g id="app_title">Easy Reference</xliff:g></string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
@@ -105,7 +105,7 @@
     <string name="first_name_hint">enter first name</string>
     <string name="middle_name_hint">enter middle name</string>
     <string name="last_name_hint">enter last name</string>
-    <string name="email_text">\n\nReference List generated in EasyReference</string>
+    <string name="email_text">\n\nReference List generated in </string>
     <string name="list_deleted">List Deleted!</string>
     <string name="click_to_undo">Click to undo</string>
     <string name="no_results">No results for search</string>

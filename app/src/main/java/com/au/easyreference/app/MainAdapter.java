@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,7 +128,12 @@ public class MainAdapter extends ShowOptionsAdapter
 				intent = new Intent(Intent.ACTION_SEND);
 				intent.putExtra(Intent.EXTRA_STREAM, uri);
 				intent.putExtra(Intent.EXTRA_SUBJECT, referenceList.title);
-				intent.putExtra(Intent.EXTRA_TEXT, activity.get().getString(R.string.email_text));
+
+				String body = activity.get().getString(R.string.email_text)
+						+ "<a href=\"https://play.google.com/store/apps/details?id=com.au.easyreference.app&hl=en\">"
+						+ ' ' + activity.get().getString(R.string.app_name) + "</a>";
+
+				intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(body));
 
 				intent.setType("message/rfc822");
 				activity.get().startActivity(Intent.createChooser(intent, "Email"));
