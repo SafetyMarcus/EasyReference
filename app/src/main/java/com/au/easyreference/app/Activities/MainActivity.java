@@ -1,8 +1,6 @@
 package com.au.easyreference.app.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,8 +46,6 @@ public class MainActivity extends BaseActivity
 				startActivityForVersion(referenceIntent);
 			}
 		});
-
-		plusButton.getDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 	}
 
 	@Override

@@ -1,6 +1,10 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
 
+    <style name="FloatingActionButton" parent="android:Widget.Button">
+        <item name="android:background">@drawable/red_circle_ripple</item>
+        <item name="android:width">56dp</item>
+        <item name="android:height">56dp</item>
+    </style>
 </resources>
