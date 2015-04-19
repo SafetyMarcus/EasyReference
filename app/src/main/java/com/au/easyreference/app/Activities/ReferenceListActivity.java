@@ -2,6 +2,7 @@ package com.au.easyreference.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
+import com.au.easyreference.app.ui.FloatInAnimation;
+import com.au.easyreference.app.ui.FloatOutAnimation;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
 
@@ -45,6 +48,8 @@ public class ReferenceListActivity extends BaseActivity
 	public ReferenceListAdapter adapter;
 	public int type;
 	public ReferenceList referenceList;
+
+	boolean hasAnimatedOut = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -103,7 +108,7 @@ public class ReferenceListActivity extends BaseActivity
 		});
 	}
 
-	public void showReference(ReferenceItem referenceItem)
+	public void showReference(final ReferenceItem referenceItem)
 	{
 		Class intentClass = null;
 		if(referenceItem.type == ReferenceItem.BOOK_REFERENCE)
@@ -117,12 +122,23 @@ public class ReferenceListActivity extends BaseActivity
 
 		if(intentClass != null)
 		{
-			Intent intent = new Intent(this, intentClass);
+			hasAnimatedOut = true;
+			new FloatOutAnimation(plusButton).animate();
 
-			intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
-			intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
+			final Class finalIntentClass = intentClass;
+			new Handler().postDelayed(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					Intent intent = new Intent(ReferenceListActivity.this, finalIntentClass);
 
-			startActivityForVersion(intent);
+					intent.putExtra(APABookReferenceActivity.KEY_LIST_ID, referenceList.id);
+					intent.putExtra(APABookReferenceActivity.KEY_ID, referenceItem.id);
+
+					startActivityForVersion(intent);
+				}
+			}, 300);
 		}
 	}
 
@@ -171,5 +187,11 @@ public class ReferenceListActivity extends BaseActivity
 		super.onResume();
 		adapter.notifyDataSetChanged();
 		ERApplication.BUS.register(this);
+
+		if(hasAnimatedOut)
+		{
+			hasAnimatedOut = false;
+			new FloatInAnimation(plusButton).animate();
+		}
 	}
 }

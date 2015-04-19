@@ -1,6 +1,8 @@
 package com.au.easyreference.app.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.ui.FloatInAnimation;
 import com.au.easyreference.app.utils.ERApplication;
 
 public class MainActivity extends BaseActivity
@@ -43,9 +46,12 @@ public class MainActivity extends BaseActivity
 			public void onClick(View view)
 			{
 				Intent referenceIntent = new Intent(MainActivity.this, ReferenceListActivity.class);
-				startActivityForVersion(referenceIntent);
+				startActivityForVersion(referenceIntent, plusButton);
 			}
 		});
+
+		plusButton.getDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+		new FloatInAnimation(plusButton).animate();
 	}
 
 	@Override
