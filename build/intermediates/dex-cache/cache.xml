@@ -9,27 +9,6 @@
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/classes-cf64ef67d91f4bd7cd3c2efbf25a98f50283d31f.jar" />
     </item>
     <item
-        jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.github.kevinsawicki/http-request/5.6/168305b7a983142b6311a005f0ad96d3b34d92d/http-request-5.6.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="0168305b7a983142b6311a005f0ad96d3b34d92d">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/http-request-5.6-3512226fdbe646065e69da4398f02fe220eb17e8.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Android SDK/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/support-annotations-22.0.0-23e54625db814a8713808b2b6acd0b6fe387764a.jar" />
-    </item>
-    <item
-        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/classes-94181cae223cbff470c64e142d68b5875750c23c.jar" />
-    </item>
-    <item
         jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/4.0.1/f43b36925363701633d01adb8e54df7150397a78/butterknife-4.0.1.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -58,11 +37,39 @@
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/picasso-2.5.2-5649a7c4e4b4626146557926a28c47587d23ff94.jar" />
     </item>
     <item
+        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.twotoasters.jazzylistview/library/1.2.1/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="451e07e95c9f662049ab14915bd1c8114e8acc2b">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/debug/classes-b1694e52b92edd68de10b3f8545b503a12f351c8.jar" />
+    </item>
+    <item
         jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
         <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/internal_impl-22.0.0-b91798155a999bbca64542d4fab8479767c1b139.jar" />
+    </item>
+    <item
+        jar="/Users/Marcus/.gradle/caches/modules-2/files-2.1/com.github.kevinsawicki/http-request/5.6/168305b7a983142b6311a005f0ad96d3b34d92d/http-request-5.6.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0168305b7a983142b6311a005f0ad96d3b34d92d">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/http-request-5.6-3512226fdbe646065e69da4398f02fe220eb17e8.jar" />
+    </item>
+    <item
+        jar="/Users/Marcus/Documents/Android SDK/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/support-annotations-22.0.0-23e54625db814a8713808b2b6acd0b6fe387764a.jar" />
+    </item>
+    <item
+        jar="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/Marcus/Documents/Personal/EasyReference/app/build/intermediates/pre-dexed/release/classes-94181cae223cbff470c64e142d68b5875750c23c.jar" />
     </item>
 
 </items>

@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -23,8 +22,10 @@ import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
 import com.au.easyreference.app.ui.FloatInAnimation;
 import com.au.easyreference.app.ui.FloatOutAnimation;
+import com.au.easyreference.app.ui.SlideInBottomEffect;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.HelperFunctions;
+import com.twotoasters.jazzylistview.JazzyListView;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class ReferenceListActivity extends BaseActivity
 	@InjectView(R.id.toolbar)
 	protected Toolbar toolbar;
 	@InjectView(R.id.references_list_view)
-	protected ListView referencesListView;
+	protected JazzyListView referencesListView;
 	@InjectView(R.id.list_title)
 	protected EditText title;
 	@InjectView(R.id.plus_button)
@@ -91,6 +92,7 @@ public class ReferenceListActivity extends BaseActivity
 		}
 
 		adapter = new ReferenceListAdapter(this, referenceList, getLayoutInflater());
+		referencesListView.setTransitionEffect(new SlideInBottomEffect(300));
 		referencesListView.setAdapter(adapter);
 		referencesListView.setEmptyView(findViewById(android.R.id.empty));
 		referencesListView.addFooterView(getLayoutInflater().inflate(R.layout.footer, referencesListView, false), null, false);

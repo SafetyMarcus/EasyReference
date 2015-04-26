@@ -6,18 +6,19 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.ui.FloatInAnimation;
+import com.au.easyreference.app.ui.SlideInBottomEffect;
 import com.au.easyreference.app.utils.ERApplication;
+import com.twotoasters.jazzylistview.JazzyListView;
 
 public class MainActivity extends BaseActivity
 {
 	@InjectView(R.id.references_list)
-	protected ListView referenceLists;
+	protected JazzyListView referenceLists;
 	@InjectView(R.id.plus_button)
 	public ImageView plusButton;
 
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity
 			((ERApplication) getApplication()).retrieveReferencesService();
 
 		referenceListAdapter = new MainAdapter(this, ERApplication.referenceLists);
+		referenceLists.setTransitionEffect(new SlideInBottomEffect(300));
 		referenceLists.setAdapter(referenceListAdapter);
 		referenceLists.setEmptyView(findViewById(android.R.id.empty));
 		referenceLists.addFooterView(getLayoutInflater().inflate(R.layout.footer, referenceLists, false), null, false);
