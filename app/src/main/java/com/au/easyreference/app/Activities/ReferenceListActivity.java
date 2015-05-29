@@ -1,6 +1,11 @@
 package com.au.easyreference.app.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +21,6 @@ import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivit
 import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
-import com.au.easyreference.app.fragments.TypeDialog;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
@@ -43,14 +47,24 @@ public class ReferenceListActivity extends BaseActivity
 	protected JazzyListView referencesListView;
 	@InjectView(R.id.list_title)
 	protected EditText title;
+
 	@InjectView(R.id.plus_button)
 	protected ImageView plusButton;
+	@InjectView(R.id.plus_book)
+	protected ImageView plusBook;
+	@InjectView(R.id.plus_web)
+	protected ImageView plusWeb;
+	@InjectView(R.id.plus_journal)
+	protected ImageView plusJournal;
+	@InjectView(R.id.plus_book_chapter)
+	protected ImageView plusBookChapter;
 
 	public ReferenceListAdapter adapter;
 	public int type;
 	public ReferenceList referenceList;
 
-	boolean hasAnimatedOut = false;
+	boolean hasAnimatedOut;
+	boolean expandedOptions;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -98,17 +112,96 @@ public class ReferenceListActivity extends BaseActivity
 		referencesListView.addFooterView(getLayoutInflater().inflate(R.layout.footer, referencesListView, false), null, false);
 		referencesListView.setFooterDividersEnabled(false);
 
+		plusBook.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+		plusJournal.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				TypeDialog dialog = new TypeDialog();
-				dialog.setCloseListener(closeListener);
-				dialog.show(getSupportFragmentManager(), "type");
+//				TypeDialog dialog = new TypeDialog();
+//				dialog.setCloseListener(closeListener);
+//				dialog.show(getSupportFragmentManager(), "type");
+
+				if(!expandedOptions)
+					expandFab();
+				else
+					collapseFab();
+
+				expandedOptions = !expandedOptions;
 			}
 		});
 	}
+
+	private void expandFab()
+	{
+		new ObjectAnimator().ofFloat(plusButton, "rotation", 0, 45).start();
+		AnimatorSet animatorSet = new AnimatorSet();
+		Animator translateBookUp = new ObjectAnimator().ofFloat(plusBook, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateJournalUp = new ObjectAnimator().ofFloat(plusJournal, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateBookChapterUp = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateWebUp = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, 0, -360).setDuration(300);
+		animatorSet.playTogether(translateBookUp, translateJournalUp, translateBookChapterUp, translateWebUp);
+		animatorSet.addListener(new AnimationEndListener()
+		{
+			@Override
+			void onEnd(Animator animation)
+			{
+				AnimatorSet set = new AnimatorSet();
+				Animator translateBookDown = new ObjectAnimator().ofFloat(plusBook, TRANSLATION_Y, -360, -300).setDuration(100);
+				Animator journalLeft = new ObjectAnimator().ofFloat(plusJournal, TRANSLATION_X, 0, -160).setDuration(150);
+				Animator journalDown = new ObjectAnimator().ofFloat(plusJournal, TRANSLATION_Y, -360, -240).setDuration(150);
+				Animator chapterLeft = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_X, 0, -160).setDuration(150);
+				Animator chapterDown = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_Y, -360, -240).setDuration(150);
+				Animator webLeft = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_X, 0, -160).setDuration(150);
+				Animator webDown = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, -360, -240).setDuration(150);
+				set.playTogether(translateBookDown, journalLeft, journalDown, chapterLeft, chapterDown, webLeft, webDown);
+				set.addListener(new AnimationEndListener()
+				{
+					@Override
+					void onEnd(Animator animation)
+					{
+						AnimatorSet set = new AnimatorSet();
+						Animator chapterLeft = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_X, -160, -260).setDuration(150);
+						Animator chapterDown = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_Y, -240, -120).setDuration(150);
+						Animator webLeft = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_X, -160, -260).setDuration(150);
+						Animator webDown = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, -240, -120).setDuration(150);
+						set.playTogether(chapterLeft, chapterDown, webLeft, webDown);
+						set.addListener(new AnimationEndListener()
+						{
+							@Override
+							void onEnd(Animator animation)
+							{
+								AnimatorSet set = new AnimatorSet();
+								Animator webLeft = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_X, -260, -300).setDuration(150);
+								Animator webDown = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, -120, 30).setDuration(150);
+								set.playTogether(webLeft, webDown);
+								set.start();
+							}
+						});
+						set.start();
+					}
+				});
+				set.start();
+			}
+		});
+		animatorSet.start();
+	}
+
+	private void collapseFab()
+	{
+//		new ObjectAnimator().ofFloat(plusButton, "rotation", 45, 0).start();
+//		AnimatorSet animatorSet = new AnimatorSet();
+//		animatorSet.playTogether(createYExpandAnimator(plusBook, bookYOffset), createXExpandAnimator(plusBook, bookXOffset),
+//				createYExpandAnimator(plusJournal, bookYOffset), createXExpandAnimator(plusJournal, bookXOffset),
+//				createYExpandAnimator(plusBookChapter, bookYOffset), createXExpandAnimator(plusBookChapter, bookXOffset),
+//				createYExpandAnimator(plusWeb, bookYOffset), createXExpandAnimator(plusWeb, bookXOffset));
+//		animatorSet.start();
+	}
+
+	private static final String TRANSLATION_Y = "translationY";
+	private static final String TRANSLATION_X = "translationX";
 
 	public void showReference(final ReferenceItem referenceItem)
 	{
@@ -195,5 +288,31 @@ public class ReferenceListActivity extends BaseActivity
 			hasAnimatedOut = false;
 			new FloatInAnimation(plusButton).animate();
 		}
+	}
+
+	private abstract class AnimationEndListener implements Animator.AnimatorListener
+	{
+		@Override
+		public void onAnimationStart(Animator animation)
+		{
+		}
+
+		@Override
+		public void onAnimationEnd(Animator animation)
+		{
+			onEnd(animation);
+		}
+
+		@Override
+		public void onAnimationCancel(Animator animation)
+		{
+		}
+
+		@Override
+		public void onAnimationRepeat(Animator animation)
+		{
+		}
+
+		abstract void onEnd(Animator animation);
 	}
 }

@@ -3,7 +3,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:focusableInTouchMode="true"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
     <include layout="@layout/toolbar"/>
 
@@ -59,5 +61,5 @@
             android:padding="8dp"/>
     </LinearLayout>
 
-    <include layout="@layout/plus_button"/>
+    <include layout="@layout/fab_reference_options"/>
 </RelativeLayout>
