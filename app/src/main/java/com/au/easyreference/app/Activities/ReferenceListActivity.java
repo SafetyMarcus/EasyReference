@@ -136,12 +136,12 @@ public class ReferenceListActivity extends BaseActivity
 
 	private void expandFab()
 	{
-		new ObjectAnimator().ofFloat(plusButton, "rotation", 0, 45).start();
+		ObjectAnimator.ofFloat(plusButton, "rotation", 0, 45).start();
 		AnimatorSet animatorSet = new AnimatorSet();
-		Animator translateBookUp = new ObjectAnimator().ofFloat(plusBook, TRANSLATION_Y, 0, -360).setDuration(300);
-		Animator translateJournalUp = new ObjectAnimator().ofFloat(plusJournal, TRANSLATION_Y, 0, -360).setDuration(300);
-		Animator translateBookChapterUp = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_Y, 0, -360).setDuration(300);
-		Animator translateWebUp = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateBookUp = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateJournalUp = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateBookChapterUp = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, 0, -360).setDuration(300);
+		Animator translateWebUp = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, 0, -360).setDuration(300);
 		animatorSet.playTogether(translateBookUp, translateJournalUp, translateBookChapterUp, translateWebUp);
 		animatorSet.addListener(new AnimationEndListener()
 		{
@@ -149,13 +149,13 @@ public class ReferenceListActivity extends BaseActivity
 			void onEnd(Animator animation)
 			{
 				AnimatorSet set = new AnimatorSet();
-				Animator translateBookDown = new ObjectAnimator().ofFloat(plusBook, TRANSLATION_Y, -360, -300).setDuration(100);
-				Animator journalLeft = new ObjectAnimator().ofFloat(plusJournal, TRANSLATION_X, 0, -160).setDuration(150);
-				Animator journalDown = new ObjectAnimator().ofFloat(plusJournal, TRANSLATION_Y, -360, -240).setDuration(150);
-				Animator chapterLeft = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_X, 0, -160).setDuration(150);
-				Animator chapterDown = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_Y, -360, -240).setDuration(150);
-				Animator webLeft = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_X, 0, -160).setDuration(150);
-				Animator webDown = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, -360, -240).setDuration(150);
+				Animator translateBookDown = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, -360, -300).setDuration(100);
+				Animator journalLeft = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_X, 0, -160).setDuration(150);
+				Animator journalDown = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_Y, -360, -240).setDuration(150);
+				Animator chapterLeft = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_X, 0, -160).setDuration(150);
+				Animator chapterDown = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -360, -240).setDuration(150);
+				Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, 0, -160).setDuration(150);
+				Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -360, -240).setDuration(150);
 				set.playTogether(translateBookDown, journalLeft, journalDown, chapterLeft, chapterDown, webLeft, webDown);
 				set.addListener(new AnimationEndListener()
 				{
@@ -163,10 +163,10 @@ public class ReferenceListActivity extends BaseActivity
 					void onEnd(Animator animation)
 					{
 						AnimatorSet set = new AnimatorSet();
-						Animator chapterLeft = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_X, -160, -260).setDuration(150);
-						Animator chapterDown = new ObjectAnimator().ofFloat(plusBookChapter, TRANSLATION_Y, -240, -120).setDuration(150);
-						Animator webLeft = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_X, -160, -260).setDuration(150);
-						Animator webDown = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, -240, -120).setDuration(150);
+						Animator chapterLeft = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_X, -160, -260).setDuration(150);
+						Animator chapterDown = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -240, -120).setDuration(150);
+						Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -160, -260).setDuration(150);
+						Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -240, -120).setDuration(150);
 						set.playTogether(chapterLeft, chapterDown, webLeft, webDown);
 						set.addListener(new AnimationEndListener()
 						{
@@ -174,8 +174,8 @@ public class ReferenceListActivity extends BaseActivity
 							void onEnd(Animator animation)
 							{
 								AnimatorSet set = new AnimatorSet();
-								Animator webLeft = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_X, -260, -300).setDuration(150);
-								Animator webDown = new ObjectAnimator().ofFloat(plusWeb, TRANSLATION_Y, -120, 30).setDuration(150);
+								Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -260, -300).setDuration(150);
+								Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -120, 30).setDuration(150);
 								set.playTogether(webLeft, webDown);
 								set.start();
 							}
@@ -191,13 +191,57 @@ public class ReferenceListActivity extends BaseActivity
 
 	private void collapseFab()
 	{
-//		new ObjectAnimator().ofFloat(plusButton, "rotation", 45, 0).start();
-//		AnimatorSet animatorSet = new AnimatorSet();
-//		animatorSet.playTogether(createYExpandAnimator(plusBook, bookYOffset), createXExpandAnimator(plusBook, bookXOffset),
-//				createYExpandAnimator(plusJournal, bookYOffset), createXExpandAnimator(plusJournal, bookXOffset),
-//				createYExpandAnimator(plusBookChapter, bookYOffset), createXExpandAnimator(plusBookChapter, bookXOffset),
-//				createYExpandAnimator(plusWeb, bookYOffset), createXExpandAnimator(plusWeb, bookXOffset));
-//		animatorSet.start();
+		ObjectAnimator.ofFloat(plusButton, "rotation", 45, 0).start();
+		AnimatorSet set = new AnimatorSet();
+		Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -300, -260).setDuration(150);
+		Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, 30, -120).setDuration(150);
+		set.playTogether(webLeft, webDown);
+		set.addListener(new AnimationEndListener()
+		{
+			@Override
+			void onEnd(Animator animation)
+			{
+				AnimatorSet set = new AnimatorSet();
+				Animator chapterLeft = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_X, -260, -160).setDuration(150);
+				Animator chapterDown = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -120, -240).setDuration(150);
+				Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -260, -160).setDuration(150);
+				Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -120, -240).setDuration(150);
+				set.playTogether(chapterLeft, chapterDown, webLeft, webDown);
+				set.addListener(new AnimationEndListener()
+				{
+					@Override
+					void onEnd(Animator animation)
+					{
+						AnimatorSet set = new AnimatorSet();
+						Animator translateBookDown = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, -300, -360).setDuration(100);
+						Animator journalLeft = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_X, -160, 0).setDuration(150);
+						Animator journalDown = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_Y, -240, -360).setDuration(150);
+						Animator chapterLeft = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_X, -160, 0).setDuration(150);
+						Animator chapterDown = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -240, -360).setDuration(150);
+						Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -160, 0).setDuration(150);
+						Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -240, -360).setDuration(150);
+						set.playTogether(translateBookDown, journalLeft, journalDown, chapterLeft, chapterDown, webLeft, webDown);
+						set.addListener(new AnimationEndListener()
+						{
+							@Override
+							void onEnd(Animator animation)
+							{
+								AnimatorSet animatorSet = new AnimatorSet();
+								Animator translateBookUp = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, -360, 0).setDuration(300);
+								Animator translateJournalUp = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_Y, -360, 0).setDuration(300);
+								Animator translateBookChapterUp = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -360, 0).setDuration(300);
+								Animator translateWebUp = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -360, 0).setDuration(300);
+								animatorSet.playTogether(translateBookUp, translateJournalUp, translateBookChapterUp, translateWebUp);
+								animatorSet.start();
+							}
+						});
+						set.start();
+					}
+				});
+				set.start();
+			}
+		});
+		set.start();
 	}
 
 	private static final String TRANSLATION_Y = "translationY";
