@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.au.easyreference.app.R;
@@ -57,6 +58,15 @@ public class ReferenceListActivity extends BaseActivity
 	protected ImageView plusJournal;
 	@InjectView(R.id.plus_book_chapter)
 	protected ImageView plusBookChapter;
+
+	@InjectView(R.id.book_info)
+	protected TextView bookInfo;
+	@InjectView(R.id.journal_info)
+	protected TextView journalInfo;
+	@InjectView(R.id.chapter_info)
+	protected TextView chapterInfo;
+	@InjectView(R.id.web_info)
+	protected TextView webInfo;
 
 	public ReferenceListAdapter adapter;
 	public int type;
@@ -115,6 +125,10 @@ public class ReferenceListActivity extends BaseActivity
 		plusJournal.setVisibility(View.GONE);
 		plusBookChapter.setVisibility(View.GONE);
 		plusWeb.setVisibility(View.GONE);
+		bookInfo.setAlpha(0);
+		journalInfo.setAlpha(0);
+		chapterInfo.setAlpha(0);
+		webInfo.setAlpha(0);
 
 		plusBook.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 		plusJournal.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
@@ -132,7 +146,7 @@ public class ReferenceListActivity extends BaseActivity
 				if(!expandedOptions)
 					expandFab();
 				else
-					collapseFab();
+					collapseFab(null);
 
 				expandedOptions = !expandedOptions;
 			}
@@ -145,6 +159,15 @@ public class ReferenceListActivity extends BaseActivity
 		plusJournal.setVisibility(View.VISIBLE);
 		plusBookChapter.setVisibility(View.VISIBLE);
 		plusWeb.setVisibility(View.VISIBLE);
+
+		bookInfo.setTranslationY(-490);
+		bookInfo.setTranslationX(190);
+		journalInfo.setTranslationY(-390);
+		journalInfo.setTranslationX(-20);
+		chapterInfo.setTranslationY(-250);
+		chapterInfo.setTranslationX(-250);
+		webInfo.setTranslationY(-100);
+		webInfo.setTranslationX(-340);
 
 		ObjectAnimator.ofFloat(plusButton, "rotation", 0, 45).start();
 		AnimatorSet animatorSet = new AnimatorSet();
@@ -187,6 +210,24 @@ public class ReferenceListActivity extends BaseActivity
 								Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -260, -300).setDuration(150);
 								Animator webDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -120, 30).setDuration(150);
 								set.playTogether(webLeft, webDown);
+								set.addListener(new AnimationEndListener()
+								{
+									@Override
+									void onEnd(Animator animation)
+									{
+										new Handler().postDelayed(new Runnable()
+										{
+											@Override
+											public void run()
+											{
+												bookInfo.animate().alpha(1).start();
+												journalInfo.animate().alpha(1).start();
+												chapterInfo.animate().alpha(1).start();
+												webInfo.animate().alpha(1).start();
+											}
+										}, 1000);
+									}
+								});
 								set.start();
 							}
 						});
@@ -199,8 +240,13 @@ public class ReferenceListActivity extends BaseActivity
 		animatorSet.start();
 	}
 
-	private void collapseFab()
+	private void collapseFab(final ReferenceItem referenceItem)
 	{
+		bookInfo.animate().alpha(0).start();
+		journalInfo.animate().alpha(0).start();
+		chapterInfo.animate().alpha(0).start();
+		webInfo.animate().alpha(0).start();
+
 		ObjectAnimator.ofFloat(plusButton, "rotation", 45, 0).start();
 		AnimatorSet set = new AnimatorSet();
 		Animator webLeft = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_X, -300, -260).setDuration(150);
@@ -237,11 +283,11 @@ public class ReferenceListActivity extends BaseActivity
 							void onEnd(Animator animation)
 							{
 								AnimatorSet animatorSet = new AnimatorSet();
-								Animator translateBookUp = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, -360, 0).setDuration(300);
-								Animator translateJournalUp = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_Y, -360, 0).setDuration(300);
-								Animator translateBookChapterUp = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -360, 0).setDuration(300);
-								Animator translateWebUp = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -360, 0).setDuration(300);
-								animatorSet.playTogether(translateBookUp, translateJournalUp, translateBookChapterUp, translateWebUp);
+								Animator translateBookDown = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, -360, 0).setDuration(300);
+								Animator translateJournalDown = ObjectAnimator.ofFloat(plusJournal, TRANSLATION_Y, -360, 0).setDuration(300);
+								Animator translateBookChapterDown = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -360, 0).setDuration(300);
+								Animator translateWebDown = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -360, 0).setDuration(300);
+								animatorSet.playTogether(translateBookDown, translateJournalDown, translateBookChapterDown, translateWebDown);
 								animatorSet.addListener(new AnimationEndListener()
 								{
 									@Override
@@ -251,6 +297,9 @@ public class ReferenceListActivity extends BaseActivity
 										plusJournal.setVisibility(View.GONE);
 										plusBookChapter.setVisibility(View.GONE);
 										plusWeb.setVisibility(View.GONE);
+
+										if(referenceItem != null)
+											showReference(referenceItem);
 									}
 								});
 								animatorSet.start();
@@ -319,7 +368,7 @@ public class ReferenceListActivity extends BaseActivity
 		adapter.notifyDataSetChanged();
 		plusButton.performClick();
 
-		showReference(referenceList.referenceList.get(referenceList.referenceList.size() - 1));
+		collapseFab(referenceList.referenceList.get(referenceList.referenceList.size() - 1));
 	}
 
 	@Override
@@ -345,6 +394,11 @@ public class ReferenceListActivity extends BaseActivity
 		super.onResume();
 		adapter.notifyDataSetChanged();
 		ERApplication.BUS.register(this);
+
+		bookInfo.setAlpha(0);
+		journalInfo.setAlpha(0);
+		chapterInfo.setAlpha(0);
+		webInfo.setAlpha(0);
 
 		if(hasAnimatedOut)
 		{
