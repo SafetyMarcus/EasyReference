@@ -20,7 +20,6 @@ import com.au.easyreference.app.activities.apaactivities.APABookChapterReference
 import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAJournalReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APAWebPageReferenceActivity;
-import com.au.easyreference.app.fragments.ContainerDialogFragment;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.references.ReferenceListAdapter;
@@ -112,18 +111,24 @@ public class ReferenceListActivity extends BaseActivity
 		referencesListView.addFooterView(getLayoutInflater().inflate(R.layout.footer, referencesListView, false), null, false);
 		referencesListView.setFooterDividersEnabled(false);
 
+		plusBook.setVisibility(View.GONE);
+		plusJournal.setVisibility(View.GONE);
+		plusBookChapter.setVisibility(View.GONE);
+		plusWeb.setVisibility(View.GONE);
+
 		plusBook.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 		plusJournal.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+		MiniPlusListener miniPlusListener = new MiniPlusListener();
+		plusBook.setOnClickListener(miniPlusListener);
+		plusJournal.setOnClickListener(miniPlusListener);
+		plusBookChapter.setOnClickListener(miniPlusListener);
+		plusWeb.setOnClickListener(miniPlusListener);
 
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-//				TypeDialog dialog = new TypeDialog();
-//				dialog.setCloseListener(closeListener);
-//				dialog.show(getSupportFragmentManager(), "type");
-
 				if(!expandedOptions)
 					expandFab();
 				else
@@ -136,6 +141,11 @@ public class ReferenceListActivity extends BaseActivity
 
 	private void expandFab()
 	{
+		plusBook.setVisibility(View.VISIBLE);
+		plusJournal.setVisibility(View.VISIBLE);
+		plusBookChapter.setVisibility(View.VISIBLE);
+		plusWeb.setVisibility(View.VISIBLE);
+
 		ObjectAnimator.ofFloat(plusButton, "rotation", 0, 45).start();
 		AnimatorSet animatorSet = new AnimatorSet();
 		Animator translateBookUp = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, 0, -360).setDuration(300);
@@ -232,6 +242,17 @@ public class ReferenceListActivity extends BaseActivity
 								Animator translateBookChapterUp = ObjectAnimator.ofFloat(plusBookChapter, TRANSLATION_Y, -360, 0).setDuration(300);
 								Animator translateWebUp = ObjectAnimator.ofFloat(plusWeb, TRANSLATION_Y, -360, 0).setDuration(300);
 								animatorSet.playTogether(translateBookUp, translateJournalUp, translateBookChapterUp, translateWebUp);
+								animatorSet.addListener(new AnimationEndListener()
+								{
+									@Override
+									void onEnd(Animator animation)
+									{
+										plusBook.setVisibility(View.GONE);
+										plusJournal.setVisibility(View.GONE);
+										plusBookChapter.setVisibility(View.GONE);
+										plusWeb.setVisibility(View.GONE);
+									}
+								});
 								animatorSet.start();
 							}
 						});
@@ -292,16 +313,14 @@ public class ReferenceListActivity extends BaseActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	private ContainerDialogFragment.CloseListener closeListener = new ContainerDialogFragment.CloseListener()
+	private void addNewReference(int type)
 	{
-		@Override
-		public void onClose(Object result)
-		{
-			referenceList.referenceList.add(new ReferenceItem((Integer) result));
-			adapter.notifyDataSetChanged();
-			showReference(referenceList.referenceList.get(referenceList.referenceList.size() - 1));
-		}
-	};
+		referenceList.referenceList.add(new ReferenceItem(type));
+		adapter.notifyDataSetChanged();
+		plusButton.performClick();
+
+		showReference(referenceList.referenceList.get(referenceList.referenceList.size() - 1));
+	}
 
 	@Override
 	public void onBackPressed()
@@ -331,6 +350,35 @@ public class ReferenceListActivity extends BaseActivity
 		{
 			hasAnimatedOut = false;
 			new FloatInAnimation(plusButton).animate();
+		}
+	}
+
+	private class MiniPlusListener implements View.OnClickListener
+	{
+		@Override
+		public void onClick(View v)
+		{
+			int type;
+			switch(v.getId())
+			{
+				case R.id.plus_web:
+					type = ReferenceItem.WEB_PAGE;
+					break;
+
+				case R.id.plus_book_chapter:
+					type = ReferenceItem.BOOK_CHAPTER;
+					break;
+
+				case R.id.plus_journal:
+					type = ReferenceItem.JOURNAL_REFERENCE;
+					break;
+
+				case R.id.plus_book:
+				default:
+						type = ReferenceItem.BOOK_REFERENCE;
+			}
+
+			addNewReference(type);
 		}
 	}
 
