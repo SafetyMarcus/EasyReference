@@ -128,4 +128,6 @@
     <string name="add_pages_message">Add the pages of the journal that contain the information that was used. e.g. 3<xliff:g id="dash">-</xliff:g>7</string>
     <string name="add_doi_message">Add the DOI of the journal article. All DOI\'s should follow the same format. e.g. 10.1000/182</string>
     <string name="add_url_message">Add the URL that the resource was retrieved from. e.g. http://www.sparknotes.com/lit/mobydick/</string>
+    <string name="undo">Undo</string>
+    <string name="deleted">"Deleted "</string>
 </resources>

@@ -194,8 +194,8 @@ public class MainAdapter extends ShowOptionsAdapter
 			ERApplication.referenceLists.remove(position);
 			notifyDataSetChanged();
 
-			snackbar = Snackbar.make(activity.get().referenceLists, referenceList.title, Snackbar.LENGTH_LONG)
-			.setAction("Undo", new View.OnClickListener()
+			snackbar = Snackbar.make(activity.get().referenceLists, getContext().getString(R.string.deleted) + ' ' + referenceList.title, Snackbar.LENGTH_LONG)
+			.setAction(R.string.undo, new View.OnClickListener()
 			{
 				@Override
 				public void onClick(View v)
