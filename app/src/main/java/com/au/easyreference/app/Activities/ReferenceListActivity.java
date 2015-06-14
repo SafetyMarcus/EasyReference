@@ -78,8 +78,8 @@ public class ReferenceListActivity extends BaseActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		setContentView(R.layout.reference_list_activity);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.reference_list_activity);
 		ButterKnife.inject(this);
 
 		setSupportActionBar(toolbar);

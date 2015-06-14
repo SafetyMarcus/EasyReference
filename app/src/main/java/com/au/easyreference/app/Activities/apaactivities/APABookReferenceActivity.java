@@ -27,11 +27,12 @@ public class APABookReferenceActivity extends BaseAPAReferenceActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.apa_book_reference_layout);
 		ButterKnife.inject(this);
+		setUpReferenceActivity();
 
 		toolbar.setTitle(getString(R.string.apa_book_reference));
-		super.onCreate(savedInstanceState);
 
 		if(currentReference == null)
 		{

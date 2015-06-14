@@ -1,6 +1,9 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
     <style name="FloatingActionButton" parent="android:Widget.Button">
         <item name="android:background">@drawable/red_circle_ripple</item>

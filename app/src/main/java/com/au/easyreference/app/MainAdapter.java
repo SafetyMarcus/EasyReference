@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -174,6 +176,7 @@ public class MainAdapter extends ShowOptionsAdapter
 	public class OnDeleteClickListener implements View.OnClickListener
 	{
 		private int position;
+		private Snackbar snackbar;
 
 		public OnDeleteClickListener(int position)
 		{
@@ -184,9 +187,35 @@ public class MainAdapter extends ShowOptionsAdapter
 		public void onClick(View v)
 		{
 			selected = -1;
+
+			final ReferenceList referenceList = ERApplication.referenceLists.get(position);
+
 			new File(HelperFunctions.getReferenceListPath(ERApplication.referenceLists.get(position).id, activity.get().getApplication())).delete();
 			ERApplication.referenceLists.remove(position);
 			notifyDataSetChanged();
+
+			snackbar = Snackbar.make(activity.get().referenceLists, referenceList.title, Snackbar.LENGTH_LONG)
+			.setAction("Undo", new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					ERApplication.referenceLists.add(position, referenceList);
+					notifyDataSetChanged();
+					referenceList.saveToFile(ERApplication.getInstance());
+					activity.get().plusButton.animate().translationY(0).start();
+				}
+			});
+			snackbar.show();
+			activity.get().plusButton.animate().translationY(-(getContext().getResources().getDisplayMetrics().density * 48)).start();
+			new Handler().postDelayed(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					activity.get().plusButton.animate().translationY(0).start();
+				}
+			}, 3100);
 		}
 	}
 }

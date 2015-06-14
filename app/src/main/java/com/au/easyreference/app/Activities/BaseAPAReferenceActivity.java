@@ -57,10 +57,8 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public ReferenceList referenceList;
 	public ReferenceItem currentReference;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public void setUpReferenceActivity()
 	{
-		super.onCreate(savedInstanceState);
 		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{

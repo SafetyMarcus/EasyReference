@@ -18,7 +18,7 @@ import com.twotoasters.jazzylistview.JazzyListView;
 public class MainActivity extends BaseActivity
 {
 	@InjectView(R.id.references_list)
-	protected JazzyListView referenceLists;
+	public JazzyListView referenceLists;
 	@InjectView(R.id.plus_button)
 	public ImageView plusButton;
 
@@ -27,8 +27,8 @@ public class MainActivity extends BaseActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_view);
 		ButterKnife.inject(this);
 
 		setSupportActionBar(toolbar);
