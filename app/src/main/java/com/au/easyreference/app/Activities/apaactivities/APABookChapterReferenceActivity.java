@@ -82,6 +82,6 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 		currentReference.editors = editors.getText().toString();
 		currentReference.pagesOfChapter = pagesOfChapter.getText().toString();
 		currentReference.publisher = publisher.getText().toString();
-		currentReference.location = publisher.getEditableText().toString();
+		currentReference.location = location.getText().toString();
 	}
 }
