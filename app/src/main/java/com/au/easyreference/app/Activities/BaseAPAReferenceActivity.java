@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.Bind;
+import butterknife.BindColor;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
@@ -54,6 +55,8 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;
 
+	public @BindColor(R.color.light_gray) int lightGray;
+
 	public ReferenceList referenceList;
 	public ReferenceItem currentReference;
 
@@ -92,18 +95,18 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 
-		authorLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		authorLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		authorLabel.setOnClickListener(new LabelClickListener());
 
-		yearLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		yearLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		yearLabel.setOnClickListener(new LabelClickListener());
 
-		titleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		titleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		titleLabel.setOnClickListener(new LabelClickListener());
 
 		if(subtitleLabel != null)
 		{
-			subtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+			subtitleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 			subtitleLabel.setOnClickListener(new LabelClickListener());
 		}
 	}
@@ -165,6 +168,7 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public void onBackPressed()
 	{
 		super.onBackPressed();
+		save();
 		overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 

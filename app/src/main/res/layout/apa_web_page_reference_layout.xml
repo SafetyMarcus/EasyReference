@@ -1,117 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="currentReference"
+            type="com.au.easyreference.app.references.ReferenceItem"/>
+    </data>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/white">
-
-    <include layout="@layout/toolbar"/>
-
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
-        <LinearLayout
+        <include layout="@layout/toolbar"/>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/author_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/light_gray"
-                android:gravity="center_vertical"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawableRight="@drawable/info"
-                android:drawablePadding="4dp"
-                android:text="@string/author"/>
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/author"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:minHeight="52dp"
-                    android:maxLines="4"
-                    android:inputType="textCapWords"
-                    android:hint="@string/author_hint"/>
-
-                <Button
-                    android:id="@+id/author_button"
+                <TextView
+                    android:id="@+id/author_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:padding="8dp"
-                    android:textColor="@android:color/white"
-                    android:text="@string/add_author"
-                    android:background="@drawable/rounded_red_button"/>
+                    android:textColor="@color/light_gray"
+                    android:gravity="center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableRight="@drawable/info"
+                    android:drawablePadding="4dp"
+                    android:text="@string/author"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/author"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="52dp"
+                        android:maxLines="4"
+                        android:text="@{currentReference.author}"
+                        android:inputType="textCapWords"
+                        android:hint="@string/author_hint"/>
+
+                    <Button
+                        android:id="@+id/author_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="8dp"
+                        android:padding="8dp"
+                        android:textColor="@android:color/white"
+                        android:text="@string/add_author"
+                        android:background="@drawable/rounded_red_button"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/year_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_gray"
+                    android:gravity="center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableRight="@drawable/info"
+                    android:drawablePadding="4dp"
+                    android:text="@string/year"/>
+
+                <EditText
+                    android:id="@+id/year"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:inputType="number"
+                    android:text="@{currentReference.year}"
+                    android:hint="@string/date_hint"/>
+
+                <TextView
+                    android:id="@+id/title_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/light_gray"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableRight="@drawable/info"
+                    android:drawablePadding="4dp"
+                    android:text="@string/title"/>
+
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="52dp"
+                    android:maxLines="4"
+                    android:text="@{currentReference.title}"
+                    android:inputType="textCapSentences"
+                    android:hint="@string/reference_title_hint"/>
+
+                <TextView
+                    android:id="@+id/url_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableRight="@drawable/info"
+                    android:drawablePadding="4dp"
+                    android:textColor="@color/light_gray"
+                    android:text="@string/url"/>
+
+                <EditText
+                    android:id="@+id/url"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="@{currentReference.url}"
+                    android:hint="@string/url_hint"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/year_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/light_gray"
-                android:gravity="center_vertical"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawableRight="@drawable/info"
-                android:drawablePadding="4dp"
-                android:text="@string/year"/>
-
-            <EditText
-                android:id="@+id/year"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:inputType="number"
-                android:hint="@string/date_hint"/>
-
-            <TextView
-                android:id="@+id/title_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/light_gray"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawableRight="@drawable/info"
-                android:drawablePadding="4dp"
-                android:text="@string/title"/>
-
-            <EditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="52dp"
-                android:maxLines="4"
-                android:inputType="textCapSentences"
-                android:hint="@string/reference_title_hint"/>
-
-            <TextView
-                android:id="@+id/url_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawableRight="@drawable/info"
-                android:drawablePadding="4dp"
-                android:textColor="@color/light_gray"
-                android:text="@string/url"/>
-
-            <EditText
-                android:id="@+id/url"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:hint="@string/url_hint"/>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -1,14 +1,15 @@
 package com.au.easyreference.app.activities.apaactivities;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
+import com.au.easyreference.app.databinding.ApaJournalReferenceLayoutBinding;
 import com.au.easyreference.app.references.ReferenceItem;
 
 /**
@@ -41,37 +42,27 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.apa_journal_reference_layout);
+		ApaJournalReferenceLayoutBinding binding = DataBindingUtil.setContentView(this, R.layout.apa_journal_reference_layout);
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.JOURNAL_REFERENCE);
+		binding.setCurrentReference(currentReference);
 
 		toolbar.setTitle(getString(R.string.apa_journal_reference));
 
-		journalTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		journalTitleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		journalTitleLabel.setOnClickListener(new LabelClickListener());
 
-		volumeNoLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		volumeNoLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		volumeNoLabel.setOnClickListener(new LabelClickListener());
 
-		issueLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		issueLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		issueLabel.setOnClickListener(new LabelClickListener());
 
-		pageNoLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		pageNoLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		pageNoLabel.setOnClickListener(new LabelClickListener());
 
-		doiLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		doiLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		doiLabel.setOnClickListener(new LabelClickListener());
-
-		Bundle args = getIntent().getExtras();
-		if(args != null && args.containsKey(KEY_ID))
-			setUpView();
-	}
-
-	@Override
-	public void onBackPressed()
-	{
-		save();
-		super.onBackPressed();
 	}
 
 	@Override
@@ -83,22 +74,5 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 		currentReference.doi = doi.getText().toString();
 		currentReference.journalTitle = journalTitle.getText().toString();
 		currentReference.volumeNo = volumeNumber.getText().toString();
-	}
-
-	public void setUpView()
-	{
-		if(currentReference != null)
-		{
-			if(!TextUtils.isEmpty(currentReference.journalTitle))
-				journalTitle.setText(currentReference.journalTitle);
-			if(!TextUtils.isEmpty(currentReference.volumeNo))
-				volumeNumber.setText(currentReference.volumeNo);
-			if(!TextUtils.isEmpty(currentReference.issue))
-				issue.setText(currentReference.issue);
-			if(!TextUtils.isEmpty(currentReference.pageNo))
-				pageNo.setText(currentReference.pageNo);
-			if(!TextUtils.isEmpty(currentReference.doi))
-				doi.setText(currentReference.doi);
-		}
 	}
 }

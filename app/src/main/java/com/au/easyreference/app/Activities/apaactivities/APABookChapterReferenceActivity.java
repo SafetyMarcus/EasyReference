@@ -1,13 +1,15 @@
 package com.au.easyreference.app.activities.apaactivities;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
+import com.au.easyreference.app.databinding.ApaBookChapterReferenceLayoutBinding;
 import com.au.easyreference.app.references.ReferenceItem;
 
 /**
@@ -45,55 +47,30 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.apa_book_chapter_reference_layout);
+		ApaBookChapterReferenceLayoutBinding binding = DataBindingUtil.setContentView(this, R.layout.apa_book_chapter_reference_layout);
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.BOOK_CHAPTER);
+		binding.setCurrentReference(currentReference);
 
 		toolbar.setTitle(getString(R.string.apa_book_chapter_reference));
 
-		bookTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		bookTitleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		bookTitleLabel.setOnClickListener(new LabelClickListener());
 
-		bookSubtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		bookSubtitleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		bookSubtitleLabel.setOnClickListener(new LabelClickListener());
 
-		pagesOfChapterLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		pagesOfChapterLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		pagesOfChapterLabel.setOnClickListener(new LabelClickListener());
 
-		editorsLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		editorsLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		editorsLabel.setOnClickListener(new LabelClickListener());
 
-		locationLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		locationLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		locationLabel.setOnClickListener(new LabelClickListener());
 
-		publisherLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		publisherLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		publisherLabel.setOnClickListener(new LabelClickListener());
-
-		Bundle args = getIntent().getExtras();
-		if(args != null && args.containsKey(KEY_ID))
-			setUpView();
-	}
-
-	@Override
-	public void onBackPressed()
-	{
-		save();
-		super.onBackPressed();
-	}
-
-	public void setUpView()
-	{
-		if(currentReference != null)
-		{
-			if(currentReference.bookTitle != null && currentReference.bookTitle.length() > 0)
-				bookTitle.setText(currentReference.bookTitle);
-			if(currentReference.bookSubtitle != null && currentReference.bookSubtitle.length() > 0)
-				bookSubtitle.setText(currentReference.bookSubtitle);
-			if(currentReference.editors != null && currentReference.editors.length() > 0)
-				editors.setText(currentReference.editors);
-			if(currentReference.pagesOfChapter != null && currentReference.pagesOfChapter.length() > 0)
-				pagesOfChapter.setText(currentReference.pagesOfChapter);
-		}
 	}
 
 	@Override
@@ -104,5 +81,7 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 		currentReference.bookSubtitle = bookSubtitle.getText().toString();
 		currentReference.editors = editors.getText().toString();
 		currentReference.pagesOfChapter = pagesOfChapter.getText().toString();
+		currentReference.publisher = publisher.getText().toString();
+		currentReference.location = publisher.getEditableText().toString();
 	}
 }
