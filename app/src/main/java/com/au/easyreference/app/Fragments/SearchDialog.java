@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.ui.BounceInAnimation;
 import com.au.easyreference.app.utils.ERApplication;
@@ -47,34 +47,34 @@ public class SearchDialog extends DialogFragment
 	private static final int ISSN = 1;
 	private static final int ISBN = 2;
 
-	@InjectView(R.id.doi_tab)
+	@Bind(R.id.doi_tab)
 	TextView doiTab;
-	@InjectView(R.id.doi_highlight)
+	@Bind(R.id.doi_highlight)
 	ImageView doiHighlight;
 
-	@InjectView(R.id.isbn_tab)
+	@Bind(R.id.isbn_tab)
 	TextView isbnTab;
-	@InjectView(R.id.isbn_highlight)
+	@Bind(R.id.isbn_highlight)
 	ImageView isbnHighlight;
 
-	@InjectView(R.id.issn_tab)
+	@Bind(R.id.issn_tab)
 	TextView issnTab;
-	@InjectView(R.id.issn_highlight)
+	@Bind(R.id.issn_highlight)
 	ImageView issnHighlight;
 
-	@InjectView(R.id.search)
+	@Bind(R.id.search)
 	EditText search;
-	@InjectView(R.id.search_button)
+	@Bind(R.id.search_button)
 	TextView searchButton;
 
-	@InjectView(R.id.progress_bar)
+	@Bind(R.id.progress_bar)
 	ProgressBar progressBar;
-	@InjectView(R.id.results_list)
+	@Bind(R.id.results_list)
 	ListView resultsList;
 
-	@InjectView(R.id.first_time_info)
+	@Bind(R.id.first_time_info)
 	View firstTimeInfo;
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	Toolbar toolbar;
 
 	private ArrayList<Result> results;
@@ -91,7 +91,7 @@ public class SearchDialog extends DialogFragment
 	{
 		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		View layout = getActivity().getLayoutInflater().inflate(R.layout.search_dialog, container, false);
-		ButterKnife.inject(this, layout);
+		ButterKnife.bind(this, layout);
 
 		toolbar.setTitle(getString(R.string.search));
 		results = new ArrayList<>();

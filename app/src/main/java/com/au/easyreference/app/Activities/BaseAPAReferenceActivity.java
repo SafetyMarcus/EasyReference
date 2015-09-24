@@ -2,6 +2,7 @@ package com.au.easyreference.app.activities;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,8 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.InjectView;
-import butterknife.Optional;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
@@ -29,37 +29,37 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
-	@InjectView(R.id.author_label)
+	@Bind(R.id.author_label)
 	public TextView authorLabel;
-	@InjectView(R.id.author)
+	@Bind(R.id.author)
 	public EditText author;
-	@InjectView(R.id.author_button)
+	@Bind(R.id.author_button)
 	public Button authorButton;
-	@InjectView(R.id.year_label)
+	@Bind(R.id.year_label)
 	public TextView yearLabel;
-	@InjectView(R.id.year)
+	@Bind(R.id.year)
 	public EditText year;
-	@InjectView(R.id.title_label)
+	@Bind(R.id.title_label)
 	public TextView titleLabel;
-	@InjectView(R.id.title)
+	@Bind(R.id.title)
 	public EditText title;
 
-	@Optional
-	@InjectView(R.id.subtitle_label)
+	@Nullable
+	@Bind(R.id.subtitle_label)
 	public TextView subtitleLabel;
-	@Optional
-	@InjectView(R.id.subtitle)
+	@Nullable
+	@Bind(R.id.subtitle)
 	public EditText subtitle;
 
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;
 
 	public ReferenceList referenceList;
 	public ReferenceItem currentReference;
 
-	public void setUpReferenceActivity()
+	public void setUpReferenceActivity(int type)
 	{
-		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
+		toolbar.setNavigationIcon(R.drawable.arrow_back_white);
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -81,7 +81,13 @@ public class BaseAPAReferenceActivity extends BaseActivity
 					referenceList = list;
 
 			if(args.containsKey(KEY_ID))
-				setUpView(args.getString(KEY_ID));
+				currentReference = referenceList.getReferenceForId(args.getString(KEY_ID));
+		}
+
+		if(currentReference == null)
+		{
+			currentReference = new ReferenceItem(type);
+			referenceList.referenceList.add(currentReference);
 		}
 
 		authorButton.setOnClickListener(new AuthorClickListener());
@@ -143,26 +149,9 @@ public class BaseAPAReferenceActivity extends BaseActivity
 			newReference.id = currentReference.id;
 
 			referenceList.referenceList.add(index, newReference);
-			setUpView(currentReference.id);
+			currentReference = referenceList.getReferenceForId(currentReference.id);
 		}
 	};
-
-	public void setUpView(String id)
-	{
-		currentReference = referenceList.getReferenceForId(id);
-
-		if(currentReference != null)
-		{
-			if(currentReference.author != null && currentReference.author.length() > 0)
-				author.setText(currentReference.author);
-			if(currentReference.year != null && currentReference.year.length() > 0)
-				year.setText(currentReference.year);
-			if(currentReference.title != null && currentReference.title.length() > 0)
-				title.setText(currentReference.title);
-			if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
-				subtitle.setText(currentReference.subtitle);
-		}
-	}
 
 	public void save()
 	{

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 
 /**
@@ -20,7 +20,7 @@ public class ContainerDialogFragment extends DialogFragment
 {
 	public static String TYPE_KEY = "container_child_type";
 
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	public Toolbar toolbar;
 
 	protected CloseListener closeListener;
@@ -32,7 +32,7 @@ public class ContainerDialogFragment extends DialogFragment
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		View view = inflater.inflate(R.layout.container_dialog_fragment, container, false);
-		ButterKnife.inject(this, view);
+		ButterKnife.bind(this, view);
 
 		toolbar.setBackgroundColor(getResources().getColor(R.color.easy_reference_red));
 		toolbar.setNavigationIcon(R.drawable.arrow_back_white);

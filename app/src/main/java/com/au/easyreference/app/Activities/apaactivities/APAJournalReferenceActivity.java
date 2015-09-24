@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
@@ -16,25 +16,25 @@ import com.au.easyreference.app.references.ReferenceItem;
  */
 public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 {
-	@InjectView(R.id.journal_title_label)
+	@Bind(R.id.journal_title_label)
 	public TextView journalTitleLabel;
-	@InjectView(R.id.journal_title)
+	@Bind(R.id.journal_title)
 	public EditText journalTitle;
-	@InjectView(R.id.volume_number_label)
+	@Bind(R.id.volume_number_label)
 	public TextView volumeNoLabel;
-	@InjectView(R.id.volume_number)
+	@Bind(R.id.volume_number)
 	public EditText volumeNumber;
-	@InjectView(R.id.issue_label)
+	@Bind(R.id.issue_label)
 	public TextView issueLabel;
-	@InjectView(R.id.issue)
+	@Bind(R.id.issue)
 	public EditText issue;
-	@InjectView(R.id.page_no_label)
+	@Bind(R.id.page_no_label)
 	public TextView pageNoLabel;
-	@InjectView(R.id.page_no)
+	@Bind(R.id.page_no)
 	public EditText pageNo;
-	@InjectView(R.id.doi_label)
+	@Bind(R.id.doi_label)
 	public TextView doiLabel;
-	@InjectView(R.id.doi)
+	@Bind(R.id.doi)
 	public EditText doi;
 
 	@Override
@@ -42,16 +42,10 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.apa_journal_reference_layout);
-		ButterKnife.inject(this);
-		setUpReferenceActivity();
+		ButterKnife.bind(this);
+		setUpReferenceActivity(ReferenceItem.JOURNAL_REFERENCE);
 
 		toolbar.setTitle(getString(R.string.apa_journal_reference));
-
-		if(currentReference == null)
-		{
-			currentReference = new ReferenceItem(ReferenceItem.JOURNAL_REFERENCE);
-			referenceList.referenceList.add(currentReference);
-		}
 
 		journalTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		journalTitleLabel.setOnClickListener(new LabelClickListener());
@@ -70,7 +64,7 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 
 		Bundle args = getIntent().getExtras();
 		if(args != null && args.containsKey(KEY_ID))
-			setUpView(args.getString(KEY_ID));
+			setUpView();
 	}
 
 	@Override
@@ -91,9 +85,8 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 		currentReference.volumeNo = volumeNumber.getText().toString();
 	}
 
-	public void setUpView(String id)
+	public void setUpView()
 	{
-		super.setUpView(id);
 		if(currentReference != null)
 		{
 			if(!TextUtils.isEmpty(currentReference.journalTitle))

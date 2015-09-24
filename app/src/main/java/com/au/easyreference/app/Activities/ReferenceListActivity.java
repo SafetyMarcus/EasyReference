@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.apaactivities.APABookChapterReferenceActivity;
 import com.au.easyreference.app.activities.apaactivities.APABookReferenceActivity;
@@ -41,31 +41,31 @@ public class ReferenceListActivity extends BaseActivity
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
 
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;
-	@InjectView(R.id.references_list_view)
+	@Bind(R.id.references_list_view)
 	protected JazzyListView referencesListView;
-	@InjectView(R.id.list_title)
+	@Bind(R.id.list_title)
 	protected EditText title;
 
-	@InjectView(R.id.plus_button)
+	@Bind(R.id.plus_button)
 	protected ImageView plusButton;
-	@InjectView(R.id.plus_book)
+	@Bind(R.id.plus_book)
 	protected ImageView plusBook;
-	@InjectView(R.id.plus_web)
+	@Bind(R.id.plus_web)
 	protected ImageView plusWeb;
-	@InjectView(R.id.plus_journal)
+	@Bind(R.id.plus_journal)
 	protected ImageView plusJournal;
-	@InjectView(R.id.plus_book_chapter)
+	@Bind(R.id.plus_book_chapter)
 	protected ImageView plusBookChapter;
 
-	@InjectView(R.id.book_info)
+	@Bind(R.id.book_info)
 	protected TextView bookInfo;
-	@InjectView(R.id.journal_info)
+	@Bind(R.id.journal_info)
 	protected TextView journalInfo;
-	@InjectView(R.id.chapter_info)
+	@Bind(R.id.chapter_info)
 	protected TextView chapterInfo;
-	@InjectView(R.id.web_info)
+	@Bind(R.id.web_info)
 	protected TextView webInfo;
 
 	public ReferenceListAdapter adapter;
@@ -80,7 +80,7 @@ public class ReferenceListActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reference_list_activity);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 
 		setSupportActionBar(toolbar);
 		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));

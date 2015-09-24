@@ -1,8 +1,6 @@
 package com.au.easyreference.app.references;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import com.au.easyreference.app.R;
 import com.au.easyreference.app.utils.HelperFunctions;
 import com.au.easyreference.app.utils.Result;
 import org.json.JSONException;
@@ -67,41 +65,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 	public String url;
 
 	public int type;
-
-	public static int getIcon(int type)
-	{
-		switch(type)
-		{
-			case BOOK_REFERENCE:
-				return R.drawable.icon_book;
-			case JOURNAL_REFERENCE:
-				return R.drawable.icon_journal;
-			case BOOK_CHAPTER:
-				return R.drawable.icon_book_chapter;
-			case WEB_PAGE:
-				return R.drawable.webpage;
-		}
-
-		return 0;
-	}
-
-	public static String getTitle(int type, Context context)
-	{
-		switch(type)
-		{
-			case BOOK_REFERENCE:
-				return context.getString(R.string.book);
-			case JOURNAL_REFERENCE:
-				return context.getString(R.string.journal);
-			case BOOK_CHAPTER:
-				return context.getString(R.string.book_chapter);
-			case WEB_PAGE:
-				return context.getString(R.string.web_page_or_document);
-		}
-
-		return "";
-	}
-
+	
 	public ReferenceItem(int type)
 	{
 		id = UUID.randomUUID().toString();

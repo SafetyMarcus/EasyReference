@@ -12,7 +12,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 
 /**
@@ -20,17 +20,17 @@ import com.au.easyreference.app.R;
  */
 public class AuthorDialogFragment extends DialogFragment
 {
-	@InjectView(R.id.first_name)
+	@Bind(R.id.first_name)
 	public EditText firstName;
-	@InjectView(R.id.middle_name)
+	@Bind(R.id.middle_name)
 	public EditText middleName;
-	@InjectView(R.id.last_name)
+	@Bind(R.id.last_name)
 	public EditText lastName;
-	@InjectView(R.id.cancel)
+	@Bind(R.id.cancel)
 	public TextView cancel;
-	@InjectView(R.id.save)
+	@Bind(R.id.save)
 	public TextView save;
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	public Toolbar toolbar;
 
 	private ContainerDialogFragment.CloseListener closeListener;
@@ -41,7 +41,7 @@ public class AuthorDialogFragment extends DialogFragment
 	{
 		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		View layout = inflater.inflate(R.layout.author_dialog_fragment, container, false);
-		ButterKnife.inject(this, layout);
+		ButterKnife.bind(this, layout);
 		setHasOptionsMenu(false);
 		toolbar.setTitle(getString(R.string.author));
 

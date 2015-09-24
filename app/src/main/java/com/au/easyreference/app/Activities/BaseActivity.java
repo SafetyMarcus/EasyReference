@@ -12,7 +12,7 @@ import android.util.Pair;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.utils.ERApplication;
 
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class BaseActivity extends ActionBarActivity
 {
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;
 
 	@Override

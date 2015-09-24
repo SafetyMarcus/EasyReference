@@ -12,7 +12,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.squareup.picasso.Picasso;
 
@@ -24,11 +24,11 @@ public class MoreInfoDialog extends DialogFragment
 	public static final String MESSAGE = "message";
 	public static final String IMAGE = "image";
 
-	@InjectView(R.id.close)
+	@Bind(R.id.close)
 	ImageView closeButton;
-	@InjectView(R.id.message)
+	@Bind(R.id.message)
 	TextView message;
-	@InjectView(R.id.image)
+	@Bind(R.id.image)
 	ImageView image;
 
 	@Nullable
@@ -37,7 +37,7 @@ public class MoreInfoDialog extends DialogFragment
 	{
 		getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		View view = inflater.inflate(R.layout.more_info_layout, container, false);
-		ButterKnife.inject(this, view);
+		ButterKnife.bind(this, view);
 
 		float density = getResources().getDisplayMetrics().density;
 		int size = (int) (300 * density);

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
@@ -15,30 +15,30 @@ import com.au.easyreference.app.references.ReferenceItem;
  */
 public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 {
-	@InjectView(R.id.book_title_label)
+	@Bind(R.id.book_title_label)
 	public TextView bookTitleLabel;
-	@InjectView(R.id.book_title)
+	@Bind(R.id.book_title)
 	public EditText bookTitle;
-	@InjectView(R.id.book_subtitle_label)
+	@Bind(R.id.book_subtitle_label)
 	public TextView bookSubtitleLabel;
-	@InjectView(R.id.book_subtitle)
+	@Bind(R.id.book_subtitle)
 	public EditText bookSubtitle;
-	@InjectView(R.id.pages_of_chapter_label)
+	@Bind(R.id.pages_of_chapter_label)
 	public TextView pagesOfChapterLabel;
-	@InjectView(R.id.pages_of_chapter)
+	@Bind(R.id.pages_of_chapter)
 	public EditText pagesOfChapter;
-	@InjectView(R.id.editors_label)
+	@Bind(R.id.editors_label)
 	public TextView editorsLabel;
-	@InjectView(R.id.editors)
+	@Bind(R.id.editors)
 	public EditText editors;
 
-	@InjectView(R.id.location_label)
+	@Bind(R.id.location_label)
 	public TextView locationLabel;
-	@InjectView(R.id.location)
+	@Bind(R.id.location)
 	public EditText location;
-	@InjectView(R.id.publisher)
+	@Bind(R.id.publisher)
 	public EditText publisher;
-	@InjectView(R.id.publisher_label)
+	@Bind(R.id.publisher_label)
 	public TextView publisherLabel;
 
 	@Override
@@ -46,16 +46,10 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.apa_book_chapter_reference_layout);
-		ButterKnife.inject(this);
-		setUpReferenceActivity();
+		ButterKnife.bind(this);
+		setUpReferenceActivity(ReferenceItem.BOOK_CHAPTER);
 
 		toolbar.setTitle(getString(R.string.apa_book_chapter_reference));
-
-		if(currentReference == null)
-		{
-			currentReference = new ReferenceItem(ReferenceItem.BOOK_CHAPTER);
-			referenceList.referenceList.add(currentReference);
-		}
 
 		bookTitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
 		bookTitleLabel.setOnClickListener(new LabelClickListener());
@@ -77,7 +71,7 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 
 		Bundle args = getIntent().getExtras();
 		if(args != null && args.containsKey(KEY_ID))
-			setUpView(args.getString(KEY_ID));
+			setUpView();
 	}
 
 	@Override
@@ -87,17 +81,10 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 		super.onBackPressed();
 	}
 
-	@Override
-	public void setUpView(String id)
+	public void setUpView()
 	{
-		super.setUpView(id);
-
 		if(currentReference != null)
 		{
-			if(currentReference.location != null && currentReference.location.length() > 0)
-				location.setText(currentReference.location);
-			if(currentReference.publisher != null && currentReference.publisher.length() > 0)
-				publisher.setText(currentReference.publisher);
 			if(currentReference.bookTitle != null && currentReference.bookTitle.length() > 0)
 				bookTitle.setText(currentReference.bookTitle);
 			if(currentReference.bookSubtitle != null && currentReference.bookSubtitle.length() > 0)
@@ -117,7 +104,5 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 		currentReference.bookSubtitle = bookSubtitle.getText().toString();
 		currentReference.editors = editors.getText().toString();
 		currentReference.pagesOfChapter = pagesOfChapter.getText().toString();
-		currentReference.location = location.getText().toString();
-		currentReference.publisher = publisher.getText().toString();
 	}
 }
