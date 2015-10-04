@@ -7,42 +7,6 @@
                 android:layout_alignParentRight="true"
                 android:clipChildren="false">
 
-    <TextView
-        android:id="@+id/book_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:elevation="3dp"
-        android:text="@string/book"/>
-
-    <TextView
-        android:id="@+id/journal_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:elevation="3dp"
-        android:text="@string/journal"/>
-
-    <TextView
-        android:id="@+id/chapter_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:elevation="3dp"
-        android:text="@string/book_chapter"/>
-
-    <TextView
-        android:id="@+id/web_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:elevation="3dp"
-        android:text="@string/web_document"/>
-
     <ImageButton
         style="@style/FloatingActionButton.Mini"
         android:id="@+id/plus_web"

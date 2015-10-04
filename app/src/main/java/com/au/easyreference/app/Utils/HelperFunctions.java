@@ -82,6 +82,11 @@ public class HelperFunctions
 		return null;
 	}
 
+	public static float convertIntToDp(int amount)
+	{
+		return ERApplication.getInstance().getResources().getDisplayMetrics().density * amount;
+	}
+
 	public static String getReferenceListTypeString(int referenceType, Context context)
 	{
 		if(referenceType == ReferenceList.APA)
