@@ -111,10 +111,7 @@ public class ReferenceListActivity extends BaseActivity
 		referencesListView.addFooterView(getLayoutInflater().inflate(R.layout.footer, referencesListView, false), null, false);
 		referencesListView.setFooterDividersEnabled(false);
 
-		plusBook.setVisibility(View.GONE);
-		plusJournal.setVisibility(View.GONE);
-		plusBookChapter.setVisibility(View.GONE);
-		plusWeb.setVisibility(View.GONE);
+		setVisibility(View.GONE);
 
 		plusBook.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 		plusJournal.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
@@ -143,10 +140,7 @@ public class ReferenceListActivity extends BaseActivity
 
 	private void expandFab()
 	{
-		plusBook.setVisibility(View.VISIBLE);
-		plusJournal.setVisibility(View.VISIBLE);
-		plusBookChapter.setVisibility(View.VISIBLE);
-		plusWeb.setVisibility(View.VISIBLE);
+		setVisibility(View.VISIBLE);
 
 		ObjectAnimator.ofFloat(plusButton, "rotation", 0, 45).start();
 		AnimatorSet animatorSet = new AnimatorSet();
@@ -215,7 +209,7 @@ public class ReferenceListActivity extends BaseActivity
 		{
 			left = -HelperFunctions.convertIntToDp(76);
 			originx = -HelperFunctions.convertIntToDp(76);
-			down = HelperFunctions.convertIntToDp(8);
+			down = HelperFunctions.convertIntToDp(16);
 			originy = -HelperFunctions.convertIntToDp(28);
 		}
 
@@ -269,11 +263,7 @@ public class ReferenceListActivity extends BaseActivity
 									@Override
 									void onEnd(Animator animation)
 									{
-										plusBook.setVisibility(View.GONE);
-										plusJournal.setVisibility(View.GONE);
-										plusBookChapter.setVisibility(View.GONE);
-										plusWeb.setVisibility(View.GONE);
-
+										setVisibility(View.GONE);
 										if(referenceItem != null)
 											showReference(referenceItem);
 									}
@@ -288,6 +278,14 @@ public class ReferenceListActivity extends BaseActivity
 			}
 		});
 		set.start();
+	}
+
+	private void setVisibility(int visibility)
+	{
+		plusBook.setVisibility(visibility);
+		plusJournal.setVisibility(visibility);
+		plusBookChapter.setVisibility(visibility);
+		plusWeb.setVisibility(visibility);
 	}
 
 	private static final String TRANSLATION_Y = "translationY";
@@ -400,7 +398,7 @@ public class ReferenceListActivity extends BaseActivity
 
 				case R.id.plus_book:
 				default:
-						type = ReferenceItem.BOOK_REFERENCE;
+					type = ReferenceItem.BOOK_REFERENCE;
 			}
 
 			addNewReference(type);
