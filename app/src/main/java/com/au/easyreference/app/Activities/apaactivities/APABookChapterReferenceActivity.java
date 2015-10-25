@@ -1,6 +1,5 @@
 package com.au.easyreference.app.activities.apaactivities;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -9,8 +8,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
-import com.au.easyreference.app.databinding.ApaBookChapterReferenceLayoutBinding;
 import com.au.easyreference.app.references.ReferenceItem;
+import com.easygoingapps.annotations.Observe;
+import utils.State;
 
 /**
  * @author Marcus Hooper
@@ -36,21 +36,24 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 
 	@Bind(R.id.location_label)
 	public TextView locationLabel;
-	@Bind(R.id.location)
-	public EditText location;
-	@Bind(R.id.publisher)
-	public EditText publisher;
 	@Bind(R.id.publisher_label)
 	public TextView publisherLabel;
+
+	@Observe(R.id.location)
+	public State<String> location;
+	@Observe(R.id.publisher)
+	public State<String> publisher;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		ApaBookChapterReferenceLayoutBinding binding = DataBindingUtil.setContentView(this, R.layout.apa_book_chapter_reference_layout);
+		setContentView(R.layout.apa_book_chapter_reference_layout);
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.BOOK_CHAPTER);
-		binding.setCurrentReference(currentReference);
+		location = currentReference.location;
+		publisher = currentReference.publisher;
+		APABookChapterReferenceActivityViewBinding.watch(this);
 
 		toolbar.setTitle(getString(R.string.apa_book_chapter_reference));
 
@@ -81,7 +84,5 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 		currentReference.bookSubtitle = bookSubtitle.getText().toString();
 		currentReference.editors = editors.getText().toString();
 		currentReference.pagesOfChapter = pagesOfChapter.getText().toString();
-		currentReference.publisher = publisher.getText().toString();
-		currentReference.location = location.getText().toString();
 	}
 }

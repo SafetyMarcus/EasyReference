@@ -5,6 +5,7 @@ import com.au.easyreference.app.utils.HelperFunctions;
 import com.au.easyreference.app.utils.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
+import utils.State;
 
 import java.util.UUID;
 
@@ -41,12 +42,12 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 	public int italicsEnd = -1;
 
 	public String id;
-	public String author;
-	public String year;
-	public String title;
-	public String subtitle;
-	public String location;
-	public String publisher;
+	public State<String> author;
+	public State<String> year;
+	public State<String> title;
+	public State<String> subtitle;
+	public State<String> location;
+	public State<String> publisher;
 
 	//Journal
 	public String journalTitle;
@@ -69,17 +70,17 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 	public ReferenceItem(int type)
 	{
 		id = UUID.randomUUID().toString();
-		this.author = "";
-		this.year = "";
-		this.title = "";
-		this.subtitle = "";
+		this.author = new State<>("");
+		this.year = new State<>("");
+		this.title = new State<>("");
+		this.subtitle = new State<>("");
 		this.journalTitle = "";
 		this.volumeNo = "";
 		this.issue = "";
 		this.pageNo = "";
 		this.doi = "";
-		this.location = "";
-		this.publisher = "";
+		this.location = new State<>("");
+		this.publisher = new State<>("");
 		this.editors = "";
 		this.bookTitle = "";
 		this.bookSubtitle = "";
@@ -94,19 +95,19 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		id = UUID.randomUUID().toString();
 		type = result.type;
 
-		author = result.authorsString;
+		author = new State<>(result.authorsString);
 
 		if(result.publicationDate.contains("-"))
-			year = result.publicationDate.split("-")[0];
+			year = new State<>(result.publicationDate.split("-")[0]);
 		else if(result.publicationDate.contains("/"))
-			year = result.publicationDate.split("/")[0];
+			year = new State<>(result.publicationDate.split("/")[0]);
 		else
-			year = result.publicationDate;
+			year = new State<>(result.publicationDate);
 
-		title = result.title;
-		subtitle = result.subtitle;
-		location = "";
-		publisher = result.publisher;
+		title = new State<>(result.title);
+		subtitle = new State<>(result.subtitle);
+		location = new State<>("");
+		publisher = new State<>(result.publisher);
 		journalTitle = result.publicationName;
 		volumeNo = result.volume;
 		issue = result.issue;
@@ -126,12 +127,12 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		type = referenceObject.optInt(ITEM_TYPE);
 
 		//Base values
-		author = referenceObject.optString(AUTHOR);
-		year = referenceObject.optString(YEAR);
-		title = referenceObject.optString(TITLE);
-		subtitle = referenceObject.optString(SUBTITLE);
-		location = referenceObject.optString(LOCATION);
-		publisher = referenceObject.optString(PUBLISHER);
+		author = new State<>(referenceObject.optString(AUTHOR));
+		year = new State<>(referenceObject.optString(YEAR));
+		title = new State<>(referenceObject.optString(TITLE));
+		subtitle = new State<>(referenceObject.optString(SUBTITLE));
+		location = new State<>(referenceObject.optString(LOCATION));
+		publisher = new State<>(referenceObject.optString(PUBLISHER));
 
 		//Journal
 		journalTitle = referenceObject.optString(JOURNAL_TITLE);

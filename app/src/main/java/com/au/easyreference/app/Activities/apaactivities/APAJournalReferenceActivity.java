@@ -1,6 +1,5 @@
 package com.au.easyreference.app.activities.apaactivities;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -9,7 +8,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
-import com.au.easyreference.app.databinding.ApaJournalReferenceLayoutBinding;
 import com.au.easyreference.app.references.ReferenceItem;
 
 /**
@@ -42,11 +40,9 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		ApaJournalReferenceLayoutBinding binding = DataBindingUtil.setContentView(this, R.layout.apa_journal_reference_layout);
+		setContentView(R.layout.apa_journal_reference_layout);
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.JOURNAL_REFERENCE);
-		binding.setCurrentReference(currentReference);
-
 		toolbar.setTitle(getString(R.string.apa_journal_reference));
 
 		journalTitleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);

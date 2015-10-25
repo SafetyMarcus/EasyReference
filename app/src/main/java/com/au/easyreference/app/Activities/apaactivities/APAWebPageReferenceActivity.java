@@ -1,15 +1,13 @@
 package com.au.easyreference.app.activities.apaactivities;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
-import com.au.easyreference.app.databinding.ApaWebPageReferenceLayoutBinding;
 import com.au.easyreference.app.references.ReferenceItem;
 
 /**
@@ -26,11 +24,9 @@ public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		ApaWebPageReferenceLayoutBinding binding = DataBindingUtil.setContentView(this, R.layout.apa_web_page_reference_layout);
+		setContentView(R.layout.apa_web_page_reference_layout);
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.BOOK_REFERENCE);
-		binding.setCurrentReference(currentReference);
-
 		toolbar.setTitle(getString(R.string.apa_web_reference));
 
 		urlLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);

@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.BindColor;
@@ -21,6 +20,8 @@ import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
+import com.easygoingapps.annotations.Observe;
+import utils.State;
 
 /**
  * @author Marcus Hooper
@@ -30,27 +31,28 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
+	@Observe(R.id.author)
+	public State<String> author;
+	@Observe(R.id.year)
+	public State<String> year;
+	@Observe(R.id.title)
+	public State<String> title;
+
 	@Bind(R.id.author_label)
 	public TextView authorLabel;
-	@Bind(R.id.author)
-	public EditText author;
 	@Bind(R.id.author_button)
 	public Button authorButton;
 	@Bind(R.id.year_label)
 	public TextView yearLabel;
-	@Bind(R.id.year)
-	public EditText year;
 	@Bind(R.id.title_label)
 	public TextView titleLabel;
-	@Bind(R.id.title)
-	public EditText title;
+
+	@Observe(R.id.subtitle)
+	public State<String> subtitle;
 
 	@Nullable
 	@Bind(R.id.subtitle_label)
 	public TextView subtitleLabel;
-	@Nullable
-	@Bind(R.id.subtitle)
-	public EditText subtitle;
 
 	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;
@@ -92,6 +94,11 @@ public class BaseAPAReferenceActivity extends BaseActivity
 			currentReference = new ReferenceItem(type);
 			referenceList.referenceList.add(currentReference);
 		}
+
+		title = currentReference.title;
+		author = currentReference.author;
+		year = currentReference.year;
+		subtitle = currentReference.subtitle;
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 
@@ -158,10 +165,6 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 	public void save()
 	{
-		currentReference.author = author.getText().toString();
-		currentReference.year = year.getText().toString();
-		currentReference.title = title.getText().toString();
-		currentReference.subtitle = subtitle != null ? subtitle.getText().toString() : "";
 	}
 
 	@Override
@@ -174,17 +177,17 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 	public void addAuthor(String authorString)
 	{
-		if(author.getText().length() > 0)
+		StringBuilder currentText = new StringBuilder(author.getValue());
+		if(author.getValue().length() > 0)
 		{
-			String currentText = author.getText().toString();
+			if(currentText.toString().contains(" & "))
+				currentText = new StringBuilder(currentText.toString().replace(" & ", ""));
 
-			if(currentText.contains(" & "))
-				currentText = currentText.replace(" & ", "");
-
-			author.setText(currentText + ", & ");
+			currentText.append(", & ");
 		}
 
-		author.append(getFormattedAuthorString(authorString));
+		currentText.append(getFormattedAuthorString(authorString));
+		author.setValue(currentText.toString());
 	}
 
 	private String getFormattedAuthorString(String originalString)

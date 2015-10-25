@@ -101,26 +101,26 @@ public class HelperFunctions
 	{
 		StringBuilder informationBuilder = new StringBuilder();
 
-		if(!TextUtils.isEmpty(currentReference.author))
+		if(!TextUtils.isEmpty(currentReference.author.getValue()))
 			informationBuilder.append(currentReference.author).append(' ');
-		if(!TextUtils.isEmpty(currentReference.year))
+		if(!TextUtils.isEmpty(currentReference.year.getValue()))
 			informationBuilder.append('(').append(currentReference.year).append("). ");
-		if(!TextUtils.isEmpty(currentReference.title))
+		if(!TextUtils.isEmpty(currentReference.title.getValue()))
 		{
 			if(currentReference.type == BOOK_REFERENCE || currentReference.type == WEB_PAGE)
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(currentReference.title);
 
-			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle) || currentReference.type == WEB_PAGE)
+			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle.getValue()) || currentReference.type == WEB_PAGE)
 				currentReference.italicsEnd = informationBuilder.length();
 
-			if(TextUtils.isEmpty(currentReference.subtitle))
+			if(TextUtils.isEmpty(currentReference.subtitle.getValue()))
 				informationBuilder.append('.');
 		}
-		if(!TextUtils.isEmpty(currentReference.subtitle))
+		if(!TextUtils.isEmpty(currentReference.subtitle.getValue()))
 		{
-			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title))
+			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(": ").append(currentReference.subtitle).append('.');
@@ -137,9 +137,9 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 		informationBuilder.append(' ');
 
-		if(!TextUtils.isEmpty(currentReference.location))
+		if(!TextUtils.isEmpty(currentReference.location.getValue()))
 			informationBuilder.append(currentReference.location).append(": ");
-		if(!TextUtils.isEmpty(currentReference.publisher))
+		if(!TextUtils.isEmpty(currentReference.publisher.getValue()))
 			informationBuilder.append(currentReference.publisher).append('.');
 
 		return informationBuilder.toString();
@@ -180,9 +180,9 @@ public class HelperFunctions
 					.append(context.getString(R.string.pp))
 					.append(currentReference.pagesOfChapter)
 					.append(").");
-		if(!TextUtils.isEmpty(currentReference.location))
+		if(!TextUtils.isEmpty(currentReference.location.getValue()))
 			informationBuilder.append(' ').append(currentReference.location).append(": ");
-		if(!TextUtils.isEmpty(currentReference.publisher))
+		if(!TextUtils.isEmpty(currentReference.publisher.getValue()))
 			informationBuilder.append(currentReference.publisher).append('.');
 
 		return informationBuilder.toString();

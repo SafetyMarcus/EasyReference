@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.android.databinding'
 
 android {
     compileSdkVersion 23
@@ -16,10 +15,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-project.txt'), 'proguard-rules.txt'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
-    compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:support-v4:23.0.1'
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.android.support:design:23.0.1"
