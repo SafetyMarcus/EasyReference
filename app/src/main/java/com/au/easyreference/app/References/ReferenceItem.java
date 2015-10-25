@@ -161,12 +161,12 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 			referenceObject.put(ITEM_TYPE, type);
 
 			//Base
-			referenceObject.put(AUTHOR, author);
-			referenceObject.put(YEAR, year);
-			referenceObject.put(TITLE, title);
-			referenceObject.put(SUBTITLE, subtitle);
-			referenceObject.put(LOCATION, location);
-			referenceObject.put(PUBLISHER, publisher);
+			referenceObject.put(AUTHOR, author.getValue());
+			referenceObject.put(YEAR, year.getValue());
+			referenceObject.put(TITLE, title.getValue());
+			referenceObject.put(SUBTITLE, subtitle.getValue());
+			referenceObject.put(LOCATION, location.getValue());
+			referenceObject.put(PUBLISHER, publisher.getValue());
 
 			//Journal
 			referenceObject.put(JOURNAL_TITLE, journalTitle);

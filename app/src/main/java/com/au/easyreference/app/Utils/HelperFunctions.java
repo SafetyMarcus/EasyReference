@@ -102,15 +102,15 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder();
 
 		if(!TextUtils.isEmpty(currentReference.author.getValue()))
-			informationBuilder.append(currentReference.author).append(' ');
+			informationBuilder.append(currentReference.author.getValue()).append(' ');
 		if(!TextUtils.isEmpty(currentReference.year.getValue()))
-			informationBuilder.append('(').append(currentReference.year).append("). ");
+			informationBuilder.append('(').append(currentReference.year.getValue()).append("). ");
 		if(!TextUtils.isEmpty(currentReference.title.getValue()))
 		{
 			if(currentReference.type == BOOK_REFERENCE || currentReference.type == WEB_PAGE)
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(currentReference.title);
+			informationBuilder.append(currentReference.title.getValue());
 
 			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle.getValue()) || currentReference.type == WEB_PAGE)
 				currentReference.italicsEnd = informationBuilder.length();
@@ -123,7 +123,7 @@ public class HelperFunctions
 			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(": ").append(currentReference.subtitle).append('.');
+			informationBuilder.append(": ").append(currentReference.subtitle.getValue()).append('.');
 
 			if(currentReference.type == BOOK_REFERENCE)
 				currentReference.italicsEnd = informationBuilder.length();
@@ -138,9 +138,9 @@ public class HelperFunctions
 		informationBuilder.append(' ');
 
 		if(!TextUtils.isEmpty(currentReference.location.getValue()))
-			informationBuilder.append(currentReference.location).append(": ");
+			informationBuilder.append(currentReference.location.getValue()).append(": ");
 		if(!TextUtils.isEmpty(currentReference.publisher.getValue()))
-			informationBuilder.append(currentReference.publisher).append('.');
+			informationBuilder.append(currentReference.publisher.getValue()).append('.');
 
 		return informationBuilder.toString();
 	}
