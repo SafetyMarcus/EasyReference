@@ -164,15 +164,10 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		}
 	};
 
-	public void save()
-	{
-	}
-
 	@Override
 	public void onBackPressed()
 	{
 		super.onBackPressed();
-		save();
 		overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
 	}
 

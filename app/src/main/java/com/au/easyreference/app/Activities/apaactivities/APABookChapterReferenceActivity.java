@@ -2,7 +2,6 @@ package com.au.easyreference.app.activities.apaactivities;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,22 +16,23 @@ import utils.State;
  */
 public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 {
+	@Observe(R.id.book_title)
+	public State<String> bookTitle;
+	@Observe(R.id.book_subtitle)
+	public State<String> bookSubtitle;
+	@Observe(R.id.pages_of_chapter)
+	public State<String> pagesOfChapter;
+	@Observe(R.id.editors)
+	public State<String> editors;
+
 	@Bind(R.id.book_title_label)
 	public TextView bookTitleLabel;
-	@Bind(R.id.book_title)
-	public EditText bookTitle;
 	@Bind(R.id.book_subtitle_label)
 	public TextView bookSubtitleLabel;
-	@Bind(R.id.book_subtitle)
-	public EditText bookSubtitle;
 	@Bind(R.id.pages_of_chapter_label)
 	public TextView pagesOfChapterLabel;
-	@Bind(R.id.pages_of_chapter)
-	public EditText pagesOfChapter;
 	@Bind(R.id.editors_label)
 	public TextView editorsLabel;
-	@Bind(R.id.editors)
-	public EditText editors;
 
 	@Bind(R.id.location_label)
 	public TextView locationLabel;
@@ -51,6 +51,10 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 		setContentView(R.layout.apa_book_chapter_reference_layout);
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.BOOK_CHAPTER);
+		bookTitle = currentReference.bookTitle;
+		bookSubtitle = currentReference.bookSubtitle;
+		pagesOfChapter = currentReference.pagesOfChapter;
+		editors = currentReference.editors;
 		location = currentReference.location;
 		publisher = currentReference.publisher;
 		APABookChapterReferenceActivityViewBinding.watch(this);
@@ -74,15 +78,5 @@ public class APABookChapterReferenceActivity extends BaseAPAReferenceActivity
 
 		publisherLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		publisherLabel.setOnClickListener(new LabelClickListener());
-	}
-
-	@Override
-	public void save()
-	{
-		super.save();
-		currentReference.bookTitle = bookTitle.getText().toString();
-		currentReference.bookSubtitle = bookSubtitle.getText().toString();
-		currentReference.editors = editors.getText().toString();
-		currentReference.pagesOfChapter = pagesOfChapter.getText().toString();
 	}
 }

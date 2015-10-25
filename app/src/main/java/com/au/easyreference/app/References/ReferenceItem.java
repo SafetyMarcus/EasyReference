@@ -50,20 +50,20 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 	public State<String> publisher;
 
 	//Journal
-	public String journalTitle;
-	public String volumeNo;
-	public String issue;
-	public String pageNo;
-	public String doi;
+	public State<String> journalTitle;
+	public State<String> volumeNo;
+	public State<String> issue;
+	public State<String> pageNo;
+	public State<String> doi;
 
 	//Book Chapter
-	public String editors;
-	public String bookTitle;
-	public String bookSubtitle;
-	public String pagesOfChapter;
+	public State<String> editors;
+	public State<String> bookTitle;
+	public State<String> bookSubtitle;
+	public State<String> pagesOfChapter;
 
 	//Web Page
-	public String url;
+	public State<String> url;
 
 	public int type;
 	
@@ -74,18 +74,18 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		this.year = new State<>("");
 		this.title = new State<>("");
 		this.subtitle = new State<>("");
-		this.journalTitle = "";
-		this.volumeNo = "";
-		this.issue = "";
-		this.pageNo = "";
-		this.doi = "";
+		this.journalTitle = new State<>("");
+		this.volumeNo = new State<>("");
+		this.issue = new State<>("");
+		this.pageNo = new State<>("");
+		this.doi = new State<>("");
 		this.location = new State<>("");
 		this.publisher = new State<>("");
-		this.editors = "";
-		this.bookTitle = "";
-		this.bookSubtitle = "";
-		this.pagesOfChapter = "";
-		this.url = "";
+		this.editors = new State<>("");
+		this.bookTitle = new State<>("");
+		this.bookSubtitle = new State<>("");
+		this.pagesOfChapter = new State<>("");
+		this.url = new State<>("");
 
 		this.type = type;
 	}
@@ -108,17 +108,17 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		subtitle = new State<>(result.subtitle);
 		location = new State<>("");
 		publisher = new State<>(result.publisher);
-		journalTitle = result.publicationName;
-		volumeNo = result.volume;
-		issue = result.issue;
-		pageNo = result.pageNo;
-		doi = result.doi;
+		journalTitle = new State<>(result.publicationName);
+		volumeNo = new State<>(result.volume);
+		issue = new State<>(result.issue);
+		pageNo = new State<>(result.pageNo);
+		doi = new State<>(result.doi);
 
-		editors = "";
-		bookTitle = "";
-		bookSubtitle = "";
+		editors = new State<>("");
+		bookTitle = new State<>("");
+		bookSubtitle = new State<>("");
 
-		url = "";
+		url = new State<>("");
 	}
 
 	public ReferenceItem(JSONObject referenceObject)
@@ -135,20 +135,20 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 		publisher = new State<>(referenceObject.optString(PUBLISHER));
 
 		//Journal
-		journalTitle = referenceObject.optString(JOURNAL_TITLE);
-		volumeNo = referenceObject.optString(VOLUME_NO);
-		issue = referenceObject.optString(ISSUE);
-		pageNo = referenceObject.optString(PAGE_NO);
-		doi = referenceObject.optString(DOI);
+		journalTitle = new State<>(referenceObject.optString(JOURNAL_TITLE));
+		volumeNo = new State<>(referenceObject.optString(VOLUME_NO));
+		issue = new State<>(referenceObject.optString(ISSUE));
+		pageNo = new State<>(referenceObject.optString(PAGE_NO));
+		doi = new State<>(referenceObject.optString(DOI));
 
 		//Book Chapter
-		editors = referenceObject.optString(EDITORS);
-		bookTitle = referenceObject.optString(BOOK_TITLE);
-		bookSubtitle = referenceObject.optString(BOOK_SUBTITLE);
-		pagesOfChapter = referenceObject.optString(PAGES_OF_CHAPTER);
+		editors = new State<>(referenceObject.optString(EDITORS));
+		bookTitle = new State<>(referenceObject.optString(BOOK_TITLE));
+		bookSubtitle = new State<>(referenceObject.optString(BOOK_SUBTITLE));
+		pagesOfChapter = new State<>(referenceObject.optString(PAGES_OF_CHAPTER));
 
 		//Web Page
-		url = referenceObject.optString(URL);
+		url = new State<>(referenceObject.optString(URL));
 	}
 
 	public JSONObject toJSON()
@@ -169,20 +169,20 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 			referenceObject.put(PUBLISHER, publisher.getValue());
 
 			//Journal
-			referenceObject.put(JOURNAL_TITLE, journalTitle);
-			referenceObject.put(VOLUME_NO, volumeNo);
-			referenceObject.put(ISSUE, issue);
-			referenceObject.put(PAGE_NO, pageNo);
-			referenceObject.put(DOI, doi);
+			referenceObject.put(JOURNAL_TITLE, journalTitle.getValue());
+			referenceObject.put(VOLUME_NO, volumeNo.getValue());
+			referenceObject.put(ISSUE, issue.getValue());
+			referenceObject.put(PAGE_NO, pageNo.getValue());
+			referenceObject.put(DOI, doi.getValue());
 
 			//Book Chapter
-			referenceObject.put(EDITORS, editors);
-			referenceObject.put(BOOK_TITLE, bookTitle);
-			referenceObject.put(BOOK_SUBTITLE, bookSubtitle);
-			referenceObject.put(PAGES_OF_CHAPTER, pagesOfChapter);
+			referenceObject.put(EDITORS, editors.getValue());
+			referenceObject.put(BOOK_TITLE, bookTitle.getValue());
+			referenceObject.put(BOOK_SUBTITLE, bookSubtitle.getValue());
+			referenceObject.put(PAGES_OF_CHAPTER, pagesOfChapter.getValue());
 
 			//Web Page
-			referenceObject.put(URL, url);
+			referenceObject.put(URL, url.getValue());
 		}
 		catch(JSONException e)
 		{

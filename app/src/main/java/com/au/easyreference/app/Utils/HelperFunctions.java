@@ -151,34 +151,34 @@ public class HelperFunctions
 		informationBuilder.append(' ');
 		Context context = ERApplication.getInstance();
 
-		if(!TextUtils.isEmpty(currentReference.editors))
+		if(!TextUtils.isEmpty(currentReference.editors.getValue()))
 			informationBuilder.append(context.getString(R.string.in))
 					.append(' ')
-					.append(currentReference.editors)
+					.append(currentReference.editors.getValue())
 					.append(' ')
 					.append(context.getString(R.string.eds))
 					.append(", ");
-		if(!TextUtils.isEmpty(currentReference.bookTitle))
+		if(!TextUtils.isEmpty(currentReference.bookTitle.getValue()))
 		{
 			currentReference.italicsStart = informationBuilder.length() - 1;
-			informationBuilder.append(currentReference.bookTitle);
+			informationBuilder.append(currentReference.bookTitle.getValue());
 
-			if(TextUtils.isEmpty(currentReference.bookSubtitle))
+			if(TextUtils.isEmpty(currentReference.bookSubtitle.getValue()))
 				currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.bookSubtitle))
+		if(!TextUtils.isEmpty(currentReference.bookSubtitle.getValue()))
 		{
-			if(TextUtils.isEmpty(currentReference.bookTitle))
+			if(TextUtils.isEmpty(currentReference.bookTitle.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(": ")
-					.append(currentReference.bookSubtitle);
+					.append(currentReference.bookSubtitle.getValue());
 			currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.pagesOfChapter))
+		if(!TextUtils.isEmpty(currentReference.pagesOfChapter.getValue()))
 			informationBuilder.append(" (")
 					.append(context.getString(R.string.pp))
-					.append(currentReference.pagesOfChapter)
+					.append(currentReference.pagesOfChapter.getValue())
 					.append(").");
 		if(!TextUtils.isEmpty(currentReference.location.getValue()))
 			informationBuilder.append(' ').append(currentReference.location).append(": ");
@@ -193,28 +193,28 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 		informationBuilder.append(' ');
 
-		if(!TextUtils.isEmpty(currentReference.journalTitle))
+		if(!TextUtils.isEmpty(currentReference.journalTitle.getValue()))
 		{
 			currentReference.italicsStart = informationBuilder.length() - 1;
-			informationBuilder.append(currentReference.journalTitle);
+			informationBuilder.append(currentReference.journalTitle.getValue());
 
-			if(TextUtils.isEmpty(currentReference.volumeNo))
+			if(TextUtils.isEmpty(currentReference.volumeNo.getValue()))
 				currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.volumeNo))
+		if(!TextUtils.isEmpty(currentReference.volumeNo.getValue()))
 		{
-			if(TextUtils.isEmpty(currentReference.journalTitle))
+			if(TextUtils.isEmpty(currentReference.journalTitle.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(' ').append(currentReference.volumeNo);
+			informationBuilder.append(' ').append(currentReference.volumeNo.getValue());
 			currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.issue))
-			informationBuilder.append('(').append(currentReference.issue).append("), ");
-		if(!TextUtils.isEmpty(currentReference.pageNo))
-			informationBuilder.append(currentReference.pageNo).append('.');
-		if(!TextUtils.isEmpty(currentReference.doi))
-			informationBuilder.append(" doi:").append(currentReference.doi);
+		if(!TextUtils.isEmpty(currentReference.issue.getValue()))
+			informationBuilder.append('(').append(currentReference.issue.getValue()).append("), ");
+		if(!TextUtils.isEmpty(currentReference.pageNo.getValue()))
+			informationBuilder.append(currentReference.pageNo.getValue()).append('.');
+		if(!TextUtils.isEmpty(currentReference.doi.getValue()))
+			informationBuilder.append(" doi:").append(currentReference.doi.getValue());
 
 		return informationBuilder.toString();
 	}
@@ -224,8 +224,8 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 		informationBuilder.append(' ');
 
-		if(!TextUtils.isEmpty(currentReference.url))
-			informationBuilder.append("Retrieved from ").append(currentReference.url);
+		if(!TextUtils.isEmpty(currentReference.url.getValue()))
+			informationBuilder.append("Retrieved from ").append(currentReference.url.getValue());
 
 		return informationBuilder.toString();
 	}
