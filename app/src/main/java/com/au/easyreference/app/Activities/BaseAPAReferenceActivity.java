@@ -99,6 +99,7 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		author = currentReference.author;
 		year = currentReference.year;
 		subtitle = currentReference.subtitle;
+		BaseAPAReferenceActivityViewBinding.watch(this);
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 
