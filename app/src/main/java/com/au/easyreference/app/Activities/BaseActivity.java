@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * @author Marcus Hooper
  */
-public class BaseActivity extends ActionBarActivity
+public class BaseActivity extends AppCompatActivity
 {
 	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;

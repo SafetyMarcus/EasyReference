@@ -9,7 +9,7 @@ import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.easygoingapps.annotations.Observe;
-import utils.State;
+import com.easygoingapps.utils.State;
 
 /**
  * @author Marcus Hooper
@@ -29,7 +29,7 @@ public class APAWebPageReferenceActivity extends BaseAPAReferenceActivity
 		ButterKnife.bind(this);
 		setUpReferenceActivity(ReferenceItem.BOOK_REFERENCE);
 		url = currentReference.url;
-		APAWebPageReferenceActivityViewBinding.watch(this);
+		APAWebPageReferenceActivityBinding.watch(this);
 
 		toolbar.setTitle(getString(R.string.apa_web_reference));
 		urlLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);

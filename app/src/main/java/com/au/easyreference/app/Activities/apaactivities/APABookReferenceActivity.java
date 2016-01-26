@@ -9,7 +9,7 @@ import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.easygoingapps.annotations.Observe;
-import utils.State;
+import com.easygoingapps.utils.State;
 
 /**
  * @author Marcus Hooper
@@ -36,7 +36,7 @@ public class APABookReferenceActivity extends BaseAPAReferenceActivity
 		setUpReferenceActivity(ReferenceItem.BOOK_REFERENCE);
 		location = currentReference.location;
 		publisher = currentReference.publisher;
-		APABookReferenceActivityViewBinding.watch(this);
+		APABookReferenceActivityBinding.watch(this);
 
 		toolbar.setTitle(getString(R.string.apa_book_reference));
 

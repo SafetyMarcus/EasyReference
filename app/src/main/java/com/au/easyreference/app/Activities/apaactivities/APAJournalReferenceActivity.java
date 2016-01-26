@@ -9,7 +9,7 @@ import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
 import com.easygoingapps.annotations.Observe;
-import utils.State;
+import com.easygoingapps.utils.State;
 
 /**
  * @author Marcus Hooper
@@ -51,7 +51,7 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 		issue = currentReference.issue;
 		pageNo = currentReference.pageNo;
 		doi = currentReference.doi;
-		APAJournalReferenceActivityViewBinding.watch(this);
+		APAJournalReferenceActivityBinding.watch(this);
 
 		toolbar.setTitle(getString(R.string.apa_journal_reference));
 

@@ -20,8 +20,9 @@ import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
+import com.easygoingapps.ThePoliceProcessor;
 import com.easygoingapps.annotations.Observe;
-import utils.State;
+import com.easygoingapps.utils.State;
 
 /**
  * @author Marcus Hooper
@@ -99,7 +100,7 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		author = currentReference.author;
 		year = currentReference.year;
 		subtitle = currentReference.subtitle;
-		BaseAPAReferenceActivityViewBinding.watch(this);
+		BaseAPAReferenceActivityBinding.watch(this);
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 

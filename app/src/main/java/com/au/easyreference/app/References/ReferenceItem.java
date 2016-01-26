@@ -3,9 +3,9 @@ package com.au.easyreference.app.references;
 import android.support.annotation.NonNull;
 import com.au.easyreference.app.utils.HelperFunctions;
 import com.au.easyreference.app.utils.Result;
+import com.easygoingapps.utils.State;
 import org.json.JSONException;
 import org.json.JSONObject;
-import utils.State;
 
 import java.util.UUID;
 
