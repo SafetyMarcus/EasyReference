@@ -20,7 +20,7 @@ import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
-import com.easygoingapps.ThePoliceProcessor;
+import com.easygoingapps.ThePolice;
 import com.easygoingapps.annotations.Observe;
 import com.easygoingapps.utils.State;
 
@@ -100,7 +100,7 @@ public class BaseAPAReferenceActivity extends BaseActivity
 		author = currentReference.author;
 		year = currentReference.year;
 		subtitle = currentReference.subtitle;
-		BaseAPAReferenceActivityBinding.watch(this);
+		ThePolice.watch(this);
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 

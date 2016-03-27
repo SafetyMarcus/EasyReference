@@ -2,6 +2,7 @@ package com.au.easyreference.app.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.references.ReferenceItem;
@@ -71,6 +72,7 @@ public class HelperFunctions
 		return newPath.toString();
 	}
 
+	@Nullable
 	public static ReferenceList getReferenceListForId(String id)
 	{
 		for(ReferenceList list : ERApplication.referenceLists)

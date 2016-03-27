@@ -8,6 +8,7 @@ import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
+import com.easygoingapps.ThePolice;
 import com.easygoingapps.annotations.Observe;
 import com.easygoingapps.utils.State;
 
@@ -36,7 +37,7 @@ public class APABookReferenceActivity extends BaseAPAReferenceActivity
 		setUpReferenceActivity(ReferenceItem.BOOK_REFERENCE);
 		location = currentReference.location;
 		publisher = currentReference.publisher;
-		APABookReferenceActivityBinding.watch(this);
+		ThePolice.watch(this);
 
 		toolbar.setTitle(getString(R.string.apa_book_reference));
 

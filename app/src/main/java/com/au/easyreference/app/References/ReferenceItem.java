@@ -54,6 +54,7 @@ public class ReferenceItem implements Comparable<ReferenceItem>
 	public State<String> volumeNo;
 	public State<String> issue;
 	public State<String> pageNo;
+	@NonNull
 	public State<String> doi;
 
 	//Book Chapter

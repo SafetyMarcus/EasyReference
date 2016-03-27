@@ -8,6 +8,7 @@ import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.BaseAPAReferenceActivity;
 import com.au.easyreference.app.references.ReferenceItem;
+import com.easygoingapps.ThePolice;
 import com.easygoingapps.annotations.Observe;
 import com.easygoingapps.utils.State;
 
@@ -51,7 +52,7 @@ public class APAJournalReferenceActivity extends BaseAPAReferenceActivity
 		issue = currentReference.issue;
 		pageNo = currentReference.pageNo;
 		doi = currentReference.doi;
-		APAJournalReferenceActivityBinding.watch(this);
+		ThePolice.watch(this);
 
 		toolbar.setTitle(getString(R.string.apa_journal_reference));
 

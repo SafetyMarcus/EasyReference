@@ -92,7 +92,8 @@ public class ReferenceListActivity extends BaseActivity
 			if(id != null)
 			{
 				referenceList = HelperFunctions.getReferenceListForId(id);
-				type = referenceList.referenceType;
+				if(referenceList != null)
+					type = referenceList.referenceType;
 			}
 			else
 			{
@@ -101,7 +102,8 @@ public class ReferenceListActivity extends BaseActivity
 				ERApplication.referenceLists.add(referenceList);
 			}
 
-			title.setText(referenceList.title);
+			if(referenceList != null)
+				title.setText(referenceList.title);
 		}
 
 		adapter = new ReferenceListAdapter(this, referenceList, getLayoutInflater());
