@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.MainAdapter;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.ui.FloatInAnimation;
@@ -17,9 +17,9 @@ import com.twotoasters.jazzylistview.JazzyListView;
 
 public class MainActivity extends BaseActivity
 {
-	@InjectView(R.id.references_list)
-	protected JazzyListView referenceLists;
-	@InjectView(R.id.plus_button)
+	@Bind(R.id.references_list)
+	public JazzyListView referenceLists;
+	@Bind(R.id.plus_button)
 	public ImageView plusButton;
 
 	private MainAdapter referenceListAdapter;
@@ -27,9 +27,9 @@ public class MainActivity extends BaseActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		setContentView(R.layout.main_view);
 		super.onCreate(savedInstanceState);
-		ButterKnife.inject(this);
+		setContentView(R.layout.main_view);
+		ButterKnife.bind(this);
 
 		setSupportActionBar(toolbar);
 		if(savedInstanceState == null)

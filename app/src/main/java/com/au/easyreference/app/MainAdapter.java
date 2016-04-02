@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.activities.MainActivity;
 import com.au.easyreference.app.activities.ReferenceListActivity;
 import com.au.easyreference.app.references.ReferenceList;
@@ -85,22 +87,22 @@ public class MainAdapter extends ShowOptionsAdapter
 
 	public class ReferenceListHolder
 	{
-		@InjectView(R.id.reference_title)
+		@Bind(R.id.reference_title)
 		public TextView title;
-		@InjectView(R.id.reference_subtext)
+		@Bind(R.id.reference_subtext)
 		public TextView subtext;
-		@InjectView(R.id.edit)
+		@Bind(R.id.edit)
 		public ImageView edit;
-		@InjectView(R.id.export)
+		@Bind(R.id.export)
 		public ImageView export;
-		@InjectView(R.id.delete)
+		@Bind(R.id.delete)
 		public ImageView delete;
-		@InjectView(R.id.options_layout)
+		@Bind(R.id.options_layout)
 		public LinearLayout optionsLayout;
 
 		public ReferenceListHolder(View view)
 		{
-			ButterKnife.inject(this, view);
+			ButterKnife.bind(this, view);
 		}
 	}
 
@@ -174,6 +176,7 @@ public class MainAdapter extends ShowOptionsAdapter
 	public class OnDeleteClickListener implements View.OnClickListener
 	{
 		private int position;
+		private Snackbar snackbar;
 
 		public OnDeleteClickListener(int position)
 		{
@@ -184,9 +187,35 @@ public class MainAdapter extends ShowOptionsAdapter
 		public void onClick(View v)
 		{
 			selected = -1;
+
+			final ReferenceList referenceList = ERApplication.referenceLists.get(position);
+
 			new File(HelperFunctions.getReferenceListPath(ERApplication.referenceLists.get(position).id, activity.get().getApplication())).delete();
 			ERApplication.referenceLists.remove(position);
 			notifyDataSetChanged();
+
+			snackbar = Snackbar.make(activity.get().referenceLists, getContext().getString(R.string.deleted) + ' ' + referenceList.title, Snackbar.LENGTH_LONG)
+			.setAction(R.string.undo, new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					ERApplication.referenceLists.add(position, referenceList);
+					notifyDataSetChanged();
+					referenceList.saveToFile(ERApplication.getInstance());
+					activity.get().plusButton.animate().translationY(0).start();
+				}
+			});
+			snackbar.show();
+			activity.get().plusButton.animate().translationY(-(getContext().getResources().getDisplayMetrics().density * 48)).start();
+			new Handler().postDelayed(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					activity.get().plusButton.animate().translationY(0).start();
+				}
+			}, 3100);
 		}
 	}
 }

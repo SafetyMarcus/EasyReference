@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.activities.ReferenceListActivity;
 import com.au.easyreference.app.ui.ShowOptionsAdapter;
@@ -97,18 +97,18 @@ public class ReferenceListAdapter extends ShowOptionsAdapter
 
 	public class ReferenceItemHolder
 	{
-		@InjectView(R.id.reference_title)
+		@Bind(R.id.reference_title)
 		public TextView information;
-		@InjectView(R.id.edit)
+		@Bind(R.id.edit)
 		public ImageView edit;
-		@InjectView(R.id.delete)
+		@Bind(R.id.delete)
 		public ImageView delete;
-		@InjectView(R.id.options_layout)
+		@Bind(R.id.options_layout)
 		public LinearLayout optionsLayout;
 
 		public ReferenceItemHolder(View view)
 		{
-			ButterKnife.inject(this, view);
+			ButterKnife.bind(this, view);
 		}
 	}
 

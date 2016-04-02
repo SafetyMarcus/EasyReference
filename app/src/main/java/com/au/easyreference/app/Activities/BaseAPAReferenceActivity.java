@@ -2,15 +2,15 @@ package com.au.easyreference.app.activities;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.InjectView;
-import butterknife.Optional;
+import butterknife.Bind;
+import butterknife.BindColor;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.fragments.AuthorDialogFragment;
 import com.au.easyreference.app.fragments.ContainerDialogFragment;
@@ -20,6 +20,9 @@ import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.references.ReferenceList;
 import com.au.easyreference.app.utils.ERApplication;
 import com.au.easyreference.app.utils.Result;
+import com.easygoingapps.ThePolice;
+import com.easygoingapps.annotations.Observe;
+import com.easygoingapps.utils.State;
 
 /**
  * @author Marcus Hooper
@@ -29,39 +32,40 @@ public class BaseAPAReferenceActivity extends BaseActivity
 	public static final String KEY_LIST_ID = "key_list_id";
 	public static final String KEY_ID = "key_id";
 
-	@InjectView(R.id.author_label)
+	@Observe(R.id.author)
+	public State<String> author;
+	@Observe(R.id.year)
+	public State<String> year;
+	@Observe(R.id.title)
+	public State<String> title;
+
+	@Bind(R.id.author_label)
 	public TextView authorLabel;
-	@InjectView(R.id.author)
-	public EditText author;
-	@InjectView(R.id.author_button)
+	@Bind(R.id.author_button)
 	public Button authorButton;
-	@InjectView(R.id.year_label)
+	@Bind(R.id.year_label)
 	public TextView yearLabel;
-	@InjectView(R.id.year)
-	public EditText year;
-	@InjectView(R.id.title_label)
+	@Bind(R.id.title_label)
 	public TextView titleLabel;
-	@InjectView(R.id.title)
-	public EditText title;
 
-	@Optional
-	@InjectView(R.id.subtitle_label)
+	@Observe(R.id.subtitle)
+	public State<String> subtitle;
+
+	@Nullable
+	@Bind(R.id.subtitle_label)
 	public TextView subtitleLabel;
-	@Optional
-	@InjectView(R.id.subtitle)
-	public EditText subtitle;
 
-	@InjectView(R.id.toolbar)
+	@Bind(R.id.toolbar)
 	protected Toolbar toolbar;
+
+	public @BindColor(R.color.light_gray) int lightGray;
 
 	public ReferenceList referenceList;
 	public ReferenceItem currentReference;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public void setUpReferenceActivity(int type)
 	{
-		super.onCreate(savedInstanceState);
-		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
+		toolbar.setNavigationIcon(R.drawable.arrow_back_white);
 		toolbar.setNavigationOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -83,23 +87,35 @@ public class BaseAPAReferenceActivity extends BaseActivity
 					referenceList = list;
 
 			if(args.containsKey(KEY_ID))
-				setUpView(args.getString(KEY_ID));
+				currentReference = referenceList.getReferenceForId(args.getString(KEY_ID));
 		}
+
+		if(currentReference == null)
+		{
+			currentReference = new ReferenceItem(type);
+			referenceList.referenceList.add(currentReference);
+		}
+
+		title = currentReference.title;
+		author = currentReference.author;
+		year = currentReference.year;
+		subtitle = currentReference.subtitle;
+		ThePolice.watch(this);
 
 		authorButton.setOnClickListener(new AuthorClickListener());
 
-		authorLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		authorLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		authorLabel.setOnClickListener(new LabelClickListener());
 
-		yearLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		yearLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		yearLabel.setOnClickListener(new LabelClickListener());
 
-		titleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+		titleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 		titleLabel.setOnClickListener(new LabelClickListener());
 
 		if(subtitleLabel != null)
 		{
-			subtitleLabel.getCompoundDrawables()[2].setColorFilter(getResources().getColor(R.color.light_gray), PorterDuff.Mode.SRC_IN);
+			subtitleLabel.getCompoundDrawables()[2].setColorFilter(lightGray, PorterDuff.Mode.SRC_IN);
 			subtitleLabel.setOnClickListener(new LabelClickListener());
 		}
 	}
@@ -145,34 +161,9 @@ public class BaseAPAReferenceActivity extends BaseActivity
 			newReference.id = currentReference.id;
 
 			referenceList.referenceList.add(index, newReference);
-			setUpView(currentReference.id);
+			currentReference = referenceList.getReferenceForId(currentReference.id);
 		}
 	};
-
-	public void setUpView(String id)
-	{
-		currentReference = referenceList.getReferenceForId(id);
-
-		if(currentReference != null)
-		{
-			if(currentReference.author != null && currentReference.author.length() > 0)
-				author.setText(currentReference.author);
-			if(currentReference.year != null && currentReference.year.length() > 0)
-				year.setText(currentReference.year);
-			if(currentReference.title != null && currentReference.title.length() > 0)
-				title.setText(currentReference.title);
-			if(subtitle != null && currentReference.subtitle != null && currentReference.subtitle.length() > 0)
-				subtitle.setText(currentReference.subtitle);
-		}
-	}
-
-	public void save()
-	{
-		currentReference.author = author.getText().toString();
-		currentReference.year = year.getText().toString();
-		currentReference.title = title.getText().toString();
-		currentReference.subtitle = subtitle != null ? subtitle.getText().toString() : "";
-	}
 
 	@Override
 	public void onBackPressed()
@@ -183,17 +174,17 @@ public class BaseAPAReferenceActivity extends BaseActivity
 
 	public void addAuthor(String authorString)
 	{
-		if(author.getText().length() > 0)
+		StringBuilder currentText = new StringBuilder(author.getValue());
+		if(author.getValue().length() > 0)
 		{
-			String currentText = author.getText().toString();
+			if(currentText.toString().contains(" & "))
+				currentText = new StringBuilder(currentText.toString().replace(" & ", ""));
 
-			if(currentText.contains(" & "))
-				currentText = currentText.replace(" & ", "");
-
-			author.setText(currentText + ", & ");
+			currentText.append(", & ");
 		}
 
-		author.append(getFormattedAuthorString(authorString));
+		currentText.append(getFormattedAuthorString(authorString));
+		author.setValue(currentText.toString());
 	}
 
 	private String getFormattedAuthorString(String originalString)

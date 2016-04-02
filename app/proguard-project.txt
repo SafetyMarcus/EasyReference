@@ -123,8 +123,8 @@
 
 #Butter Knife
 -dontwarn butterknife.internal.**
--keep class **$$ViewInjector { *; }
--keepnames class * { @butterknife.InjectView *;}
+-keep class **$$ViewBinder { *; }
+-keepnames class * { @butterknife.Bind *;}
 
 #Jackson
 -keep class org.codehaus.** { *; }

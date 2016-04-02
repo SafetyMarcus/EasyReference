@@ -2,6 +2,7 @@ package com.au.easyreference.app.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.au.easyreference.app.R;
 import com.au.easyreference.app.references.ReferenceItem;
@@ -71,6 +72,7 @@ public class HelperFunctions
 		return newPath.toString();
 	}
 
+	@Nullable
 	public static ReferenceList getReferenceListForId(String id)
 	{
 		for(ReferenceList list : ERApplication.referenceLists)
@@ -80,6 +82,11 @@ public class HelperFunctions
 		}
 
 		return null;
+	}
+
+	public static float convertIntToDp(int amount)
+	{
+		return ERApplication.getInstance().getResources().getDisplayMetrics().density * amount;
 	}
 
 	public static String getReferenceListTypeString(int referenceType, Context context)
@@ -96,29 +103,29 @@ public class HelperFunctions
 	{
 		StringBuilder informationBuilder = new StringBuilder();
 
-		if(!TextUtils.isEmpty(currentReference.author))
-			informationBuilder.append(currentReference.author).append(' ');
-		if(!TextUtils.isEmpty(currentReference.year))
-			informationBuilder.append('(').append(currentReference.year).append("). ");
-		if(!TextUtils.isEmpty(currentReference.title))
+		if(!TextUtils.isEmpty(currentReference.author.getValue()))
+			informationBuilder.append(currentReference.author.getValue()).append(' ');
+		if(!TextUtils.isEmpty(currentReference.year.getValue()))
+			informationBuilder.append('(').append(currentReference.year.getValue()).append("). ");
+		if(!TextUtils.isEmpty(currentReference.title.getValue()))
 		{
 			if(currentReference.type == BOOK_REFERENCE || currentReference.type == WEB_PAGE)
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(currentReference.title);
+			informationBuilder.append(currentReference.title.getValue());
 
-			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle) || currentReference.type == WEB_PAGE)
+			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.subtitle.getValue()) || currentReference.type == WEB_PAGE)
 				currentReference.italicsEnd = informationBuilder.length();
 
-			if(TextUtils.isEmpty(currentReference.subtitle))
+			if(TextUtils.isEmpty(currentReference.subtitle.getValue()))
 				informationBuilder.append('.');
 		}
-		if(!TextUtils.isEmpty(currentReference.subtitle))
+		if(!TextUtils.isEmpty(currentReference.subtitle.getValue()))
 		{
-			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title))
+			if(currentReference.type == BOOK_REFERENCE && TextUtils.isEmpty(currentReference.title.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(": ").append(currentReference.subtitle).append('.');
+			informationBuilder.append(": ").append(currentReference.subtitle.getValue()).append('.');
 
 			if(currentReference.type == BOOK_REFERENCE)
 				currentReference.italicsEnd = informationBuilder.length();
@@ -132,10 +139,10 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 		informationBuilder.append(' ');
 
-		if(!TextUtils.isEmpty(currentReference.location))
-			informationBuilder.append(currentReference.location).append(": ");
-		if(!TextUtils.isEmpty(currentReference.publisher))
-			informationBuilder.append(currentReference.publisher).append('.');
+		if(!TextUtils.isEmpty(currentReference.location.getValue()))
+			informationBuilder.append(currentReference.location.getValue()).append(": ");
+		if(!TextUtils.isEmpty(currentReference.publisher.getValue()))
+			informationBuilder.append(currentReference.publisher.getValue()).append('.');
 
 		return informationBuilder.toString();
 	}
@@ -146,38 +153,38 @@ public class HelperFunctions
 		informationBuilder.append(' ');
 		Context context = ERApplication.getInstance();
 
-		if(!TextUtils.isEmpty(currentReference.editors))
+		if(!TextUtils.isEmpty(currentReference.editors.getValue()))
 			informationBuilder.append(context.getString(R.string.in))
 					.append(' ')
-					.append(currentReference.editors)
+					.append(currentReference.editors.getValue())
 					.append(' ')
 					.append(context.getString(R.string.eds))
 					.append(", ");
-		if(!TextUtils.isEmpty(currentReference.bookTitle))
+		if(!TextUtils.isEmpty(currentReference.bookTitle.getValue()))
 		{
 			currentReference.italicsStart = informationBuilder.length() - 1;
-			informationBuilder.append(currentReference.bookTitle);
+			informationBuilder.append(currentReference.bookTitle.getValue());
 
-			if(TextUtils.isEmpty(currentReference.bookSubtitle))
+			if(TextUtils.isEmpty(currentReference.bookSubtitle.getValue()))
 				currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.bookSubtitle))
+		if(!TextUtils.isEmpty(currentReference.bookSubtitle.getValue()))
 		{
-			if(TextUtils.isEmpty(currentReference.bookTitle))
+			if(TextUtils.isEmpty(currentReference.bookTitle.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
 			informationBuilder.append(": ")
-					.append(currentReference.bookSubtitle);
+					.append(currentReference.bookSubtitle.getValue());
 			currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.pagesOfChapter))
+		if(!TextUtils.isEmpty(currentReference.pagesOfChapter.getValue()))
 			informationBuilder.append(" (")
 					.append(context.getString(R.string.pp))
-					.append(currentReference.pagesOfChapter)
+					.append(currentReference.pagesOfChapter.getValue())
 					.append(").");
-		if(!TextUtils.isEmpty(currentReference.location))
+		if(!TextUtils.isEmpty(currentReference.location.getValue()))
 			informationBuilder.append(' ').append(currentReference.location).append(": ");
-		if(!TextUtils.isEmpty(currentReference.publisher))
+		if(!TextUtils.isEmpty(currentReference.publisher.getValue()))
 			informationBuilder.append(currentReference.publisher).append('.');
 
 		return informationBuilder.toString();
@@ -188,28 +195,28 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 		informationBuilder.append(' ');
 
-		if(!TextUtils.isEmpty(currentReference.journalTitle))
+		if(!TextUtils.isEmpty(currentReference.journalTitle.getValue()))
 		{
 			currentReference.italicsStart = informationBuilder.length() - 1;
-			informationBuilder.append(currentReference.journalTitle);
+			informationBuilder.append(currentReference.journalTitle.getValue());
 
-			if(TextUtils.isEmpty(currentReference.volumeNo))
+			if(TextUtils.isEmpty(currentReference.volumeNo.getValue()))
 				currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.volumeNo))
+		if(!TextUtils.isEmpty(currentReference.volumeNo.getValue()))
 		{
-			if(TextUtils.isEmpty(currentReference.journalTitle))
+			if(TextUtils.isEmpty(currentReference.journalTitle.getValue()))
 				currentReference.italicsStart = informationBuilder.length() - 1;
 
-			informationBuilder.append(' ').append(currentReference.volumeNo);
+			informationBuilder.append(' ').append(currentReference.volumeNo.getValue());
 			currentReference.italicsEnd = informationBuilder.length();
 		}
-		if(!TextUtils.isEmpty(currentReference.issue))
-			informationBuilder.append('(').append(currentReference.issue).append("), ");
-		if(!TextUtils.isEmpty(currentReference.pageNo))
-			informationBuilder.append(currentReference.pageNo).append('.');
-		if(!TextUtils.isEmpty(currentReference.doi))
-			informationBuilder.append(" doi:").append(currentReference.doi);
+		if(!TextUtils.isEmpty(currentReference.issue.getValue()))
+			informationBuilder.append('(').append(currentReference.issue.getValue()).append("), ");
+		if(!TextUtils.isEmpty(currentReference.pageNo.getValue()))
+			informationBuilder.append(currentReference.pageNo.getValue()).append('.');
+		if(!TextUtils.isEmpty(currentReference.doi.getValue()))
+			informationBuilder.append(" doi:").append(currentReference.doi.getValue());
 
 		return informationBuilder.toString();
 	}
@@ -219,8 +226,8 @@ public class HelperFunctions
 		StringBuilder informationBuilder = new StringBuilder(getAPAReferenceString(currentReference));
 		informationBuilder.append(' ');
 
-		if(!TextUtils.isEmpty(currentReference.url))
-			informationBuilder.append("Retrieved from ").append(currentReference.url);
+		if(!TextUtils.isEmpty(currentReference.url.getValue()))
+			informationBuilder.append("Retrieved from ").append(currentReference.url.getValue());
 
 		return informationBuilder.toString();
 	}
