@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="processing-1.0.7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.safetymarcus.thepolice/processing/1.0.7/83099f1cdfbf33dd752e0f5898d2da2a083c09f0/processing-1.0.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.safetymarcus.thepolice/processing/1.0.7/6d9de479bfb7dfa5f020a80af30c90a618beadc3/processing-1.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
