@@ -1,11 +1,8 @@
 package com.au.easyreference.app.activities;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
@@ -49,14 +46,8 @@ public class ReferenceListActivity extends BaseActivity
 
 	@Bind(R.id.plus_button)
 	protected ImageView plusButton;
-	@Bind(R.id.plus_book)
-	protected ImageView plusBook;
-	@Bind(R.id.plus_web)
-	protected ImageView plusWeb;
-	@Bind(R.id.plus_journal)
-	protected ImageView plusJournal;
-	@Bind(R.id.plus_book_chapter)
-	protected ImageView plusBookChapter;
+	@Bind(R.id.selection_background)
+	protected View selectionView;
 
 	public ReferenceListAdapter adapter;
 	public int type;
@@ -73,15 +64,7 @@ public class ReferenceListActivity extends BaseActivity
 		ButterKnife.bind(this);
 
 		setSupportActionBar(toolbar);
-		toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow_back_white));
-		toolbar.setNavigationOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				onBackPressed();
-			}
-		});
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
 		if(intent != null)
@@ -113,185 +96,36 @@ public class ReferenceListActivity extends BaseActivity
 		referencesListView.addFooterView(getLayoutInflater().inflate(R.layout.footer, referencesListView, false), null, false);
 		referencesListView.setFooterDividersEnabled(false);
 
-		setVisibility(View.GONE);
-
-		plusBook.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-		plusJournal.getDrawable().mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-		MiniPlusListener miniPlusListener = new MiniPlusListener();
-		plusBook.setOnClickListener(miniPlusListener);
-		plusJournal.setOnClickListener(miniPlusListener);
-		plusBookChapter.setOnClickListener(miniPlusListener);
-		plusWeb.setOnClickListener(miniPlusListener);
-
 		plusButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
+				AnimatorSet set = new AnimatorSet();
+				float x, y;
 				if(!expandedOptions)
-					expandFab();
+				{
+					View window = getWindow().getDecorView();
+					x = -(plusButton.getX() - (window.getWidth() / 2)) - (plusButton.getWidth()/2);
+					y = -(plusButton.getY() - (window.getHeight() / 2)) - (plusButton.getHeight());
+				}
 				else
-					collapseFab(null);
+				{
+					x = 0;
+					y = 0;
+				}
+
+				ObjectAnimator alpha = ObjectAnimator.ofFloat(selectionView, "alpha", expandedOptions ? 0 : 1);
+				ObjectAnimator rotate = ObjectAnimator.ofFloat(plusButton, "rotation", expandedOptions ? 0 : 45);
+				ObjectAnimator xAnimator = ObjectAnimator.ofFloat(plusButton, "translationX", x);
+				ObjectAnimator yAnimator = ObjectAnimator.ofFloat(plusButton, "translationY", y);
+				set.playTogether(alpha, rotate, xAnimator, yAnimator);
+				set.start();
 
 				expandedOptions = !expandedOptions;
 			}
 		});
 	}
-
-	private static final float up = -HelperFunctions.convertIntToDp(80);
-
-	private void expandFab()
-	{
-		setVisibility(View.VISIBLE);
-
-		ObjectAnimator.ofFloat(plusButton, "rotation", 0, 45).start();
-		AnimatorSet animatorSet = new AnimatorSet();
-		animatorSet.playTogether(animateViewUp(plusBook, false), animateViewUp(plusJournal, false), animateViewUp(plusBookChapter, false), animateViewUp(plusWeb, false));
-		animatorSet.addListener(new AnimationEndListener()
-		{
-			@Override
-			void onEnd(Animator animation)
-			{
-				AnimatorSet set = new AnimatorSet();
-				Animator translateBookDown = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, up, -HelperFunctions.convertIntToDp(70)).setDuration(100);
-				set.playTogether(translateBookDown, animateViewLeftDown(plusJournal, 1, false), animateViewLeftDown(plusBookChapter, 1, false), animateViewLeftDown(plusWeb, 1, false));
-				set.addListener(new AnimationEndListener()
-				{
-					@Override
-					void onEnd(Animator animation)
-					{
-						AnimatorSet set = new AnimatorSet();
-						set.playTogether(animateViewLeftDown(plusBookChapter, 2, false), animateViewLeftDown(plusWeb, 2, false));
-						set.addListener(new AnimationEndListener()
-						{
-							@Override
-							void onEnd(Animator animation)
-							{
-								animateViewLeftDown(plusWeb, 3, false).start();
-							}
-						});
-						set.start();
-					}
-				});
-				set.start();
-			}
-		});
-		animatorSet.start();
-	}
-
-	private Animator animateViewUp(View view, boolean reverse)
-	{
-		if(reverse)
-			return ObjectAnimator.ofFloat(view, TRANSLATION_Y, up, 0).setDuration(300);
-		return ObjectAnimator.ofFloat(view, TRANSLATION_Y, 0, up).setDuration(300);
-	}
-
-	private Animator animateViewLeftDown(View view, int level, boolean reverse)
-	{
-		float left = 0;
-		float down = 0;
-		float originx = 0;
-		float originy = 0;
-
-		if(level == 1)
-		{
-			left = -HelperFunctions.convertIntToDp(44);
-			originx = 0;
-			down = -HelperFunctions.convertIntToDp(60);
-			originy = up;
-		}
-		else if(level == 2)
-		{
-			left = -HelperFunctions.convertIntToDp(76);
-			originx = -HelperFunctions.convertIntToDp(44);
-			down = -HelperFunctions.convertIntToDp(28);
-			originy = -HelperFunctions.convertIntToDp(60);
-		}
-		else if(level == 3)
-		{
-			left = -HelperFunctions.convertIntToDp(76);
-			originx = -HelperFunctions.convertIntToDp(76);
-			down = HelperFunctions.convertIntToDp(16);
-			originy = -HelperFunctions.convertIntToDp(28);
-		}
-
-		AnimatorSet set = new AnimatorSet();
-		Animator leftAnimation;
-		Animator downAnimation;
-
-		if(reverse)
-		{
-			leftAnimation = ObjectAnimator.ofFloat(view, TRANSLATION_X, left, originx).setDuration(150);
-			downAnimation = ObjectAnimator.ofFloat(view, TRANSLATION_Y, down, originy).setDuration(150);
-		}
-		else
-		{
-			leftAnimation = ObjectAnimator.ofFloat(view, TRANSLATION_X, originx, left).setDuration(150);
-			downAnimation = ObjectAnimator.ofFloat(view, TRANSLATION_Y, originy, down).setDuration(150);
-		}
-
-		set.playTogether(leftAnimation, downAnimation);
-		return set;
-	}
-
-	private void collapseFab(final ReferenceItem referenceItem)
-	{
-		ObjectAnimator.ofFloat(plusButton, "rotation", 45, 0).start();
-		Animator set = animateViewLeftDown(plusWeb, 3, true);
-		set.addListener(new AnimationEndListener()
-		{
-			@Override
-			void onEnd(Animator animation)
-			{
-				AnimatorSet set = new AnimatorSet();
-				set.playTogether(animateViewLeftDown(plusBookChapter, 2, true), animateViewLeftDown(plusWeb, 2, true));
-				set.addListener(new AnimationEndListener()
-				{
-					@Override
-					void onEnd(Animator animation)
-					{
-						AnimatorSet set = new AnimatorSet();
-						Animator translateBookDown = ObjectAnimator.ofFloat(plusBook, TRANSLATION_Y, -HelperFunctions.convertIntToDp(70), up).setDuration(100);
-						set.playTogether(translateBookDown, animateViewLeftDown(plusJournal, 1, true), animateViewLeftDown(plusBookChapter, 1, true), animateViewLeftDown(plusWeb, 1, true));
-						set.addListener(new AnimationEndListener()
-						{
-							@Override
-							void onEnd(Animator animation)
-							{
-								AnimatorSet animatorSet = new AnimatorSet();
-								animatorSet.playTogether(animateViewUp(plusBook, true), animateViewUp(plusJournal, true), animateViewUp(plusBookChapter, true), animateViewUp(plusWeb, true));
-								animatorSet.addListener(new AnimationEndListener()
-								{
-									@Override
-									void onEnd(Animator animation)
-									{
-										setVisibility(View.GONE);
-										if(referenceItem != null)
-											showReference(referenceItem);
-									}
-								});
-								animatorSet.start();
-							}
-						});
-						set.start();
-					}
-				});
-				set.start();
-			}
-		});
-		set.start();
-	}
-
-	private void setVisibility(int visibility)
-	{
-		plusBook.setVisibility(visibility);
-		plusJournal.setVisibility(visibility);
-		plusBookChapter.setVisibility(visibility);
-		plusWeb.setVisibility(visibility);
-	}
-
-	private static final String TRANSLATION_Y = "translationY";
-	private static final String TRANSLATION_X = "translationX";
 
 	public void showReference(final ReferenceItem referenceItem)
 	{
@@ -338,15 +172,6 @@ public class ReferenceListActivity extends BaseActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void addNewReference(int type)
-	{
-		referenceList.referenceList.add(new ReferenceItem(type));
-		adapter.notifyDataSetChanged();
-		plusButton.performClick();
-
-		collapseFab(referenceList.referenceList.get(referenceList.referenceList.size() - 1));
-	}
-
 	@Override
 	public void onBackPressed()
 	{
@@ -376,60 +201,5 @@ public class ReferenceListActivity extends BaseActivity
 			hasAnimatedOut = false;
 			new FloatInAnimation(plusButton).animate();
 		}
-	}
-
-	private class MiniPlusListener implements View.OnClickListener
-	{
-		@Override
-		public void onClick(View v)
-		{
-			int type;
-			switch(v.getId())
-			{
-				case R.id.plus_web:
-					type = ReferenceItem.WEB_PAGE;
-					break;
-
-				case R.id.plus_book_chapter:
-					type = ReferenceItem.BOOK_CHAPTER;
-					break;
-
-				case R.id.plus_journal:
-					type = ReferenceItem.JOURNAL_REFERENCE;
-					break;
-
-				case R.id.plus_book:
-				default:
-					type = ReferenceItem.BOOK_REFERENCE;
-			}
-
-			addNewReference(type);
-		}
-	}
-
-	private abstract class AnimationEndListener implements Animator.AnimatorListener
-	{
-		@Override
-		public void onAnimationStart(Animator animation)
-		{
-		}
-
-		@Override
-		public void onAnimationEnd(Animator animation)
-		{
-			onEnd(animation);
-		}
-
-		@Override
-		public void onAnimationCancel(Animator animation)
-		{
-		}
-
-		@Override
-		public void onAnimationRepeat(Animator animation)
-		{
-		}
-
-		abstract void onEnd(Animator animation);
 	}
 }

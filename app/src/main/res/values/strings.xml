@@ -130,4 +130,6 @@
     <string name="add_url_message">Add the URL that the resource was retrieved from. e.g. http://www.sparknotes.com/lit/mobydick/</string>
     <string name="undo">Undo</string>
     <string name="deleted">"Deleted "</string>
+    <string name="chapter">Chapter</string>
+    <string name="web">Web</string>
 </resources>

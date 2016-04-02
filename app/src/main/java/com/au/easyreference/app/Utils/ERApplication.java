@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import com.au.easyreference.app.BuildConfig;
 import com.au.easyreference.app.references.ReferenceList;
+import com.facebook.stetho.Stetho;
 import com.squareup.otto.Bus;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +41,9 @@ public class ERApplication extends Application
 		super.onCreate();
 		referenceLists = new ArrayList<>();
 		instance = this;
+
+		if(BuildConfig.DEBUG)
+			Stetho.initializeWithDefaults(this);
 		loadSettings();
 	}
 
@@ -74,7 +79,7 @@ public class ERApplication extends Application
 		{
 			for(File file : files)
 			{
-				if(file.getName().endsWith(".rl"));
+				if(file.getName().endsWith(".rl")) ;
 				{
 					try
 					{

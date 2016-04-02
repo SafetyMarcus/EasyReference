@@ -5,6 +5,7 @@
            android:src="@drawable/icon_plus"
            android:layout_width="56dp"
            android:layout_height="56dp"
+           android:elevation="4dp"
            android:transitionName="plus_button"
            android:layout_alignParentBottom="true"
            android:layout_alignParentRight="true"

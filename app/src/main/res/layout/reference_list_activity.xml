@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
@@ -61,5 +62,42 @@
             android:padding="8dp"/>
     </LinearLayout>
 
-    <include layout="@layout/fab_reference_options"/>
+    <include layout="@layout/plus_button"/>
+
+    <RelativeLayout
+        android:id="@+id/selection_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        android:alpha="0"
+        android:background="@color/easy_reference_red">
+
+        <TextView
+            style="@style/ReferenceTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/book"
+            android:translationY="-64dp"/>
+
+        <TextView
+            style="@style/ReferenceTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/journal"
+            android:translationX="82dp"/>
+
+        <TextView
+            style="@style/ReferenceTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chapter"
+            android:translationY="64dp"/>
+
+        <TextView
+            style="@style/ReferenceTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/web"
+            android:translationX="-82dp"/>
+    </RelativeLayout>
 </RelativeLayout>

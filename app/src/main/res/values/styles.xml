@@ -12,9 +12,10 @@
         <item name="android:padding">14dp</item>
     </style>
 
-    <style name="FloatingActionButton.Mini">
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:padding">14dp</item>
+    <style name="ReferenceTypeText" parent="android:Widget.TextView">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">24sp</item>
     </style>
 </resources>

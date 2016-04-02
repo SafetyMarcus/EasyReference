@@ -13,3 +13,4 @@ build/intermediates/model_data.bin
 app/app.iml
 EasyReference.iml
 build/intermediates/dex-cache/cache.xml
+.idea/libraries/
