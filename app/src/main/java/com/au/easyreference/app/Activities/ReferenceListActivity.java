@@ -1,7 +1,5 @@
 package com.au.easyreference.app.activities;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,15 +44,12 @@ public class ReferenceListActivity extends BaseActivity
 
 	@Bind(R.id.plus_button)
 	protected ImageView plusButton;
-	@Bind(R.id.selection_background)
-	protected View selectionView;
 
 	public ReferenceListAdapter adapter;
 	public int type;
 	public ReferenceList referenceList;
 
 	boolean hasAnimatedOut;
-	boolean expandedOptions;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -101,28 +96,7 @@ public class ReferenceListActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				AnimatorSet set = new AnimatorSet();
-				float x, y;
-				if(!expandedOptions)
-				{
-					View window = getWindow().getDecorView();
-					x = -(plusButton.getX() - (window.getWidth() / 2)) - (plusButton.getWidth()/2);
-					y = -(plusButton.getY() - (window.getHeight() / 2)) - (plusButton.getHeight());
-				}
-				else
-				{
-					x = 0;
-					y = 0;
-				}
-
-				ObjectAnimator alpha = ObjectAnimator.ofFloat(selectionView, "alpha", expandedOptions ? 0 : 1);
-				ObjectAnimator rotate = ObjectAnimator.ofFloat(plusButton, "rotation", expandedOptions ? 0 : 45);
-				ObjectAnimator xAnimator = ObjectAnimator.ofFloat(plusButton, "translationX", x);
-				ObjectAnimator yAnimator = ObjectAnimator.ofFloat(plusButton, "translationY", y);
-				set.playTogether(alpha, rotate, xAnimator, yAnimator);
-				set.start();
-
-				expandedOptions = !expandedOptions;
+				startActivityForVersion(new Intent(ReferenceListActivity.this, SelectReferenceTypeActivity.class), plusButton);
 			}
 		});
 	}

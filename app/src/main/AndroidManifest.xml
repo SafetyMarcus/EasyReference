@@ -36,5 +36,6 @@
                   android:label="@string/book_chapter"/>
         <activity android:name=".activities.apaactivities.APAWebPageReferenceActivity"
                   android:label="@string/web_page_or_document"/>
+        <activity android:name=".activities.SelectReferenceTypeActivity"/>
     </application>
 </manifest>
