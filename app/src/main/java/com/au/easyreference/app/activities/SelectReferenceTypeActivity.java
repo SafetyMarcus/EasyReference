@@ -2,8 +2,8 @@ package com.au.easyreference.app.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.SharedElementCallback;
 import android.os.Bundle;
+import android.os.Handler;
 import android.transition.ChangeTransform;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -32,6 +32,8 @@ public class SelectReferenceTypeActivity extends BaseActivity
 	@Bind(R.id.main)
 	View main;
 
+	boolean animating;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -39,7 +41,6 @@ public class SelectReferenceTypeActivity extends BaseActivity
 		setContentView(R.layout.select_reference_type_activivty);
 		ButterKnife.bind(this);
 
-		plus.setRotation(90);
 		if(ERApplication.is21Plus)
 		{
 			getWindow().setEnterTransition(new ChangeTransform());
@@ -57,24 +58,45 @@ public class SelectReferenceTypeActivity extends BaseActivity
 		}
 		else
 			background.setVisibility(View.VISIBLE);
+
+		plus.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				onBackPressed();
+			}
+		});
 	}
 
 	private void showView()
 	{
-		// get the center for the clipping circle
-		background.setVisibility(View.VISIBLE);
-		int cx = background.getWidth() / 2;
-		int cy = background.getHeight() / 2;
+		if(animating)
+			return;
 
-		// get the final radius for the clipping circle
-		int finalRadius = Math.max(background.getWidth(), background.getHeight());
+		animating = true;
+		plus.postDelayed(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				// get the center for the clipping circle
+				background.setVisibility(View.VISIBLE);
+				int cx = background.getWidth() / 2;
+				int cy = background.getHeight() / 2;
 
-		// create the animator for this view (the start radius is zero)
-		Animator anim = ViewAnimationUtils.createCircularReveal(background, cx, cy, 0, finalRadius);
-		anim.setDuration(1000);
+				// get the final radius for the clipping circle
+				int finalRadius = Math.max(background.getWidth(), background.getHeight());
 
-		// make the view visible and start the animation
-		anim.start();
+				// create the animator for this view (the start radius is zero)
+				Animator anim = ViewAnimationUtils.createCircularReveal(background, cx, cy, 0, finalRadius);
+				anim.setDuration(500);
+
+				// make the view visible and start the animation
+				anim.start();
+				animating = false;
+			}
+		}, 200);
 	}
 
 	void hideView()
