@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.ChangeTransform;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.util.Pair;
@@ -35,14 +36,14 @@ public class BaseActivity extends AppCompatActivity
 		if(!ERApplication.is21Plus)
 			return;
 
-		Transition transition = new Fade();
+		Transition transition = new ChangeTransform();
 		transition.excludeTarget(android.R.id.statusBarBackground, true);
 		transition.excludeTarget(android.R.id.navigationBarBackground, true);
 		getWindow().setEnterTransition(transition);
 		getWindow().setExitTransition(transition);
 	}
 
-	public void startActivityForVersion(Intent intent, View... sharedViews)
+	public void startActivityForVersion(Intent intent, int requestCode, View... sharedViews)
 	{
 		Bundle options;
 		if(ERApplication.is21Plus)
@@ -65,16 +66,26 @@ public class BaseActivity extends AppCompatActivity
 			options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, toolbar, "toolbar").toBundle();
 
 		if(android.os.Build.VERSION.SDK_INT < 16)
-			startActivity(intent);
+		{
+			if(requestCode != -1)
+				startActivityForResult(intent, requestCode);
+			else
+				startActivity(intent);
+		}
 		else
-			startActivity(intent, options);
+		{
+			if(requestCode != -1)
+				startActivityForResult(intent, requestCode, options);
+			else
+				startActivity(intent, options);
+		}
 
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 
-	public void startActivityForVersion(Intent intent)
+	public void startActivityForVersion(Intent intent, View... sharedViews)
 	{
-		startActivityForVersion(intent, toolbar);
+		startActivityForVersion(intent, -1, sharedViews);
 	}
 
 	@Override

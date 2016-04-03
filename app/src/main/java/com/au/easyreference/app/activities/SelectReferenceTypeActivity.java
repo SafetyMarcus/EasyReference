@@ -2,21 +2,24 @@ package com.au.easyreference.app.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.transition.ChangeTransform;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.au.easyreference.app.R;
+import com.au.easyreference.app.references.ReferenceItem;
 import com.au.easyreference.app.utils.ERApplication;
 
 /**
  * @author Marcus Hooper
  */
-public class SelectReferenceTypeActivity extends BaseActivity
+public class SelectReferenceTypeActivity extends BaseActivity implements View.OnClickListener
 {
+	public static final String TYPE = "type";
+
 	@Bind(R.id.book)
 	View book;
 	@Bind(R.id.journal)
@@ -43,9 +46,6 @@ public class SelectReferenceTypeActivity extends BaseActivity
 
 		if(ERApplication.is21Plus)
 		{
-			getWindow().setEnterTransition(new ChangeTransform());
-			getWindow().setExitTransition(new ChangeTransform());
-
 			main.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
 			{
 				@Override
@@ -67,6 +67,10 @@ public class SelectReferenceTypeActivity extends BaseActivity
 				onBackPressed();
 			}
 		});
+		book.setOnClickListener(this);
+		journal.setOnClickListener(this);
+		chapter.setOnClickListener(this);
+		web.setOnClickListener(this);
 	}
 
 	private void showView()
@@ -132,5 +136,34 @@ public class SelectReferenceTypeActivity extends BaseActivity
 	{
 		hideView();
 		super.onBackPressed();
+	}
+
+	@Override
+	public void onClick(View v)
+	{
+		Intent result = new Intent();
+		int type;
+		switch(v.getId())
+		{
+			case R.id.journal:
+				type = ReferenceItem.JOURNAL_REFERENCE;
+				break;
+			case R.id.chapter:
+				type = ReferenceItem.BOOK_CHAPTER;
+				break;
+			case R.id.web:
+				type = ReferenceItem.WEB_PAGE;
+				break;
+
+			case R.id.book:
+			default:
+				type = ReferenceItem.BOOK_REFERENCE;
+				break;
+		}
+
+		result.putExtra(TYPE, type);
+		setIntent(result);
+		setResult(RESULT_OK, result);
+		onBackPressed();
 	}
 }

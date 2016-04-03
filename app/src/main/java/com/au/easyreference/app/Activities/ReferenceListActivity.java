@@ -32,6 +32,7 @@ import java.util.ArrayList;
  */
 public class ReferenceListActivity extends BaseActivity
 {
+	public static final int REQUEST_TYPE = 1234;
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_ID = "id";
 
@@ -96,7 +97,7 @@ public class ReferenceListActivity extends BaseActivity
 			@Override
 			public void onClick(View v)
 			{
-				startActivityForVersion(new Intent(ReferenceListActivity.this, SelectReferenceTypeActivity.class), plusButton);
+				startActivityForVersion(new Intent(ReferenceListActivity.this, SelectReferenceTypeActivity.class), REQUEST_TYPE, plusButton);
 			}
 		});
 	}
@@ -175,5 +176,31 @@ public class ReferenceListActivity extends BaseActivity
 			hasAnimatedOut = false;
 			new FloatInAnimation(plusButton).animate();
 		}
+	}
+
+	private void addNewReference(int type)
+	{
+		referenceList.referenceList.add(new ReferenceItem(type));
+		adapter.notifyDataSetChanged();
+		showReference(adapter.getItem(adapter.getCount() - 1));
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(resultCode == RESULT_OK && requestCode == REQUEST_TYPE)
+		{
+			final int type = data.getIntExtra(SelectReferenceTypeActivity.TYPE, ReferenceItem.BOOK_REFERENCE);
+			plusButton.post(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					addNewReference(type);
+				}
+			});
+		}
+
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }
